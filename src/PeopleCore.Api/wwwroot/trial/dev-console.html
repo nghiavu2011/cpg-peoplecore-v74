@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CPG PeopleCore V74-RC2 Local Trial</title>
+<link rel="stylesheet" href="/trial/trial.css">
+</head>
+<body>
+<div class="warn">LOCAL TRIAL ONLY — NOT MICROSOFT ENTRA, BRAVO, UAT OR PRODUCTION EVIDENCE — PRODUCTION LIVE / PAYSLIP RELEASE ARE LOCKED OFF</div>
+<div class="wrap">
+  <div class="card">
+    <h1>CPG PeopleCore V74-RC2 — Trial Console</h1>
+    <p class="small">Synthetic <code>TRIAL-*</code> fixtures only. The shared trial key is generated locally by <code>trial/run-trial.ps1</code> or <code>trial/run-trial.sh</code>. It is stored only in this browser tab (sessionStorage).</p>
+    <div class="row">
+      <div class="field"><label>Trial key</label><input id="key" type="password" autocomplete="off" placeholder="Paste generated trial key"></div>
+      <div class="field"><label>Persona</label><select id="persona"><option>TRIAL-EMP</option><option>TRIAL-MGR</option><option>TRIAL-HR</option><option>TRIAL-PAY</option><option>TRIAL-ADMIN</option></select></div>
+      <button class="safe" id="save">Use persona</button><button class="secondary" id="health">Startup health</button><button class="secondary" id="me">Who am I?</button>
+    </div>
+    <div id="identity" class="small"></div>
+  </div>
+
+  <div class="grid">
+    <div class="card module"><h3>Employee</h3>
+      <button data-call="GET|/api/v1/employees?q=TRIAL">Directory</button>
+      <button data-call="GET|/api/v1/contracts/me">My contracts</button>
+      <button data-call="GET|/api/v1/contracts/me/lifecycle">My lifecycle</button>
+      <button data-call="GET|/api/v1/attendance/me">My attendance</button>
+      <button data-call="GET|/api/v1/leave/me">My leave</button>
+      <button data-call="GET|/api/v1/overtime/me">My OT</button>
+      <button data-call="GET|/api/v1/leave/pending-for-me">Approver: pending leave</button>
+      <button data-call="GET|/api/v1/overtime/pending-for-me">Approver: pending OT</button>
+      <button data-call="GET|/api/v1/timesheets/me">My timesheet</button>
+      <button data-call="GET|/api/v1/tax-insurance/me/2026-08">My tax/insurance snapshot</button>
+    </div>
+    <div class="card module"><h3>Submit sample workflow</h3>
+      <button data-json='{"leaveTypeCode":"ANNUAL_TRIAL","startDate":"2026-09-01","endDate":"2026-09-01","requestedHours":8,"reason":"Synthetic local trial","policyReference":"TRIAL-POLICY-NOT-AUTHORITY"}' data-call="POST|/api/v1/leave/me">Create leave</button>
+      <button data-json='{"workDate":"2026-08-31","requestedMinutes":60,"projectCode":"DEMO-001","reason":"Synthetic local trial OT"}' data-call="POST|/api/v1/overtime/me">Create OT</button>
+      <button data-json='{"workDate":"2026-08-31","projectCode":"DEMO-001","minutes":480,"description":"Synthetic local trial timesheet"}' data-call="POST|/api/v1/timesheets/me">Create 8h timesheet</button>
+      <button data-json='{"workDate":"2026-08-31","projectCode":"DEMO-001"}' data-call="POST|/api/v1/timesheets/validate-project">Validate DEMO-001</button>
+      <button data-call="GET|/api/v1/performance/periods">List performance periods</button>
+      <button data-json='{"selfText":"Synthetic local trial self-review. Not UAT evidence."}' data-call="POST|/api/v1/performance/periods/cccccccc-cccc-4ccc-8ccc-cccccccccccc/me/self">Submit self review</button>
+      <button data-call="GET|/api/v1/performance/manager/pending">Manager: pending reviews</button>
+    </div>
+    <div class="card module"><h3>HR actions — TRIAL-HR</h3>
+      <button data-json='{"contractTypeCode":"TRIAL","contractNumber":"TRIAL-C-001","effectiveFrom":"2026-08-01","effectiveTo":null,"sourceReference":"TRIAL-SOURCE-NOT-AUTHORITY","changeReason":"Synthetic trial"}' data-call="POST|/api/v1/contracts/employees/22222222-2222-4222-8222-222222222222">Create employee contract</button>
+      <button data-json='{"workedMinutes":480,"sourceSystem":"TRIAL_FIXTURE","sourceReference":"TRIAL-ATT-001","exceptionCode":null}' data-call="PUT|/api/v1/attendance/employees/22222222-2222-4222-8222-222222222222/2026-08-31">Record attendance</button>
+      <button data-call="POST|/api/v1/timesheets/work-rule-evidence">Verify work rule</button>
+      <button data-call="GET|/api/platform/status">Platform status</button>
+    </div>
+    <div class="card module"><h3>Payroll actions — TRIAL-PAY</h3>
+      <button data-call="POST|/api/v1/payslips/employees/22222222-2222-4222-8222-222222222222/2026-08/preview">Preview synthetic BRAVO fixture</button>
+      <button data-call="POST|/api/v1/payslips/employees/22222222-2222-4222-8222-222222222222/2026-08/prelive-safety-check">Verify payslip release guard</button>
+      <button data-json='{"employeeId":"22222222-2222-4222-8222-222222222222","payrollPeriod":"2026-08","iterationNo":1,"sourceSystem":"BRAVO","sourceReference":"TRIAL-DEMO-NOT-BRAVO-EVIDENCE","ruleSnapshotId":"TRIAL-RULE-SNAPSHOT-NOT-AUTHORITY","insuranceBaseA":1000,"taxWithheld":50,"employeeInsuranceAmount":30,"employerInsuranceAmount":60,"outputsJson":"{\"fixture\":true}","approved":true}' data-call="POST|/api/v1/tax-insurance/snapshots">Import synthetic tax snapshot</button>
+      <button class="danger" data-call="POST|/api/v1/payslips/employees/22222222-2222-4222-8222-222222222222/2026-08/release">Negative test: release must fail</button>
+    </div>
+    <div class="card module"><h3>Authorization negative tests</h3>
+      <p class="small">Switch persona first. Expected denials are valuable local checks, not production security evidence.</p>
+      <button data-call="GET|/api/platform/status">Platform status (HR/Admin only)</button>
+      <button data-call="POST|/api/v1/payslips/employees/22222222-2222-4222-8222-222222222222/2026-08/preview">Payroll preview (Payroll only)</button>
+      <button data-call="GET|/api/v1/employees/TRIAL-EMP">Try employee read</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Generic API runner</h2>
+    <div class="row"><div style="width:120px"><label>Method</label><select id="method"><option>GET</option><option>POST</option><option>PUT</option><option>PATCH</option><option>DELETE</option></select></div><div class="field"><label>Path</label><input id="path" value="/api/v1/identity/me"></div><button id="send">Send</button></div>
+    <label>JSON body</label><textarea id="body" placeholder='{"example":"value"}'></textarea>
+  </div>
+
+  <div class="card"><div class="resultHead"><h2>Response</h2><button class="secondary" id="clear">Clear</button></div><pre id="out">Trial console ready.</pre></div>
+</div>
+<script src="/trial/trial.js" defer></script>
+</body></html>
