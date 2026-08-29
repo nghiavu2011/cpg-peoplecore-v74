@@ -2468,52 +2468,86 @@ readinessPageV60=function(){if(v60Tab==='cut74'){if(!['hr','payroll','admin','le
 
 
 
+
 <!-- ================= V74-RC2 ENTERPRISE EXPANSION: CPG REAL-WORLD FEATURES & 140 DIRECTORY ================= -->
 <style>
 /* Logo styling in topbar and sidebar */
 .cpg-topbar-logo-img { height: 38px; max-width: 120px; object-fit: contain; }
 
-/* Harmonized Glassmorphism BI Dashboard for Leadership */
-.v74-bi-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 10px; margin-top: 8px; }
-.v74-bi-card { background: rgba(255, 255, 255, 0.28); border: 1px solid rgba(255, 255, 255, 0.45); border-radius: 20px; padding: 14px; backdrop-filter: blur(20px) saturate(155%); -webkit-backdrop-filter: blur(20px) saturate(155%); box-shadow: 0 16px 40px rgba(27,54,85,.12); }
-.v74-bi-header-card { background: rgba(18, 53, 93, 0.76); color: #fff; border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 22px; padding: 16px 18px; backdrop-filter: blur(22px); box-shadow: 0 20px 50px rgba(18,53,93,.25); }
-.v74-bi-header-card .section-title h2 { color: #fff; font-size: 18px; }
-.v74-bi-header-card .section-title p { color: #c4d7e9; font-size: 10px; }
+/* EXECUTIVE GROWTH DASHBOARD (Refined to match user reference image exactly) */
+.ex-dash-wrap { display: flex; flex-direction: column; gap: 16px; width: 100%; font-family: inherit; }
 
-/* Ring & Donut Gauges in Pure Glassmorphism */
-.v74-gauge-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; margin-top: 10px; }
-.v74-gauge-item { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 12px 8px; background: rgba(255, 255, 255, 0.22); border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.38); cursor: pointer; transition: all .2s ease; }
-.v74-gauge-item:hover { transform: translateY(-2px); background: rgba(255, 255, 255, 0.48); box-shadow: 0 8px 24px rgba(28,91,145,.14); }
-.v74-gauge-circle { position: relative; width: 78px; height: 78px; }
-.v74-gauge-circle svg { transform: rotate(-90deg); width: 78px; height: 78px; }
-.v74-gauge-circle circle { fill: none; stroke-width: 7.5; stroke-linecap: round; }
-.v74-gauge-bg { stroke: rgba(0, 0, 0, 0.08); }
-.v74-gauge-text { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 15px; font-weight: 800; color: #12355d; }
-.v74-gauge-text small { font-size: 8px; color: #62758b; font-weight: 700; }
-.v74-gauge-title { font-size: 10.5px; font-weight: 750; margin-top: 6px; color: #17304d; }
-.v74-gauge-sub { font-size: 8.5px; color: #62758b; margin-top: 1px; }
+/* Header bar */
+.ex-dash-header { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.85); backdrop-filter: blur(20px); padding: 14px 20px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.7); box-shadow: 0 8px 30px rgba(0,0,0,0.04); }
+.ex-dash-header-title { display: flex; align-items: center; gap: 10px; }
+.ex-dash-header-title h2 { margin: 0; font-size: 19px; font-weight: 800; color: #1e293b; letter-spacing: -0.5px; }
+.ex-dash-header-tools { display: flex; align-items: center; gap: 10px; }
+.ex-pill-btn { background: #f1f5f9; border: 1px solid #e2e8f0; padding: 7px 14px; border-radius: 12px; font-size: 11px; font-weight: 700; color: #475569; display: flex; align-items: center; gap: 6px; cursor: pointer; }
 
-/* QoQ & YoY Comparative Column Bar Chart */
-.v74-chart-bar-wrap { display: flex; align-items: flex-end; justify-content: space-between; gap: 10px; height: 165px; padding: 8px 6px 16px; border-bottom: 1px solid rgba(0,0,0,0.07); margin-top: 6px; }
-.v74-bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end; position: relative; cursor: pointer; }
-.v74-bar-group { display: flex; gap: 4px; align-items: flex-end; width: 100%; max-width: 44px; height: 100%; }
-.v74-bar-fill { flex: 1; border-radius: 5px 5px 0 0; transition: height .6s ease; }
-.v74-bar-fill.target { background: linear-gradient(180deg, #1c5b91, #0084ff); }
-.v74-bar-fill.current { background: linear-gradient(180deg, #ff9d2b, #ff6b3d); }
-.v74-bar-fill.overhead { background: linear-gradient(180deg, #7188a1, #94a7bd); }
-.v74-bar-label { font-size: 9px; font-weight: 750; color: #62758b; margin-top: 7px; }
-.v74-bar-tip { position: absolute; top: -24px; background: rgba(18,53,93,.9); color: #fff; padding: 3px 7px; border-radius: 7px; font-size: 8px; font-weight: 700; white-space: nowrap; opacity: 0; transition: .2s; pointer-events: none; backdrop-filter: blur(8px); }
-.v74-bar-col:hover .v74-bar-tip { opacity: 1; top: -29px; }
-.v74-bar-col:hover .v74-bar-fill { filter: brightness(1.15); }
+/* 4 Top KPI Cards */
+.ex-kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.ex-kpi-card { background: rgba(255,255,255,0.92); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.8); border-radius: 20px; padding: 18px 20px; box-shadow: 0 10px 28px rgba(27,54,85,0.06); position: relative; transition: .2s; }
+.ex-kpi-card:hover { transform: translateY(-2px); box-shadow: 0 14px 34px rgba(27,54,85,0.1); }
+.ex-kpi-head { display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: 700; color: #64748b; margin-bottom: 8px; }
+.ex-kpi-arrow { color: #059669; font-size: 14px; }
+.ex-kpi-val { font-size: 26px; font-weight: 850; color: #0f172a; letter-spacing: -0.5px; display: flex; align-items: baseline; gap: 8px; }
+.ex-kpi-badge { font-size: 11px; font-weight: 800; color: #059669; background: #ecfdf5; padding: 2px 6px; border-radius: 6px; }
+.ex-kpi-sub { font-size: 10px; color: #94a3b8; margin-top: 4px; font-weight: 600; }
 
-/* Horizontal Comparison Track */
-.v74-comp-list { display: grid; gap: 8px; margin-top: 8px; }
-.v74-comp-item { background: rgba(255,255,255,.2); padding: 9px 11px; border-radius: 13px; border: 1px solid rgba(255,255,255,.32); cursor: pointer; transition: .2s; }
-.v74-comp-item:hover { background: rgba(255,255,255,.4); }
-.v74-comp-head { display: flex; justify-content: space-between; font-size: 9.5px; margin-bottom: 5px; }
-.v74-comp-head b { font-size: 10.5px; color: #12355d; }
-.v74-comp-track { height: 8px; background: rgba(0,0,0,.08); border-radius: 999px; overflow: hidden; display: flex; }
-.v74-comp-fill { height: 100%; border-radius: 999px; }
+/* Performance Overview Dual Panels */
+.ex-perf-card { background: rgba(255,255,255,0.92); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.8); border-radius: 22px; padding: 20px 22px; box-shadow: 0 10px 28px rgba(27,54,85,0.06); }
+.ex-perf-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.ex-perf-head h3 { margin: 0; font-size: 15px; font-weight: 800; color: #1e293b; }
+.ex-perf-grid { display: grid; grid-template-columns: 7fr 5fr; gap: 20px; }
+
+/* SVG Line Curve Chart */
+.ex-line-chart-wrap { position: relative; height: 180px; width: 100%; }
+.ex-line-svg { width: 100%; height: 140px; overflow: visible; }
+
+/* Column Bar Chart */
+.ex-bars-wrap { display: flex; align-items: flex-end; justify-content: space-around; height: 140px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; }
+.ex-bar-item { display: flex; flex-direction: column; align-items: center; gap: 6px; height: 100%; justify-content: flex-end; width: 38px; }
+.ex-bar-rect { width: 100%; border-radius: 6px 6px 0 0; transition: height .6s ease; }
+.ex-bar-tag { font-size: 9px; font-weight: 750; color: #64748b; text-align: center; }
+
+/* 2-Column Dashboard Body */
+.ex-body-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.ex-col { display: flex; flex-direction: column; gap: 16px; }
+
+/* Section Box */
+.ex-sec-box { background: rgba(255,255,255,0.92); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.8); border-radius: 20px; padding: 18px 20px; box-shadow: 0 10px 28px rgba(27,54,85,0.06); }
+.ex-sec-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+.ex-sec-head h4 { margin: 0; font-size: 14px; font-weight: 800; color: #1e293b; display: flex; align-items: center; gap: 6px; }
+.ex-sec-head span { font-size: 11px; font-weight: 700; color: #64748b; }
+
+/* Rows inside sections */
+.ex-row-item { display: flex; align-items: center; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #f1f5f9; }
+.ex-row-item:last-child { border-bottom: none; }
+.ex-row-icon-title { display: flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 750; color: #1e293b; }
+.ex-icon-circle { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-size: 13px; }
+.ex-row-stat { text-align: right; }
+.ex-row-val { font-size: 12px; font-weight: 800; color: #0f172a; }
+.ex-row-sub { font-size: 10px; font-weight: 700; }
+
+/* Demographics / Audience Gauges */
+.ex-demo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px; text-align: center; }
+.ex-demo-circle-box { display: flex; flex-direction: column; align-items: center; background: #f8fafc; padding: 10px 6px; border-radius: 14px; }
+.ex-ring-wrap { position: relative; width: 56px; height: 56px; margin-bottom: 6px; }
+.ex-ring-wrap svg { transform: rotate(-90deg); width: 56px; height: 56px; }
+.ex-ring-txt { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 850; color: #1e293b; }
+
+/* Alert Box */
+.ex-alert-card { background: #fff5f5; border: 1px solid #fee2e2; border-radius: 14px; padding: 12px 14px; margin-bottom: 10px; display: flex; align-items: flex-start; gap: 10px; }
+.ex-alert-card b { font-size: 12px; color: #991b1b; display: block; }
+.ex-alert-card p { margin: 2px 0 0; font-size: 10px; color: #b91c1c; }
+
+/* Recommendation Cards */
+.ex-rec-item { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 11px 14px; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; transition: .2s; }
+.ex-rec-item:hover { background: #f1f5f9; border-color: #cbd5e1; }
+.ex-rec-left { display: flex; align-items: center; gap: 10px; }
+.ex-rec-title { font-size: 11.5px; font-weight: 750; color: #1e293b; }
+.ex-rec-sub { font-size: 9.5px; color: #64748b; }
+.ex-rec-badge { font-size: 10.5px; font-weight: 800; color: #059669; background: #ecfdf5; padding: 3px 8px; border-radius: 8px; }
 
 /* Filter Pills for People Directory */
 .people-filter-bar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 10px; }
@@ -2521,17 +2555,15 @@ readinessPageV60=function(){if(v60Tab==='cut74'){if(!['hr','payroll','admin','le
 .people-filter-btn:hover, .people-filter-btn.active { background: rgba(18,53,93,.82); color: #fff; border-color: rgba(18,53,93,.9); }
 
 /* Drill-Down Inspector Modal */
-.v74-modal { position: fixed; inset: 0; background: rgba(18,48,77,.5); backdrop-filter: blur(8px); z-index: 9999; display: none; place-items: center; padding: 16px; }
+.v74-modal { position: fixed; inset: 0; background: rgba(18,48,77,.5); backdrop-filter: blur(8px); z-index: 99999; display: none; place-items: center; padding: 16px; }
 .v74-modal.open { display: grid; }
-.v74-modal-box { background: rgba(255,255,255,0.92); backdrop-filter: blur(28px); border: 1px solid rgba(255,255,255,0.6); width: 100%; max-width: 860px; border-radius: 24px; box-shadow: 0 26px 60px rgba(18,48,77,.35); overflow: hidden; max-height: 90vh; display: flex; flex-direction: column; animation: popIn74 .25s ease; }
+.v74-modal-box { background: rgba(255,255,255,0.95); backdrop-filter: blur(28px); border: 1px solid rgba(255,255,255,0.6); width: 100%; max-width: 860px; border-radius: 24px; box-shadow: 0 26px 60px rgba(18,48,77,.35); overflow: hidden; max-height: 90vh; display: flex; flex-direction: column; animation: popIn74 .25s ease; }
 @keyframes popIn74 { from { opacity: 0; transform: scale(.95); } to { opacity: 1; transform: scale(1); } }
-.v74-modal-head { background: rgba(18,53,93,.85); color: #fff; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,.2); }
+.v74-modal-head { background: rgba(18,53,93,.9); color: #fff; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,.2); }
 .v74-modal-head h3 { margin: 0; font-size: 15px; color: #fff; }
 .v74-modal-head p { margin: 3px 0 0; font-size: 9.5px; color: #c4d7e9; }
 .v74-modal-close { background: rgba(255,255,255,.2); border: 0; color: #fff; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; font-size: 15px; display: grid; place-items: center; }
 .v74-modal-body { padding: 18px; overflow: auto; flex: 1; font-size: 10px; }
-.v74-ai-box { background: rgba(255, 248, 232, 0.75); border: 1px solid rgba(254, 219, 146, 0.85); border-radius: 13px; padding: 11px 13px; margin-bottom: 12px; font-size: 10.5px; line-height: 1.5; color: #785300; }
-.v74-ai-box b { color: #543800; }
 </style>
 
 <div id="v74DrillModal" class="v74-modal">
@@ -2704,6 +2736,11 @@ function full140PeoplePage(){
     '</section>';
 }
 
+// Override peoplePage globally to completely eliminate V63 server prototype banner
+peoplePage = function(){
+  return full140PeoplePage();
+};
+
 window.openSupervisionModal = function(){
   var modal = document.getElementById('v74DrillModal');
   var title = document.getElementById('v74DrillTitle');
@@ -2727,14 +2764,14 @@ window.openSupervisionModal = function(){
   }).join('');
 
   body.innerHTML = 
-    '<div class="v74-ai-box">' +
+    '<div style="background:rgba(255,248,232,0.85);border:1px solid #fedb92;border-radius:14px;padding:12px;margin-bottom:12px;font-size:11px;color:#785300">' +
       '<b>📋 ' + d("Author's Supervision Workflow (Design Consultant):", "Quy Trình Giám Sát Tác Giả (Tư Vấn Thiết Kế CPG):") + '</b><br>' +
       '1. CĐT gửi thư mời → PM điều động Kỹ sư/KTS → Ban Admin (Chị Loan / Chị Nhung) book xe/khách sạn.<br>' +
       '2. Kỹ sư được <b>miễn trừ chấm công vân tay</b> tại VP và giờ làm được <b>tự động liên kết vào Timesheet Dự án</b>.' +
     '</div>' +
 
-    '<div class="panel span12" style="background:rgba(255,255,255,.2);padding:12px;border-radius:14px;margin-bottom:12px">' +
-      '<h4 style="margin:0 0 8px">' + d("Submit New Supervision Travel Request","Đăng Ký Đợt Giám Sát Tác Giả Mới") + '</h4>' +
+    '<div class="panel span12" style="background:rgba(255,255,255,.4);padding:14px;border-radius:16px;margin-bottom:14px">' +
+      '<h4 style="margin:0 0 10px">' + d("Submit New Supervision Travel Request","Đăng Ký Đợt Giám Sát Tác Giả Mới") + '</h4>' +
       '<div class="form-row">' +
         '<div class="field">' +
           '<label>' + d("Project Code & Name","Dự Án Giám Sát") + '</label>' +
@@ -2749,7 +2786,7 @@ window.openSupervisionModal = function(){
           '<input id="supStaff" value="Nguyễn Văn A (H0072)">' +
         '</div>' +
       '</div>' +
-      '<div class="form-row" style="margin-top:6px">' +
+      '<div class="form-row" style="margin-top:8px">' +
         '<div class="field">' +
           '<label>' + d("Inspection Scope","Hạng mục kiểm tra theo thư mời CĐT") + '</label>' +
           '<input id="supScope" placeholder="VD: Nghiệm thu cốt thép dầm sàn, facade, MEP...">' +
@@ -2763,12 +2800,12 @@ window.openSupervisionModal = function(){
           '</select>' +
         '</div>' +
       '</div>' +
-      '<div class="action-row" style="margin-top:9px">' +
+      '<div class="action-row" style="margin-top:10px">' +
         '<button class="primary" onclick="submitSupervision()">' + d("Send to Admin (Loan / Nhung)","Gửi Ban Admin (Chị Loan / Chị Nhung) Thu Xếp") + '</button>' +
       '</div>' +
     '</div>' +
 
-    '<h4 style="margin:12px 0 6px">' + d("Recent Author's Supervision Missions","Danh Sách Đợt Giám Sát Tác Giả Gần Đây:") + '</h4>' +
+    '<h4 style="margin:12px 0 8px">' + d("Recent Author's Supervision Missions","Danh Sách Đợt Giám Sát Tác Giả Gần Đây:") + '</h4>' +
     '<div class="table-wrap">' +
       '<table>' +
         '<thead><tr><th>Mã Lệnh</th><th>Dự Án</th><th>Nhân Sự CPG</th><th>Thời Gian</th><th>Hạng Mục Nghiệm Thu</th><th>Logistics (Chị Loan / Nhung)</th><th>Trạng Thái</th></tr></thead>' +
@@ -2835,7 +2872,7 @@ window.openV74Drill = function(key){
     title.textContent = d('Business Development Pipeline · Q3/2026', 'Hiệu Suất Khối Phát Triển Kinh Doanh (BD Team) · Quý 3/2026');
     sub.textContent = d('Target: $2,000,000 USD / Quarter | Actual: $2,150,000 USD (107.5%)', 'Chỉ tiêu Doanh số ký mới: $2,000,000 USD / Quý | Đạt: $2,150,000 USD (107.5%)');
     body.innerHTML = 
-      '<div class="v74-ai-box">' +
+      '<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:12px;margin-bottom:12px;color:#166534;font-size:11px">' +
         '<b>💡 ' + d('Executive BD Insights','Đánh giá Kết Quả Kinh Doanh từ Ban Điều Hành') + ':</b><br>' +
         d('BD Team achieved $2,150,000 USD in Q3 new contracts (107.5% of $2.0M target). Major wins include Masteri Phase 2 and Landmark 5-star Hotel.','Khối BD đã hoàn thành xuất sắc chỉ tiêu Quý 3/2026 với tổng giá trị hợp đồng tư vấn thiết kế ký mới đạt <b>$2,150,000 USD</b> (~ 53.7 Tỷ VNĐ), vượt <b>107.5%</b> kế hoạch.') +
       '</div>' +
@@ -2855,53 +2892,10 @@ window.openV74Drill = function(key){
           '</tbody>' +
         '</table>' +
       '</div>';
-  } else if(key === 'drill_support'){
-    title.textContent = d('Corporate Support & G&A Team (24 Staff)', 'Khối Quản Trị / Gián Tiếp & Hỗ Trợ (24 Nhân Sự)');
-    sub.textContent = d('HR, BD, Finance, Contracts QS & Executive Management (G&A Pool)', 'HR, BD, Kế toán, Quản lý Hợp đồng QS & Ban Giám Đốc (Chi phí G&A Overhead)');
-    body.innerHTML = 
-      '<div class="v74-ai-box">' +
-        '<b>💡 ' + d('Overhead Allocation Principle','Nguyên tắc hạch toán chi phí gián tiếp (G&A)') + ':</b><br>' +
-        d('24 corporate staff do not log project timesheets. Monthly payroll (VND 895M) is treated as G&A Overhead and controlled at 4.9% of consulting revenue.','24 nhân sự thuộc khối Quản trị & Hỗ trợ không trực tiếp tham gia thiết kế từng công trình nên <b>không log timesheet dự án</b>. Chi phí lương của nhóm này (<b>895 Triệu VNĐ/tháng</b>) được hạch toán vào Chi phí Quản lý Doanh nghiệp (G&A) và kiểm soát ở mức <b>4.9%</b> doanh thu.') +
-      '</div>' +
-      '<div class="table-wrap">' +
-        '<table>' +
-          '<thead><tr><th>Mã NV</th><th>' + d('Staff Name','Họ và Tên') + '</th><th>' + d('Department','Bộ Phận') + '</th><th>' + d('Title','Chức Danh') + '</th><th>' + d('Office','Văn Phòng') + '</th><th>' + d('Key Focus','KPI Trọng Tâm') + '</th></tr></thead>' +
-          '<tbody>' +
-            '<tr><td><b>FN25</b></td><td><b>Soh Wee Keong</b></td><td>Ban Giám Đốc</td><td>Chief Executive Officer (CEO) of CPG International</td><td>HCM & HN</td><td>Lợi nhuận ròng & Tăng trưởng</td></tr>' +
-            '<tr><td><b>FN27</b></td><td><b>Chung Keat Wei</b></td><td>Ban Giám Đốc</td><td>Deputy General Director (CPG VN) / GM Hanoi</td><td>HN</td><td>Vận hành khối Hà Nội & BD</td></tr>' +
-            '<tr><td><b>H0015</b></td><td><b>Đỗ Hải Trang</b></td><td>Tài Chính & HR</td><td>Senior Manager - Finance & HR Admin</td><td>HCM</td><td>Quản trị Quỹ lương & BRAVO</td></tr>' +
-            '<tr><td><b>S0070</b></td><td><b>Nguyễn Thị Thanh Loan</b></td><td>Admin & Support</td><td>PA cum Receptionist & Admin Executive</td><td>HCM</td><td>Logistics & Giám sát tác giả</td></tr>' +
-            '<tr><td><b>H0079</b></td><td><b>Đào Thị Hương Nhung</b></td><td>HR & Admin</td><td>HR & Admin Executive cum Receptionist</td><td>HN</td><td>Logistics & Chăm sóc nhân sự</td></tr>' +
-          '</tbody>' +
-        '</table>' +
-      '</div>';
-  } else if(key.indexOf('prj_') === 0){
-    var prjCode = key.replace('prj_','');
-    title.textContent = d('Project Details','Chi Tiết Dự Án') + ': ' + prjCode;
-    sub.textContent = d('Direct Technical Labor Cost & Contract Margin Analysis', 'Phân tích Chi phí Nhân công Kỹ thuật và Lợi Nhuận Gộp Hợp đồng');
-    body.innerHTML = 
-      '<div class="v74-ai-box">' +
-        '<b>💡 ' + d('Project Health Summary','Báo Cáo Sức Khỏe Dự Án') + ':</b><br>' +
-        d('Executed directly by Engineers and Architects via technical timesheets. Direct labor cost is transparently recognized in service cost.','Dự án do đội ngũ Kỹ sư & Kiến trúc sư trực tiếp triển khai theo bảng Timesheet kỹ thuật. Chi phí nhân công được hạch toán minh bạch vào giá thành dịch vụ tư vấn.') +
-      '</div>' +
-      '<div class="table-wrap">' +
-        '<table>' +
-          '<thead><tr><th>Mã NV</th><th>' + d('Staff Name','Họ Tên') + '</th><th>' + d('Technical Discipline','Bộ Phận Kỹ Thuật') + '</th><th>' + d('Logged Hours','Số Giờ Log DA') + '</th><th>' + d('Rate/Hr','Đơn Giá Giờ') + '</th><th>' + d('Recognized Cost','Chi Phí Hạch Toán') + '</th><th>' + d('Status','Tình Trạng') + '</th></tr></thead>' +
-          '<tbody>' +
-            '<tr><td><b>H0072</b></td><td>Nguyễn Văn A</td><td>Kiến trúc sư Trưởng</td><td>160h</td><td>320.000 đ</td><td>51.200.000 đ</td><td><span class="badge ok">' + d('On Schedule','Đúng tiến độ') + '</span></td></tr>' +
-            '<tr><td><b>S0082</b></td><td>Vũ Quốc E</td><td>Kỹ sư Kết cấu Chính</td><td>152h</td><td>300.000 đ</td><td>45.600.000 đ</td><td><span class="badge ok">' + d('On Schedule','Đúng tiến độ') + '</span></td></tr>' +
-            '<tr><td><b>H0045</b></td><td>Đặng Thu Hà</td><td>Kỹ sư Cơ điện MEP</td><td>148h</td><td>280.000 đ</td><td>41.440.000 đ</td><td><span class="badge ok">' + d('On Schedule','Đúng tiến độ') + '</span></td></tr>' +
-          '</tbody>' +
-        '</table>' +
-      '</div>';
   } else {
-    title.textContent = d('Technical Workforce Performance (116 Staff)', 'Phân Tích Hiệu Suất Khối Kỹ Thuật (116 Nhân Sự)');
-    sub.textContent = 'Billable Utilization: 91.0% (16.890h / 18.560h)';
-    body.innerHTML = 
-      '<div class="v74-ai-box">' +
-        '<b>💡 ' + d('Technical Productivity Analysis','Phân Tích Năng Suất Khối Kỹ Thuật') + ':</b><br>' +
-        d('116 Engineers and Architects achieved 91.0% Billable Utilization, surpassing 85.0% target. Direct labor cost represents 21.6% of consulting contract revenue.','116 Kỹ sư & Kiến trúc sư (Kiến trúc, Kết cấu, MEP, BIM, PM) đạt tỷ lệ Billable 91.0%, vượt mục tiêu đề ra 85%. Chi phí nhân công trực tiếp chiếm 21.6% Doanh thu hợp đồng.') +
-      '</div>';
+    title.textContent = d('Personnel & Financial Ledger Drilldown', 'Truy Vấn Báo Cáo Tài Chính & Nhân Sự Chi Tiết');
+    sub.textContent = '140 CPG Vietnam Master Workforce & Project Costing Allocation';
+    body.innerHTML = '<div style="padding:14px;background:#f8fafc;border-radius:12px;font-size:11px;color:#334155;line-height:1.6">Hệ thống ghi nhận 140 nhân sự (101 HCM / 39 HN). Khối kỹ thuật 116 nhân sự đạt tỷ lệ Billable 91.0%, chi phí trực tiếp chiếm 21.6% doanh thu dịch vụ. 24 nhân sự gián tiếp (G&A) được kiểm soát ở mức 4.9% doanh thu.</div>';
   }
   modal.classList.add('open');
 };
@@ -2911,334 +2905,316 @@ window.closeV74Drill = function(){
   if(modal) modal.classList.remove('open');
 };
 
-function renderV74Gauge(pct, colorStart, colorEnd, title, subtitle, drillKey){
-  var radius = 31;
-  var circ = 2 * Math.PI * radius;
-  var offset = circ - (pct / 100) * circ;
-  var gradId = 'g_' + Math.random().toString(36).substr(2, 6);
-  return '<div class="v74-gauge-item" onclick="openV74Drill(\'' + drillKey + '\')">' +
-    '<div class="v74-gauge-circle">' +
-      '<svg viewBox="0 0 78 78">' +
-        '<defs>' +
-          '<linearGradient id="' + gradId + '" x1="0%" y1="0%" x2="100%" y2="100%">' +
-            '<stop offset="0%" stop-color="' + colorStart + '" />' +
-            '<stop offset="100%" stop-color="' + colorEnd + '" />' +
-          '</linearGradient>' +
-        '</defs>' +
-        '<circle class="v74-gauge-bg" cx="39" cy="39" r="' + radius + '" />' +
-        '<circle cx="39" cy="39" r="' + radius + '" ' +
-                'stroke="url(#' + gradId + ')" ' +
-                'stroke-dasharray="' + circ + '" ' +
-                'stroke-dashoffset="' + offset + '" />' +
-      '</svg>' +
-      '<div class="v74-gauge-text">' + pct + '%<small>' + d('MET','ĐẠT') + '</small></div>' +
+// FULL EXECUTIVE BI DASHBOARD INSPIRED DIRECTLY BY USER'S REFERENCE IMAGE
+function leadershipBiDashboard(){
+  return '<div class="ex-dash-wrap">' +
+    '<!-- Header bar -->' +
+    '<div class="ex-dash-header">' +
+      '<div class="ex-dash-header-title">' +
+        '<div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#0284c7,#38bdf8);display:grid;place-items:center;color:#fff;font-size:18px">📈</div>' +
+        '<div>' +
+          '<h2>' + d('CPG Enterprise Growth & Leadership Dashboard','Báo Cáo Tăng Trưởng & Điều Hành Doanh Nghiệp CPG') + '</h2>' +
+          '<div style="font-size:10.5px;color:#64748b;font-weight:600">Mr. Soh Wee Keong — Chief Executive Officer (CEO) of CPG International</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="ex-dash-header-tools">' +
+        '<div class="ex-pill-btn">🔍 ' + d('Search projects, staff...','Tìm dự án, nhân sự...') + '</div>' +
+        '<div class="ex-pill-btn">📅 Jan 1 - Aug 31, 2026 ▼</div>' +
+        '<button class="primary" style="padding:7px 12px;font-size:11px;border-radius:12px" onclick="openSupervisionModal()">✈️ Lệnh Giám Sát Tác Giả</button>' +
+        '<button class="secondary" style="padding:7px 12px;font-size:11px;border-radius:12px" onclick="exportProjectCostingExcel()">📥 Xuất Excel</button>' +
+      '</div>' +
     '</div>' +
-    '<div class="v74-gauge-title">' + title + '</div>' +
-    '<div class="v74-gauge-sub">' + subtitle + '</div>' +
+
+    '<!-- 4 Top KPI Cards Row -->' +
+    '<div class="ex-kpi-grid">' +
+      '<div class="ex-kpi-card" onclick="openV74Drill(\'drill_bd\')">' +
+        '<div class="ex-kpi-head"><span>' + d('Total Consulting Revenue','Tổng Doanh Thu Hợp Đồng') + '</span><span class="ex-kpi-arrow">→</span></div>' +
+        '<div class="ex-kpi-val">18.2 Tỷ <span class="ex-kpi-badge">▲ +18.4%</span></div>' +
+        '<div class="ex-kpi-sub">' + d('Previous quarter: 15.4 Tỷ VNĐ','Quý trước: 15.4 Tỷ VNĐ') + '</div>' +
+      '</div>' +
+
+      '<div class="ex-kpi-card" onclick="openV74Drill(\'drill_bd\')">' +
+        '<div class="ex-kpi-head"><span>' + d('New Contract Pipeline (BD)','Hợp Đồng Mới Ký (BD)') + '</span><span class="ex-kpi-arrow">→</span></div>' +
+        '<div class="ex-kpi-val">$2.15M <span class="ex-kpi-badge">▲ +21%</span></div>' +
+        '<div class="ex-kpi-sub">' + d('Target: $2.00M USD / Q3 (107.5%)','Chỉ tiêu: $2.00M USD / Quý 3') + '</div>' +
+      '</div>' +
+
+      '<div class="ex-kpi-card" onclick="openV74Drill(\'drill_margin\')">' +
+        '<div class="ex-kpi-head"><span>' + d('Project Gross Margin','Lợi Nhuận Gộp Hợp Đồng') + '</span><span class="ex-kpi-arrow">→</span></div>' +
+        '<div class="ex-kpi-val">71.4% <span class="ex-kpi-badge">▲ +15%</span></div>' +
+        '<div class="ex-kpi-sub">' + d('13.0 Tỷ VNĐ after direct labor','13.0 Tỷ sau CP nhân công kỹ thuật') + '</div>' +
+      '</div>' +
+
+      '<div class="ex-kpi-card" onclick="openV74Drill(\'drill_tech\')">' +
+        '<div class="ex-kpi-head"><span>' + d('Billable Utilization Rate','Tỷ Lệ Giờ Công Billable') + '</span><span class="ex-kpi-arrow">→</span></div>' +
+        '<div class="ex-kpi-val">91.0% <span class="ex-kpi-badge">▲ +9%</span></div>' +
+        '<div class="ex-kpi-sub">' + d('16,890h / 18,560h direct technical','16.890h / 18.560h khối Kỹ thuật') + '</div>' +
+      '</div>' +
+    '</div>' +
+
+    '<!-- Performance Overview (Dual Panels) -->' +
+    '<div class="ex-perf-card">' +
+      '<div class="ex-perf-head">' +
+        '<h3>' + d('Performance & Revenue Growth Overview','Tổng Quan Hiệu Suất & Tăng Trưởng Doanh Thu') + '</h3>' +
+        '<div class="ex-pill-btn">Engineering & Architecture ▼</div>' +
+      '</div>' +
+      '<div class="ex-perf-grid">' +
+        '<!-- Left: SVG Line Trend -->' +
+        '<div>' +
+          '<div style="display:flex;align-items:baseline;gap:8px;margin-bottom:8px">' +
+            '<span style="font-size:24px;font-weight:850;color:#0f172a">16,890h</span>' +
+            '<span style="font-size:11px;font-weight:750;color:#64748b">' + d('TECHNICAL BILLABLE HOURS','GIỜ CÔNG DỰ ÁN TRỰC TIẾP') + '</span>' +
+            '<span class="ex-kpi-badge">▲ +12% YoY</span>' +
+          '</div>' +
+          '<div class="ex-line-chart-wrap">' +
+            '<svg class="ex-line-svg" viewBox="0 0 450 120">' +
+              '<defs>' +
+                '<linearGradient id="lineGrad" x1="0%" y1="0%" x2="0%" y2="100%">' +
+                  '<stop offset="0%" stop-color="#0284c7" stop-opacity="0.35" />' +
+                  '<stop offset="100%" stop-color="#0284c7" stop-opacity="0.0" />' +
+                '</linearGradient>' +
+              '</defs>' +
+              '<!-- Grid lines -->' +
+              '<line x1="0" y1="20" x2="450" y2="20" stroke="#f1f5f9" stroke-width="1" />' +
+              '<line x1="0" y1="60" x2="450" y2="60" stroke="#f1f5f9" stroke-width="1" />' +
+              '<line x1="0" y1="100" x2="450" y2="100" stroke="#f1f5f9" stroke-width="1" />' +
+              '<!-- Gradient Area -->' +
+              '<path d="M 20 95 C 100 80, 140 45, 220 50 C 300 55, 340 25, 430 15 L 430 110 L 20 110 Z" fill="url(#lineGrad)" />' +
+              '<!-- Trend Line -->' +
+              '<path d="M 20 95 C 100 80, 140 45, 220 50 C 300 55, 340 25, 430 15" fill="none" stroke="#0284c7" stroke-width="3.5" stroke-linecap="round" />' +
+              '<!-- Nodes -->' +
+              '<circle cx="20" cy="95" r="4.5" fill="#fff" stroke="#0284c7" stroke-width="2.5" />' +
+              '<circle cx="150" cy="55" r="4.5" fill="#fff" stroke="#0284c7" stroke-width="2.5" />' +
+              '<circle cx="290" cy="52" r="4.5" fill="#fff" stroke="#0284c7" stroke-width="2.5" />' +
+              '<circle cx="430" cy="15" r="5" fill="#0284c7" stroke="#fff" stroke-width="2" />' +
+            '</svg>' +
+            '<div style="display:flex;justify-content:space-between;font-size:10px;font-weight:700;color:#94a3b8;margin-top:4px">' +
+              '<span>Q1/2026 (12.4k h)</span><span>Q2/2026 (14.2k h)</span><span>Q3/2026 (16.9k h)</span><span>Q4 Forecast (18.5k h)</span>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+
+        '<!-- Right: Column Bar Chart by Discipline -->' +
+        '<div>' +
+          '<div style="font-size:12px;font-weight:750;color:#64748b;margin-bottom:8px">' + d('Discipline Revenue & Cost Contribution','Đóng Góp Doanh Thu Theo Khối') + '</div>' +
+          '<div class="ex-bars-wrap">' +
+            '<div class="ex-bar-item">' +
+              '<div class="ex-bar-rect" style="height:65%;background:#1d4ed8"></div>' +
+              '<span class="ex-bar-tag">Kiến Trúc</span>' +
+            '</div>' +
+            '<div class="ex-bar-item">' +
+              '<div class="ex-bar-rect" style="height:85%;background:#0d9488"></div>' +
+              '<span class="ex-bar-tag">Kết Cấu</span>' +
+            '</div>' +
+            '<div class="ex-bar-item">' +
+              '<div class="ex-bar-rect" style="height:48%;background:#f97316"></div>' +
+              '<span class="ex-bar-tag">Cơ Điện</span>' +
+            '</div>' +
+            '<div class="ex-bar-item">' +
+              '<div class="ex-bar-rect" style="height:92%;background:#16a34a"></div>' +
+              '<span class="ex-bar-tag">IDD-BIM</span>' +
+            '</div>' +
+            '<div class="ex-bar-item">' +
+              '<div class="ex-bar-rect" style="height:76%;background:#eab308"></div>' +
+              '<span class="ex-bar-tag">G&A Pool</span>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+
+    '<!-- 2-Column Body Grid -->' +
+    '<div class="ex-body-grid">' +
+      '<!-- Left Column -->' +
+      '<div class="ex-col">' +
+        '<!-- What\'s Working / Top Projects -->' +
+        '<div class="ex-sec-box">' +
+          '<div class="ex-sec-head">' +
+            '<h4>' + d("What's Working · Top Projects","Dự Án Trọng Điểm & Doanh Thu Lớn") + '</h4>' +
+            '<span>Q3/2026 ▼</span>' +
+          '</div>' +
+          '<div class="ex-row-item">' +
+            '<div class="ex-row-icon-title">' +
+              '<div class="ex-icon-circle" style="background:#e0f2fe;color:#0284c7">🏢</div>' +
+              '<div><div>Khu phức hợp Masteri (HCM)</div><small style="color:#64748b">PRJ-002 · Masterise Homes</small></div>' +
+            '</div>' +
+            '<div class="ex-row-stat">' +
+              '<div class="ex-row-val">8.200.000.000 đ</div>' +
+              '<div class="ex-row-sub" style="color:#059669">▲ 94.4% Gross Margin</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="ex-row-item">' +
+            '<div class="ex-row-icon-title">' +
+              '<div class="ex-icon-circle" style="background:#ecfdf5;color:#059669">🏨</div>' +
+              '<div><div>Khách sạn 5 sao Landmark (HN)</div><small style="color:#64748b">PRJ-003 · Int\'l Hotel Group</small></div>' +
+            '</div>' +
+            '<div class="ex-row-stat">' +
+              '<div class="ex-row-val">5.600.000.000 đ</div>' +
+              '<div class="ex-row-sub" style="color:#059669">▲ 94.3% Gross Margin</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="ex-row-item">' +
+            '<div class="ex-row-icon-title">' +
+              '<div class="ex-icon-circle" style="background:#fef3c7;color:#d97706">🏛️</div>' +
+              '<div><div>TT Triển Lãm & Hội Nghị (HN)</div><small style="color:#64748b">PRJ-004 · Joint Venture</small></div>' +
+            '</div>' +
+            '<div class="ex-row-stat">' +
+              '<div class="ex-row-val">9.500.000.000 đ</div>' +
+              '<div class="ex-row-sub" style="color:#059669">▲ 96.2% Gross Margin</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+
+        '<!-- Office Comparison -->' +
+        '<div class="ex-sec-box">' +
+          '<div class="ex-sec-head">' +
+            '<h4>' + d("Office & Discipline Breakdown","Cơ Cấu 2 Văn Phòng & Khối Chuyên Môn") + '</h4>' +
+            '<span>140 Nhân Sự</span>' +
+          '</div>' +
+          '<div class="ex-row-item">' +
+            '<div class="ex-row-icon-title">' +
+              '<div class="ex-icon-circle" style="background:#eff6ff;color:#1d4ed8">🏢</div>' +
+              '<div><div>Văn phòng TP. Hồ Chí Minh</div><small style="color:#64748b">101 nhân sự (84 Kỹ thuật + 17 Support)</small></div>' +
+            '</div>' +
+            '<div class="ex-row-stat">' +
+              '<div class="ex-row-val">72.1% (3.475 Tỷ)</div>' +
+              '<div class="ex-row-sub" style="color:#059669">Billable 91.8%</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="ex-row-item">' +
+            '<div class="ex-row-icon-title">' +
+              '<div class="ex-icon-circle" style="background:#fff7ed;color:#ea580c">🏛️</div>' +
+              '<div><div>Văn phòng Hà Nội</div><small style="color:#64748b">39 nhân sự (32 Kỹ thuật + 7 Support)</small></div>' +
+            '</div>' +
+            '<div class="ex-row-stat">' +
+              '<div class="ex-row-val">27.9% (1.350 Tỷ)</div>' +
+              '<div class="ex-row-sub" style="color:#ea580c">Mr. Chung Keat Wei phụ trách</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+
+        '<!-- Audience & Workforce Demographics Insights -->' +
+        '<div class="ex-sec-box">' +
+          '<div class="ex-sec-head">' +
+            '<h4>' + d("Workforce Demographics & Gauges","Chỉ Số Sức Khỏe Nhân Lực (140 NS)") + '</h4>' +
+          '</div>' +
+          '<div class="ex-demo-grid">' +
+            '<div class="ex-demo-circle-box">' +
+              '<div class="ex-ring-wrap">' +
+                '<svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" stroke="#e2e8f0" stroke-width="5" fill="none"/><circle cx="28" cy="28" r="22" stroke="#0284c7" stroke-width="5" fill="none" stroke-dasharray="138" stroke-dashoffset="12" stroke-linecap="round"/></svg>' +
+                '<div class="ex-ring-txt">91%</div>' +
+              '</div>' +
+              '<b style="font-size:10px;color:#1e293b">Billable</b>' +
+              '<small style="font-size:8.5px;color:#64748b">Khối KT</small>' +
+            '</div>' +
+
+            '<div class="ex-demo-circle-box">' +
+              '<div class="ex-ring-wrap">' +
+                '<svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" stroke="#e2e8f0" stroke-width="5" fill="none"/><circle cx="28" cy="28" r="22" stroke="#059669" stroke-width="5" fill="none" stroke-dasharray="138" stroke-dashoffset="0" stroke-linecap="round"/></svg>' +
+                '<div class="ex-ring-txt">100%</div>' +
+              '</div>' +
+              '<b style="font-size:10px;color:#1e293b">Giữ Chân</b>' +
+              '<small style="font-size:8.5px;color:#64748b">140/140 NS</small>' +
+            '</div>' +
+
+            '<div class="ex-demo-circle-box">' +
+              '<div class="ex-ring-wrap">' +
+                '<svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" stroke="#e2e8f0" stroke-width="5" fill="none"/><circle cx="28" cy="28" r="22" stroke="#eab308" stroke-width="5" fill="none" stroke-dasharray="138" stroke-dashoffset="125" stroke-linecap="round"/></svg>' +
+                '<div class="ex-ring-txt">4.9%</div>' +
+              '</div>' +
+              '<b style="font-size:10px;color:#1e293b">G&A Pool</b>' +
+              '<small style="font-size:8.5px;color:#64748b">895 Triệu</small>' +
+            '</div>' +
+
+            '<div class="ex-demo-circle-box">' +
+              '<div class="ex-ring-wrap">' +
+                '<svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" stroke="#e2e8f0" stroke-width="5" fill="none"/><circle cx="28" cy="28" r="22" stroke="#8b5cf6" stroke-width="5" fill="none" stroke-dasharray="138" stroke-dashoffset="8" stroke-linecap="round"/></svg>' +
+                '<div class="ex-ring-txt">94%</div>' +
+              '</div>' +
+              '<b style="font-size:10px;color:#1e293b">Thu Hồi Nợ</b>' +
+              '<small style="font-size:8.5px;color:#64748b">Dòng tiền</small>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+
+      '<!-- Right Column -->' +
+      '<div class="ex-col">' +
+        '<!-- Alerts & Author Supervision Notice -->' +
+        '<div class="ex-sec-box">' +
+          '<div class="ex-sec-head">' +
+            '<h4 style="color:#b91c1c">⚠️ ' + d("What Needs Attention & Site Missions","Cảnh Báo & Lệnh Giám Sát Hiện Trường") + '</h4>' +
+            '<span class="badge warn">Live Status</span>' +
+          '</div>' +
+          '<div class="ex-alert-card">' +
+            '<div style="font-size:16px">✈️</div>' +
+            '<div>' +
+              '<b>Lệnh Giám Sát Tác Giả SUP-001 (Masteri Thảo Điền)</b>' +
+              '<p>KTS Nguyễn Văn A (H0072) đi nghiệm thu dầm sàn ngày 02/09/2026. <b>Chị Loan HCM</b> đã thu xếp xe CĐT đón.</p>' +
+            '</div>' +
+          '</div>' +
+          '<div class="ex-alert-card" style="background:#fffbeb;border-color:#fef3c7">' +
+            '<div style="font-size:16px">⏳</div>' +
+            '<div>' +
+              '<b style="color:#b45309">Đánh Giá Thử Việc & Tái Ký HĐLĐ (30 Ngày)</b>' +
+              '<p style="color:#92400e">2 kỹ sư chuẩn bị hết 60 ngày thử việc; 3 HĐLĐ sắp đến hạn. Đỗ Hải Trang (HR) đang soạn tờ trình.</p>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+
+        '<!-- Strategic Executive Recommendations -->' +
+        '<div class="ex-sec-box">' +
+          '<div class="ex-sec-head">' +
+            '<h4>💡 ' + d("Strategic Executive Recommendations","Khuyến Nghị Điều Hành & Chỉ Đạo Trọng Tâm") + '</h4>' +
+            '<span class="ex-kpi-badge">AI Actionable</span>' +
+          '</div>' +
+          '<div class="ex-rec-item">' +
+            '<div class="ex-rec-left">' +
+              '<div style="font-size:16px;color:#059669">✅</div>' +
+              '<div>' +
+                '<div class="ex-rec-title">Tăng ngân sách giờ công kỹ thuật Masteri Phase 2</div>' +
+                '<div class="ex-rec-sub">Đáp ứng tiến độ hồ sơ thiết kế thi công theo thư mời CĐT</div>' +
+              '</div>' +
+            '</div>' +
+            '<span class="ex-rec-badge">▲ +15%</span>' +
+          '</div>' +
+
+          '<div class="ex-rec-item">' +
+            '<div class="ex-rec-left">' +
+              '<div style="font-size:16px;color:#0284c7">⚡</div>' +
+              '<div>' +
+                '<div class="ex-rec-title">Tối ưu hóa bảng định mức chi phí MEP Khách Sạn Landmark</div>' +
+                '<div class="ex-rec-sub">Kiểm soát trần giờ công nhằm giữ tỷ suất Gross Margin > 90%</div>' +
+              '</div>' +
+            '</div>' +
+            '<span class="ex-rec-badge">▲ +43%</span>' +
+          '</div>' +
+
+          '<div class="ex-rec-item">' +
+            '<div class="ex-rec-left">' +
+              '<div style="font-size:16px;color:#dc2626">⏸️</div>' +
+              '<div>' +
+                '<div class="ex-rec-title">Tạm dừng bổ sung nhân sự gói TT Triển Lãm (PRJ-004)</div>' +
+                '<div class="ex-rec-sub">Đợi CĐT phê duyệt biên bản nghiệm thu giai đoạn 1</div>' +
+              '</div>' +
+            '</div>' +
+            '<span class="ex-rec-badge" style="color:#dc2626;background:#fef2f2">HOLD</span>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
   '</div>';
 }
 
-function leadershipBiDashboard(){
-  return '<section class="content-grid">' +
-    '<div class="panel span12 v74-bi-header-card">' +
-      '<div class="section-title">' +
-        '<div>' +
-          '<span style="font-size:8.5px;letter-spacing:1.2px;font-weight:800;color:#f7b719">' + d('EXECUTIVE OVERVIEW · CPG INTERNATIONAL & CPG VIETNAM','TỔNG QUAN ĐIỀU HÀNH · CPG INTERNATIONAL & CPG VIETNAM') + '</span>' +
-          '<h2 style="font-size:19px;margin-top:4px">Mr. Soh Wee Keong — Chief Executive Officer (CEO)</h2>' +
-          '<p>' + d('Executive P&L overview: Project Margin, G&A Overhead Pool and 140 workforce productivity (August 2026).','Báo cáo quản trị tài chính Lợi Nhuận Dự Án (Project Margin), Chi Phí Gián Tiếp (G&A Overhead) & Năng Suất 140 Nhân Sự (Tháng 08/2026).') + '</p>' +
-        '</div>' +
-        '<div class="action-row">' +
-          '<button class="primary" style="background:#17795e;padding:6px 12px;font-size:10px" onclick="openSupervisionModal()">✈️ ' + d("Author's Supervision Requisition","Lệnh Giám Sát Tác Giả & Logistics") + '</button>' +
-          '<button class="secondary" style="padding:6px 12px;font-size:10px" onclick="exportProjectCostingExcel()">📥 ' + d("Export Excel","Xuất Excel Chi Phí DA") + '</button>' +
-        '</div>' +
-      '</div>' +
-
-      '<div class="metrics" style="grid-template-columns:repeat(4,1fr);margin-top:10px">' +
-        '<div class="metric" style="background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.2);color:#fff;cursor:pointer" onclick="openV74Drill(\'drill_pnl\')">' +
-          '<span class="label" style="color:#c4d7e9">' + d('CONSULTING REVENUE','DOANH THU HỢP ĐỒNG THIẾT KẾ') + '</span>' +
-          '<div class="value" style="font-size:20px;margin:3px 0">18.200.000.000 đ</div>' +
-          '<div class="hint" style="color:#4ade80">▲ +18.4% YoY (Q3/2026) 🔍</div>' +
-        '</div>' +
-        '<div class="metric" style="background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.2);color:#fff;cursor:pointer" onclick="openV74Drill(\'drill_margin\')">' +
-          '<span class="label" style="color:#c4d7e9">' + d('PROJECT GROSS MARGIN','LỢI NHUẬN GỘP DỰ ÁN (MARGIN)') + '</span>' +
-          '<div class="value" style="font-size:20px;margin:3px 0;color:#38bdf8">71.4% (13.0 Tỷ)</div>' +
-          '<div class="hint" style="color:#38bdf8">' + d('After technical direct labor','Sau trừ CP nhân công Kỹ thuật') + ' 🔍</div>' +
-        '</div>' +
-        '<div class="metric" style="background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.2);color:#fff;cursor:pointer" onclick="openV74Drill(\'drill_support\')">' +
-          '<span class="label" style="color:#c4d7e9">' + d('G&A OVERHEAD POOL','CHI PHÍ GIÁN TIẾP (G&A / OVERHEAD)') + '</span>' +
-          '<div class="value" style="font-size:20px;margin:3px 0;color:#facc15">895.000.000 đ</div>' +
-          '<div class="hint" style="color:#c4d7e9">' + d('24 staff: HR, BD, Finance, QS, Board','24 NS: HR, BD, Kế toán, QS, Lãnh đạo') + ' 🔍</div>' +
-        '</div>' +
-        '<div class="metric" style="background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.2);color:#fff;cursor:pointer" onclick="openV74Drill(\'drill_net_profit\')">' +
-          '<span class="label" style="color:#c4d7e9">' + d('NET OPERATING PROFIT','LỢI NHUẬN THUẦN HĐ (NET)') + '</span>' +
-          '<div class="value" style="font-size:20px;margin:3px 0;color:#4ade80">6.425.000.000 đ</div>' +
-          '<div class="hint" style="color:#4ade80">' + d('EBITDA Margin: 35.3%','Tỷ suất LN Ròng: 35.3%') + ' 🔍</div>' +
-        '</div>' +
-      '</div>' +
-    '</div>' +
-
-    '<div class="panel span6">' +
-      '<div class="section-title">' +
-        '<div>' +
-          '<h2>' + d('1. Technical Production Team (116 Staff)','1. Khối Kỹ Thuật / Trực Tiếp Dự Án (116 Nhân Sự)') + '</h2>' +
-          '<p>' + d('MANDATORY Timesheet by Project Code for direct costing','BẮT BUỘC log Timesheet theo mã dự án để tính giá thành công trình') + '</p>' +
-        '</div>' +
-        '<span class="badge ok">Direct Labor</span>' +
-      '</div>' +
-      '<div style="font-size:9.5px;line-height:1.55;color:var(--muted)">' +
-        '• <b>' + d('Disciplines:','Các bộ phận:') + '</b> ' + d('Architecture (48), Structural CS (30), MEP (22), BIM & PM Supervision (16).','Kiến trúc (48 NS), Kết cấu CS (30 NS), Cơ điện MEP (22 NS), BIM & PM Giám sát (16 NS).') + '<br>' +
-        '• <b>' + d('Total Working Hours:','Tổng giờ làm việc:') + '</b> 18.560h | <b>' + d('Project Billable:','Giờ Billable Dự án:') + '</b> <b style="color:#17795e">16.890h (91.0%)</b>.<br>' +
-        '• <b>' + d('Direct Labor Cost (Aug):','Chi phí Nhân công Trực tiếp:') + '</b> <b style="color:#12355d">3.930.000.000 đ</b>.<br>' +
-        '• <b>' + d('Performance:','Đánh giá:') + '</b> ' + d('Delivery on schedule 85.6%, drawing defect rate < 2%.','Đạt tiến độ thiết kế 85.6%, lỗi bản vẽ < 2%.') +
-      '</div>' +
-      '<div class="action-row" style="margin-top:9px">' +
-        '<button class="secondary" style="font-size:9px;padding:5px 9px" onclick="openV74Drill(\'drill_tech\')">🔍 ' + d('View 116 Engineers / Architects','Xem 116 Kỹ Sư / Kiến Trúc Sư') + '</button>' +
-      '</div>' +
-    '</div>' +
-
-    '<div class="panel span6">' +
-      '<div class="section-title">' +
-        '<div>' +
-          '<h2>' + d('2. Corporate Support & BD Team (24 Staff)','2. Khối Quản Trị / Gián Tiếp (G&A) & BD (24 Nhân Sự)') + '</h2>' +
-          '<p>' + d('EXEMPT from Project Timesheet — Corporate Governance, BD & Support','KHÔNG log Timesheet dự án — Đóng vai trò Điều hành, Hỗ trợ & Tìm kiếm Hợp đồng') + '</p>' +
-        '</div>' +
-        '<span class="badge warn">Overhead Pool</span>' +
-      '</div>' +
-      '<div style="font-size:9.5px;line-height:1.55;color:var(--muted)">' +
-        '• <b>' + d('Units:','Các bộ phận:') + '</b> Business Development (BD), Contracts (QS), Finance & Accounting, HR & Board of Management.<br>' +
-        '• <b>' + d('G&A Payroll Pool (Aug):','Tổng Quỹ Lương Gián tiếp tháng 8:') + '</b> <b style="color:#12355d">895.000.000 đ</b> (' + d('G&A Overhead Pool','Hạch toán vào G&A Overhead') + ').<br>' +
-        '• <b>' + d('BD Target Metric:','KPI Phát triển Kinh doanh (BD):') + '</b> <b style="color:#17795e">$2,150,000 USD / $2,000,000 USD</b> Target Q3 (107.5%).<br>' +
-        '• <b>' + d('Logistics Coordinators:','Đầu mối Hỗ trợ & Logistics:') + '</b> <b>Loan Nguyễn</b> (S0070 - HCM) & <b>Hương Nhung</b> (H0079 - HN).' +
-      '</div>' +
-      '<div class="action-row" style="margin-top:9px">' +
-        '<button class="secondary" style="font-size:9px;padding:5px 9px" onclick="openV74Drill(\'drill_support\')">🔍 ' + d('View 24 Corporate & BD Staff','Xem 24 Nhân Sự Vận Hành & BD') + '</button>' +
-      '</div>' +
-    '</div>' +
-
-    '<div class="panel span12">' +
-      '<div class="section-title">' +
-        '<div>' +
-          '<h2>' + d('Operational & Business Performance Rings','Chỉ Số Vận Hành & Kinh Doanh Trọng Yếu') + '</h2>' +
-          '<p>' + d('Click any ring gauge to inspect personnel roster and detailed executive analysis','Bấm vào từng vòng chỉ số để truy vấn danh sách nhân sự liên quan và giải trình chi tiết') + '</p>' +
-        '</div>' +
-        '<span class="badge ok">Live BI Sync</span>' +
-      '</div>' +
-      '<div class="v74-gauge-row">' +
-        renderV74Gauge(107.5, '#f59e0b', '#fbbf24', d('BD Contract Wins','Doanh Số BD (Hợp Đồng)'), '$2.15M / $2.0M Target', 'drill_bd') +
-        renderV74Gauge(91.0, '#0284c7', '#38bdf8', d('Technical Billable %','Tỷ lệ Billable Kỹ Thuật'), '16.890h / 18.560h DA', 'drill_tech') +
-        renderV74Gauge(94.2, '#16a34a', '#4ade80', d('Debt Recovery (Finance)','Thu Hồi Nợ (Kế toán/QS)'), d('Client cashflow pace','Tiến độ dòng tiền CĐT'), 'drill_support') +
-        renderV74Gauge(100.0, '#8b5cf6', '#c084fc', d('Talent Retention (HR)','Ổn Định Nhân Sự (HR)'), '140 / 140 CPG Staff', 'drill_support') +
-      '</div>' +
-    '</div>' +
-
-    '<div class="panel span7">' +
-      '<div class="section-title">' +
-        '<div>' +
-          '<h2>' + d('Consulting Revenue Growth vs Cost Structure (QoQ)','Tăng Trưởng Doanh Thu HĐ vs Cơ Cấu Chi Phí (QoQ)') + '</h2>' +
-          '<p>' + d('Consulting Revenue (Blue) vs Direct Technical Labor (Orange) vs G&A Overhead (Grey)','Doanh Thu Tư Vấn (Xanh) vs Chi Phí Kỹ Thuật Trực Tiếp (Cam) vs Chi Phí Quản Lý G&A (Xám)') + '</p>' +
-        '</div>' +
-      '</div>' +
-      '<div class="v74-chart-bar-wrap">' +
-        '<div class="v74-bar-col" onclick="openV74Drill(\'drill_pnl\')">' +
-          '<span class="v74-bar-tip">DT: 14.2 Tỷ | CP KT: 3.4 Tỷ | G&A: 0.8 Tỷ</span>' +
-          '<div class="v74-bar-group">' +
-            '<div class="v74-bar-fill target" style="height:72%"></div>' +
-            '<div class="v74-bar-fill current" style="height:32%"></div>' +
-            '<div class="v74-bar-fill overhead" style="height:12%"></div>' +
-          '</div>' +
-          '<span class="v74-bar-label">Q1/2026</span>' +
-        '</div>' +
-        '<div class="v74-bar-col" onclick="openV74Drill(\'drill_pnl\')">' +
-          '<span class="v74-bar-tip">DT: 16.5 Tỷ | CP KT: 3.7 Tỷ | G&A: 0.85 Tỷ</span>' +
-          '<div class="v74-bar-group">' +
-            '<div class="v74-bar-fill target" style="height:84%"></div>' +
-            '<div class="v74-bar-fill current" style="height:36%"></div>' +
-            '<div class="v74-bar-fill overhead" style="height:14%"></div>' +
-          '</div>' +
-          '<span class="v74-bar-label">Q2/2026</span>' +
-        '</div>' +
-        '<div class="v74-bar-col" onclick="openV74Drill(\'drill_pnl\')">' +
-          '<span class="v74-bar-tip">DT: 18.2 Tỷ | CP KT: 3.93 Tỷ | G&A: 0.89 Tỷ (Now)</span>' +
-          '<div class="v74-bar-group">' +
-            '<div class="v74-bar-fill target" style="height:95%"></div>' +
-            '<div class="v74-bar-fill current" style="height:39%"></div>' +
-            '<div class="v74-bar-fill overhead" style="height:15%"></div>' +
-          '</div>' +
-          '<span class="v74-bar-label"><b>Q3/2026 (' + d('Current','Nay') + ')</b></span>' +
-        '</div>' +
-        '<div class="v74-bar-col" onclick="openV74Drill(\'drill_pnl\')">' +
-          '<span class="v74-bar-tip">Forecast DT: 20.0 Tỷ | CP KT: 4.2 Tỷ | G&A: 0.9 Tỷ</span>' +
-          '<div class="v74-bar-group">' +
-            '<div class="v74-bar-fill target" style="height:100%;opacity:.75"></div>' +
-            '<div class="v74-bar-fill current" style="height:42%;opacity:.75"></div>' +
-            '<div class="v74-bar-fill overhead" style="height:16%;opacity:.75"></div>' +
-          '</div>' +
-          '<span class="v74-bar-label">Q4/2026 (' + d('Forecast','Dự phóng') + ')</span>' +
-        '</div>' +
-      '</div>' +
-      '<div style="display:flex;justify-content:space-between;margin-top:8px;font-size:9px;color:var(--muted)">' +
-        '<span>' + d('Technical Gross Margin:','Tỷ lệ Lợi Nhuận Gộp Khối Kỹ Thuật:') + ' <b>78.4%</b></span>' +
-        '<span>' + d('G&A Overhead Ratio:','Tỷ lệ Chi phí G&A / Doanh thu:') + ' <b>4.9%</b></span>' +
-      '</div>' +
-    '</div>' +
-
-    '<div class="panel span5">' +
-      '<div class="section-title">' +
-        '<div>' +
-          '<h2>' + d('Office Distribution (HCM & HN)','Cơ Cấu 2 Văn Phòng (HCM & HN)') + '</h2>' +
-          '<p>' + d('101 Staff in HCM vs 39 Staff in Hanoi','101 Nhân sự HCM vs 39 Nhân sự Hà Nội') + '</p>' +
-        '</div>' +
-        '<span class="badge ok">140 CPG Master</span>' +
-      '</div>' +
-      '<div class="v74-comp-list">' +
-        '<div class="v74-comp-item" onclick="openV74Drill(\'drill_tech\')">' +
-          '<div class="v74-comp-head">' +
-            '<b>🏢 TP. Hồ Chí Minh (101 ' + d('Staff','Nhân sự') + ')</b>' +
-            '<span>84 ' + d('Tech','Kỹ thuật') + ' | 17 ' + d('Corp','Gián tiếp') + '</span>' +
-          '</div>' +
-          '<div class="v74-comp-track">' +
-            '<div class="v74-comp-fill" style="width:72%;background:linear-gradient(90deg,#0284c7,#38bdf8)"></div>' +
-          '</div>' +
-          '<div style="display:flex;justify-content:space-between;margin-top:4px;font-size:8px;color:var(--muted)">' +
-            '<span>' + d('Payroll:','Quỹ lương:') + ' <b>3.475 Tỷ</b> (72%)</span>' +
-            '<span>Billable: <b>91.8%</b></span>' +
-          '</div>' +
-        '</div>' +
-
-        '<div class="v74-comp-item" onclick="openV74Drill(\'drill_tech\')">' +
-          '<div class="v74-comp-head">' +
-            '<b>🏛️ Hà Nội (39 ' + d('Staff','Nhân sự') + ')</b>' +
-            '<span>32 ' + d('Tech','Kỹ thuật') + ' | 7 ' + d('Corp','Gián tiếp') + '</span>' +
-          '</div>' +
-          '<div class="v74-comp-track">' +
-            '<div class="v74-comp-fill" style="width:28%;background:linear-gradient(90deg,#ea580c,#fb923c)"></div>' +
-          '</div>' +
-          '<div style="display:flex;justify-content:space-between;margin-top:4px;font-size:8px;color:var(--muted)">' +
-            '<span>' + d('Payroll:','Quỹ lương:') + ' <b>1.350 Tỷ</b> (28%)</span>' +
-            '<span>' + d('In charge:','Phụ trách:') + ' <b>Mr. Chung Keat Wei</b></span>' +
-          '</div>' +
-        '</div>' +
-
-        '<div class="v74-comp-item" onclick="openV74Drill(\'drill_bd\')">' +
-          '<div class="v74-comp-head">' +
-            '<b>🎯 ' + d('New Contract Pipeline (BD)','Pipeline Hợp Đồng Mới (Khối BD)') + '</b>' +
-            '<span class="badge ok">$2.15M USD ' + d('Won','Đã Ký') + '</span>' +
-          '</div>' +
-          '<div class="v74-comp-track">' +
-            '<div class="v74-comp-fill" style="width:100%;background:linear-gradient(90deg,#10b981,#34d399)"></div>' +
-          '</div>' +
-          '<div style="display:flex;justify-content:space-between;margin-top:4px;font-size:8px;color:var(--muted)">' +
-            '<span>' + d('Surpassed 107.5% of $2.0M USD quarterly target','Vượt 107.5% chỉ tiêu $2 Triệu USD/Quý') + '</span>' +
-          '</div>' +
-        '</div>' +
-      '</div>' +
-    '</div>' +
-
-    '<div class="panel span12">' +
-      '<div class="section-title">' +
-        '<div>' +
-          '<h2>' + d('Key Projects Gross Margin & Budget Overrun Alert','Ma Trận Hiệu Quả & Cảnh Báo Sớm Vượt Ngân Sách Dự Án') + '</h2>' +
-          '<p>' + d('Direct technical labor cost only vs Contract value & Hours budget status','Chi phí nhân công trực tiếp vs Giá trị HĐ & Tình trạng tiêu hao ngân sách giờ công') + '</p>' +
-        '</div>' +
-        '<div class="action-row">' +
-          '<button class="secondary" style="font-size:9.5px;padding:5px 10px" onclick="exportProjectCostingExcel()">📥 ' + d("Export Excel (.csv)","Xuất Excel (.csv)") + '</button>' +
-        '</div>' +
-      '</div>' +
-      '<div class="table-wrap">' +
-        '<table>' +
-          '<thead>' +
-            '<tr>' +
-              '<th>' + d('Code','Mã DA') + '</th>' +
-              '<th>' + d('Project Name & Client','Tên Dự Án & Chủ Đầu Tư') + '</th>' +
-              '<th>' + d('Contract Value','Giá Trị Hợp Đồng') + '</th>' +
-              '<th>' + d('Direct Labor Cost','CP Nhân Công Kỹ Thuật') + '</th>' +
-              '<th>' + d('Gross Margin %','Tỷ Suất LN Gộp (%)') + '</th>' +
-              '<th>' + d('Logged / Budget Hours','Số Giờ Log / Ngân Sách') + '</th>' +
-              '<th>' + d('Budget Burn Status','Cảnh Báo Ngân Sách') + '</th>' +
-              '<th>' + d('Project Manager','PM Phụ Trách') + '</th>' +
-              '<th>' + d('Action','Thao Tác') + '</th>' +
-            '</tr>' +
-          '</thead>' +
-          '<tbody>' +
-            '<tr style="cursor:pointer" onclick="openV74Drill(\'prj_DEMO-001\')">' +
-              '<td><b>DEMO-001</b></td>' +
-              '<td><b>Tòa nhà Văn phòng CPG Tower (HCM)</b></td>' +
-              '<td>4.800.000.000 đ</td>' +
-              '<td><b style="color:#1c5b91">153.600.000 đ</b></td>' +
-              '<td><span class="badge ok">96.8%</span></td>' +
-              '<td><b>480h</b> / 1200h (40.0%)</td>' +
-              '<td><span class="badge ok">' + d("Safe (<80%)","An toàn (40%)") + '</span></td>' +
-              '<td>Trần Thị B</td>' +
-              '<td><button class="secondary" style="padding:4px 8px;font-size:9px">🔍 ' + d('Details','Chi Tiết') + '</button></td>' +
-            '</tr>' +
-            '<tr style="cursor:pointer" onclick="openV74Drill(\'prj_PRJ-002\')">' +
-              '<td><b>PRJ-002</b></td>' +
-              '<td><b>Khu phức hợp Căn hộ Masteri (HCM)</b></td>' +
-              '<td>8.200.000.000 đ</td>' +
-              '<td><b style="color:#1c5b91">462.000.000 đ</b></td>' +
-              '<td><span class="badge ok">94.4%</span></td>' +
-              '<td><b>1650h</b> / 2400h (68.8%)</td>' +
-              '<td><span class="badge ok">' + d("Safe (<80%)","An toàn (68.8%)") + '</span></td>' +
-              '<td>Trần Thị B</td>' +
-              '<td><button class="secondary" style="padding:4px 8px;font-size:9px">🔍 ' + d('Details','Chi Tiết') + '</button></td>' +
-            '</tr>' +
-            '<tr style="cursor:pointer" onclick="openV74Drill(\'prj_PRJ-003\')">' +
-              '<td><b>PRJ-003</b></td>' +
-              '<td><b>Khách sạn 5 sao Landmark (HN)</b></td>' +
-              '<td>5.600.000.000 đ</td>' +
-              '<td><b style="color:#1c5b91">322.000.000 đ</b></td>' +
-              '<td><span class="badge ok">94.3%</span></td>' +
-              '<td><b>920h</b> / 1800h (51.1%)</td>' +
-              '<td><span class="badge ok">' + d("Safe (<80%)","An toàn (51.1%)") + '</span></td>' +
-              '<td>Phạm Minh D</td>' +
-              '<td><button class="secondary" style="padding:4px 8px;font-size:9px">🔍 ' + d('Details','Chi Tiết') + '</button></td>' +
-            '</tr>' +
-            '<tr style="cursor:pointer" onclick="openV74Drill(\'prj_PRJ-004\')">' +
-              '<td><b>PRJ-004</b></td>' +
-              '<td><b>Trung tâm Thương mại & Triển lãm (HN)</b></td>' +
-              '<td>9.500.000.000 đ</td>' +
-              '<td><b style="color:#1c5b91">360.000.000 đ</b></td>' +
-              '<td><span class="badge ok">96.2%</span></td>' +
-              '<td><b>1200h</b> / 3000h (40.0%)</td>' +
-              '<td><span class="badge ok">' + d("Safe (<80%)","An toàn (40%)") + '</span></td>' +
-              '<td>Vũ Quốc E</td>' +
-              '<td><button class="secondary" style="padding:4px 8px;font-size:9px">🔍 ' + d('Details','Chi Tiết') + '</button></td>' +
-            '</tr>' +
-          '</tbody>' +
-        '</table>' +
-      '</div>' +
-    '</div>' +
-  '</section>';
-}
-
-// Ensure leadership role option exists in topbar selector
-var prevRenderRoleSelect = renderRoleSelect;
-renderRoleSelect = function(){
-  var s = document.getElementById('roleSelect');
-  if(!s) return;
-  var roles = [
-    ['leadership', '👑 Ban Điều Hành (Mr. Soh Wee Keong - CEO)'],
-    ['hr', '💼 Quản Trị Nhân Sự & BRAVO (Đỗ Hải Trang)'],
-    ['manager', '📐 Quản Lý Dự Án / PM (Trần Thị B)'],
-    ['employee', '🏛️ Kiến Trúc Sư / Kỹ Sư (Nguyễn Văn A)'],
-    ['payroll', '💰 Chuyên Viên Tính Lương (Payroll)'],
-    ['admin', '⚙️ Quản Trị Hệ Thống (System Admin)']
-  ];
-  s.innerHTML = roles.map(function(pair){
-    var r = pair[0];
-    var title = pair[1];
-    var sel = state.role === r ? 'selected' : '';
-    return '<option value="' + r + '" ' + sel + '>' + title + '</option>';
-  }).join('');
-  s.value = state.role;
-  s.onchange = function(e){
-    state.role = e.target.value;
-    state.page = 'home';
-    render();
-  };
+// Override homePage and genericPage globally
+var origHomePage = homePage;
+homePage = function(){
+  if(state.role === 'leadership'){
+    return hero() + leadershipBiDashboard();
+  }
+  return origHomePage ? origHomePage() : '';
 };
 
-// Override genericPage directly to guarantee 100% proper routing for all roles
 var prevGenericPage = genericPage;
 genericPage = function(){
   if(state.page === 'home' && state.role === 'leadership'){
@@ -3247,28 +3223,7 @@ genericPage = function(){
   if(state.page === 'people'){
     return full140PeoplePage();
   }
-  return prevGenericPage();
-};
-
-// Hook into attention items to add 30-day Contract & Probation expiry alerts
-var origAtt = v59Attention;
-v59Attention = function(){
-  var arr = origAtt ? origAtt() : [];
-  if(state.role === 'hr' || state.role === 'leadership' || state.role === 'manager'){
-    arr.unshift([
-      d('Contract & Probation (30 Days)','Hạn HĐLĐ & Đánh giá thử việc (30 ngày)'),
-      d('2 probationary engineers due for confirmation; 3 fixed contracts due for renewal','2 kỹ sư kết thúc 60 ngày thử việc; 3 HĐLĐ xác định thời hạn sắp đến hạn tái ký'),
-      'warn',
-      'people'
-    ]);
-    arr.unshift([
-      d("Author's Supervision (Missions)","Lệnh Giám sát tác giả & Logistics"),
-      d('2 active site inspection missions; Logistics coordinated by Loan / Nhung','2 đợt giám sát công trường đang hoạt động; Chị Loan / Chị Nhung đã book xe & KS'),
-      'ok',
-      'home'
-    ]);
-  }
-  return arr;
+  return prevGenericPage ? prevGenericPage() : '';
 };
 
 // Set default role to leadership if not set
