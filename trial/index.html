@@ -3464,7 +3464,279 @@ function renderPersonalAttendanceSection(){
     '</section>';
 }
 
+
+function payrollBiDashboard(){
+  return '<div class="ex-dash-wrap">' +
+    '<!-- Header bar -->' +
+    '<div class="ex-dash-header">' +
+      '<div class="ex-dash-header-title">' +
+        '<div style="width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#0d9488,#14b8a6);display:grid;place-items:center;color:#fff;font-size:20px">💰</div>' +
+        '<div>' +
+          '<h2>' + d('CPG Payroll & Labor Costing Intelligence Dashboard','Báo Cáo Tổng Hợp Tiền Lương & Phân Bổ Chi Phí Nhân Sự (Tháng 08/2026)') + '</h2>' +
+          '<div style="font-size:12px;color:#475569;font-weight:600">Đỗ Hải Trang — Senior Manager Finance & HR Admin (140 Nhân Sự 2 Miền)</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="ex-dash-header-tools">' +
+        '<div class="ex-pill-btn">📅 Kỳ Lương Tháng 08/2026 ▼</div>' +
+        '<button class="secondary" style="padding:8px 14px;font-size:12.5px;font-weight:750;border-radius:10px" onclick="exportProjectCostingExcel()">📥 Báo Cáo Chi Phí Dự Án</button>' +
+        '<button class="secondary" style="padding:8px 14px;font-size:12.5px;font-weight:750;border-radius:10px" onclick="exportMonthlyPayrollReport()">📥 Bảng Lương Tổng Hợp</button>' +
+        '<button class="primary" style="padding:8px 14px;font-size:12.5px;font-weight:750;border-radius:10px;background:#059669;border-color:#059669" onclick="exportBankTransferFile()">💳 Lệnh Chuyển Khoản VCB</button>' +
+      '</div>' +
+    '</div>' +
+
+    '<!-- 4 Top Payroll KPI Cards Row -->' +
+    '<div class="ex-kpi-grid">' +
+      '<div class="ex-kpi-card" onclick="state.page=\'payroll\';render()">' +
+        '<div class="ex-kpi-head"><span>' + d('Total Gross Payroll Fund','Tổng Quỹ Lương Gross (140 NS)') + '</span><span class="ex-kpi-arrow">→</span></div>' +
+        '<div class="ex-kpi-val">4.825 Tỷ <span class="ex-kpi-badge">100% Công</span></div>' +
+        '<div class="ex-kpi-sub">3.475 Tỷ HCM · 1.350 Tỷ HN</div>' +
+      '</div>' +
+
+      '<div class="ex-kpi-card" onclick="exportBankTransferFile()">' +
+        '<div class="ex-kpi-head"><span>' + d('Net Bank Transfer Total','Thực Lĩnh Chuyển Khoản (Net)') + '</span><span class="ex-kpi-arrow">💳</span></div>' +
+        '<div class="ex-kpi-val">4.112 Tỷ <span class="ex-kpi-badge" style="background:#ecfdf5;color:#059669">Sẵn sàng</span></div>' +
+        '<div class="ex-kpi-sub">Chi trả ngày 25 hàng tháng qua VCB</div>' +
+      '</div>' +
+
+      '<div class="ex-kpi-card" onclick="openV74Drill(\'drill_shui\')">' +
+        '<div class="ex-kpi-head"><span>' + d('Social & Health Insurance (SHUI)','Trích Đóng BHXH/BHYT/BHTN') + '</span><span class="ex-kpi-arrow">🏥</span></div>' +
+        '<div class="ex-kpi-val">486.2 Triệu <span class="ex-kpi-badge" style="background:#fef3c7;color:#b45309">32.0%</span></div>' +
+        '<div class="ex-kpi-sub">Cty 21.5% (326.8Tr) · NLĐ 10.5% (159.4Tr)</div>' +
+      '</div>' +
+
+      '<div class="ex-kpi-card" onclick="openV74Drill(\'drill_pit\')">' +
+        '<div class="ex-kpi-head"><span>' + d('Personal Income Tax (PIT)','Khấu Trừ Thuế TNCN (PIT)') + '</span><span class="ex-kpi-arrow">📋</span></div>' +
+        '<div class="ex-kpi-val">226.3 Triệu <span class="ex-kpi-badge" style="background:#e0f2fe;color:#0284c7">Đã đối soát</span></div>' +
+        '<div class="ex-kpi-sub">168.0Tr HCM · 58.3Tr Hà Nội</div>' +
+      '</div>' +
+    '</div>' +
+
+    '<!-- Performance & Cost Overview (Dual Panels) -->' +
+    '<div class="ex-perf-card">' +
+      '<div class="ex-perf-head">' +
+        '<h3>' + d('Payroll Fund Growth & Discipline Labor Cost Breakdown','Xu Hướng Quỹ Lương & Cơ Cấu Chi Phí Nhân Công Theo Khối') + '</h3>' +
+        '<div class="ex-pill-btn">T5/2026 – T8/2026 ▼</div>' +
+      '</div>' +
+      '<div class="ex-perf-grid">' +
+        '<!-- Left: SVG Line Trend -->' +
+        '<div>' +
+          '<div style="display:flex;align-items:baseline;gap:8px;margin-bottom:6px">' +
+            '<span style="font-size:26px;font-weight:900;color:#0f172a">4.825 Tỷ VNĐ</span>' +
+            '<span style="font-size:12.5px;font-weight:750;color:#475569">' + d('MONTHLY SALARY FUND','QUỸ LƯƠNG & OT THÁNG 8') + '</span>' +
+            '<span class="ex-kpi-badge">▲ +2.6% MoM</span>' +
+          '</div>' +
+          '<div class="ex-line-chart-wrap">' +
+            '<svg class="ex-line-svg" viewBox="0 0 450 100">' +
+              '<defs>' +
+                '<linearGradient id="payGrad" x1="0%" y1="0%" x2="0%" y2="100%">' +
+                  '<stop offset="0%" stop-color="#0d9488" stop-opacity="0.35" />' +
+                  '<stop offset="100%" stop-color="#0d9488" stop-opacity="0.0" />' +
+                '</linearGradient>' +
+              '</defs>' +
+              '<line x1="0" y1="20" x2="450" y2="20" stroke="#e2e8f0" stroke-width="1" />' +
+              '<line x1="0" y1="50" x2="450" y2="50" stroke="#e2e8f0" stroke-width="1" />' +
+              '<line x1="0" y1="80" x2="450" y2="80" stroke="#e2e8f0" stroke-width="1" />' +
+              '<path d="M 20 75 C 120 65, 180 50, 260 38 C 340 28, 380 18, 430 12 L 430 90 L 20 90 Z" fill="url(#payGrad)" />' +
+              '<path d="M 20 75 C 120 65, 180 50, 260 38 C 340 28, 380 18, 430 12" fill="none" stroke="#0d9488" stroke-width="3.5" stroke-linecap="round" />' +
+              '<circle cx="20" cy="75" r="4" fill="#fff" stroke="#0d9488" stroke-width="2.5" />' +
+              '<circle cx="160" cy="54" r="4" fill="#fff" stroke="#0d9488" stroke-width="2.5" />' +
+              '<circle cx="300" cy="32" r="4" fill="#fff" stroke="#0d9488" stroke-width="2.5" />' +
+              '<circle cx="430" cy="12" r="5" fill="#0d9488" stroke="#fff" stroke-width="2" />' +
+            '</svg>' +
+            '<div style="display:flex;justify-content:space-between;font-size:11.5px;font-weight:750;color:#64748b;margin-top:2px">' +
+              '<span>Tháng 5 (4.52 Tỷ)</span><span>Tháng 6 (4.61 Tỷ)</span><span>Tháng 7 (4.70 Tỷ)</span><span>Tháng 8 (4.825 Tỷ)</span>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+
+        '<!-- Right: Column Bar Chart by Discipline -->' +
+        '<div>' +
+          '<div style="font-size:13px;font-weight:750;color:#475569;margin-bottom:6px">' + d('Labor Cost by Discipline','Chi Phí Nhân Công Theo Khối') + '</div>' +
+          '<div class="ex-bars-wrap">' +
+            '<div class="ex-bar-item">' +
+              '<div class="ex-bar-rect" style="height:80%;background:#1d4ed8"></div>' +
+              '<span class="ex-bar-tag">Kiến Trúc<br><small>1.45 Tỷ</small></span>' +
+            '</div>' +
+            '<div class="ex-bar-item">' +
+              '<div class="ex-bar-rect" style="height:72%;background:#0d9488"></div>' +
+              '<span class="ex-bar-tag">Kết Cấu<br><small>1.28 Tỷ</small></span>' +
+            '</div>' +
+            '<div class="ex-bar-item">' +
+              '<div class="ex-bar-rect" style="height:55%;background:#f97316"></div>' +
+              '<span class="ex-bar-tag">Cơ Điện<br><small>980 Tr</small></span>' +
+            '</div>' +
+            '<div class="ex-bar-item">' +
+              '<div class="ex-bar-rect" style="height:38%;background:#16a34a"></div>' +
+              '<span class="ex-bar-tag">IDD-BIM<br><small>650 Tr</small></span>' +
+            '</div>' +
+            '<div class="ex-bar-item">' +
+              '<div class="ex-bar-rect" style="height:28%;background:#eab308"></div>' +
+              '<span class="ex-bar-tag">G&A Pool<br><small>465 Tr</small></span>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+
+    '<!-- 2-Column Body Grid -->' +
+    '<div class="ex-body-grid">' +
+      '<!-- Left Column: Project Labor Cost Allocation Table -->' +
+      '<div class="ex-col">' +
+        '<div class="ex-sec-box">' +
+          '<div class="ex-sec-head">' +
+            '<h4>🏢 ' + d("Project Direct Labor Cost Allocation","Báo Cáo Phân Bổ Chi Phí Nhân Công Dự Án") + '</h4>' +
+            '<span class="badge ok" style="font-size:11.5px">Tháng 08/2026</span>' +
+          '</div>' +
+          '<div class="ex-row-item">' +
+            '<div class="ex-row-icon-title">' +
+              '<div class="ex-icon-circle" style="background:#e0f2fe;color:#0284c7">🏢</div>' +
+              '<div><div>Khu phức hợp Masteri (HCM)</div><small style="color:#64748b;font-size:11.5px">PRJ-002 · 1.650h kỹ thuật log</small></div>' +
+            '</div>' +
+            '<div class="ex-row-stat">' +
+              '<div class="ex-row-val">462.000.000 đ</div>' +
+              '<div class="ex-row-sub" style="color:#059669">Margin 94.4% (8.2 Tỷ HĐ)</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="ex-row-item">' +
+            '<div class="ex-row-icon-title">' +
+              '<div class="ex-icon-circle" style="background:#ecfdf5;color:#059669">🏨</div>' +
+              '<div><div>Khách sạn 5 sao Landmark (HN)</div><small style="color:#64748b;font-size:11.5px">PRJ-003 · 920h kỹ thuật log</small></div>' +
+            '</div>' +
+            '<div class="ex-row-stat">' +
+              '<div class="ex-row-val">322.000.000 đ</div>' +
+              '<div class="ex-row-sub" style="color:#059669">Margin 94.3% (5.6 Tỷ HĐ)</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="ex-row-item">' +
+            '<div class="ex-row-icon-title">' +
+              '<div class="ex-icon-circle" style="background:#fef3c7;color:#d97706">🏛️</div>' +
+              '<div><div>TT Triển Lãm & Hội Nghị (HN)</div><small style="color:#64748b;font-size:11.5px">PRJ-004 · 1.200h kỹ thuật log</small></div>' +
+            '</div>' +
+            '<div class="ex-row-stat">' +
+              '<div class="ex-row-val">360.000.000 đ</div>' +
+              '<div class="ex-row-sub" style="color:#059669">Margin 96.2% (9.5 Tỷ HĐ)</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="ex-row-item">' +
+            '<div class="ex-row-icon-title">' +
+              '<div class="ex-icon-circle" style="background:#f1f5f9;color:#475569">🏢</div>' +
+              '<div><div>Toà nhà CPG Tower (HCM)</div><small style="color:#64748b;font-size:11.5px">DEMO-001 · 480h kỹ thuật log</small></div>' +
+            '</div>' +
+            '<div class="ex-row-stat">' +
+              '<div class="ex-row-val">153.600.000 đ</div>' +
+              '<div class="ex-row-sub" style="color:#059669">Margin 96.8% (4.8 Tỷ HĐ)</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+
+      '<!-- Right Column: Regional Tax & Insurance Reconciliation -->' +
+      '<div class="ex-col">' +
+        '<div class="ex-sec-box">' +
+          '<div class="ex-sec-head">' +
+            '<h4>📋 ' + d("Tax & Statutory Compliance by Location","Báo Cáo Đối Soát Nghĩa Vụ Thuế & Bảo Hiểm 2 Miền") + '</h4>' +
+            '<span class="badge ok" style="font-size:11.5px">Đã Kiểm Toán</span>' +
+          '</div>' +
+          '<div class="ex-row-item">' +
+            '<div class="ex-row-icon-title">' +
+              '<div class="ex-icon-circle" style="background:#eff6ff;color:#1d4ed8">🏢</div>' +
+              '<div><div>Văn phòng TP. Hồ Chí Minh</div><small style="color:#64748b;font-size:11.5px">101 Nhân sự · Quỹ lương 3.475 Tỷ</small></div>' +
+            '</div>' +
+            '<div class="ex-row-stat">' +
+              '<div class="ex-row-val">Thuế: 168.0 Tr · SHUI: 350.0 Tr</div>' +
+              '<div class="ex-row-sub" style="color:#059669">Net: 2.957 Tỷ (VCB HCM)</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="ex-row-item">' +
+            '<div class="ex-row-icon-title">' +
+              '<div class="ex-icon-circle" style="background:#fff7ed;color:#ea580c">🏛️</div>' +
+              '<div><div>Văn phòng Hà Nội</div><small style="color:#64748b;font-size:11.5px">39 Nhân sự · Quỹ lương 1.350 Tỷ</small></div>' +
+            '</div>' +
+            '<div class="ex-row-stat">' +
+              '<div class="ex-row-val">Thuế: 58.3 Tr · SHUI: 136.2 Tr</div>' +
+              '<div class="ex-row-sub" style="color:#059669">Net: 1.155 Tỷ (BIDV HN)</div>' +
+            '</div>' +
+          '</div>' +
+          '<div style="margin-top:12px;background:#f8fafc;border:1px solid #e2e8f0;padding:12px 14px;border-radius:12px;display:flex;justify-content:space-between;align-items:center">' +
+            '<div>' +
+              '<b style="font-size:13px;color:#0f172a">💳 Sẵn Sàng Chi Trả Lương Đợt 25/08</b>' +
+              '<p style="margin:2px 0 0;font-size:11.5px;color:#64748b">File chuyển khoản tự động kèm mật khẩu SMS/Email cho từng KTS</p>' +
+            '</div>' +
+            '<button class="primary" style="padding:6px 12px;font-size:12px;border-radius:8px" onclick="exportBankTransferFile()">Xuất File Đĩa Ngân Hàng</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+window.exportMonthlyPayrollReport = function(){
+  var rows = [
+    ["Ma NV","Ho va Ten","Chuc Danh","Van Phong","Luong Co Ban (Gross)","Phu Cap Trach Nhiem","Tien An & Di Lai","Tien Luong OT","Tong Thu Nhap Gross","BHXH 8%","BHYT 1.5%","BHTN 1%","Giam Tru Gia Canh","Thu Nhap Tinh Thue","Thue TNCN Khau Tru","Thuc Linh (Net Chuyen Khoan)"],
+    ["FN25","Soh Wee Keong","CEO","HCM","180000000","20000000","5000000","0","205000000","2880000","540000","360000","11000000","190220000","59577000","141643000"],
+    ["FN26","Chung Keat Wei","Deputy GD","HN","120000000","15000000","4000000","0","139000000","2880000","540000","360000","11000000","124220000","36477000","98743000"],
+    ["H0072","Nguyen Van A","Lead Architect","HCM","35000000","3000000","1500000","2800000","42300000","2800000","525000","350000","15400000","23225000","2895000","35730000"],
+    ["S0082","Vu Quoc E","Senior Structural Eng.","HN","32000000","2500000","1500000","3200000","39200000","2560000","480000","320000","11000000","2484000","3218000","32622000"],
+    ["S0070","Nguyen Thi Thanh Loan","PA & Admin Executive","HCM","18000000","1000000","1200000","850000","21050000","1440000","270000","180000","11000000","8160000","408000","18752000"],
+    ["H0079","Dao Thi Huong Nhung","HR & Admin Executive","HN","18000000","1000000","1200000","0","20200000","1440000","270000","180000","11000000","7310000","365500","17944500"]
+  ];
+  var csv = rows.map(function(r){ return r.join(','); }).join(String.fromCharCode(10));
+  var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  var url = URL.createObjectURL(blob);
+  var link = document.createElement("a");
+  link.setAttribute("href", url);
+  link.setAttribute("download", "CPG_Monthly_Payroll_Summary_Aug2026.csv");
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  alert(d("Exported Official Monthly Payroll Summary (.csv / Excel) for 140 staff successfully!", "Đã xuất Bảng Lương Tổng Hợp 140 Nhân Sự CPG Tháng 08/2026 (.csv / Excel) thành công!"));
+};
+
+window.exportBankTransferFile = function(){
+  var rows = [
+    ["STT","Ma NV","Ho va Ten","So Tai Khoan","Ten Ngan Hang","Chi Nhanh","So Tien Chuyen Khoan (VND)","Noi Dung Chuyen Khoan"],
+    ["1","FN25","Soh Wee Keong","0071001234567","Vietcombank","Tan Dinh HCM","141643000","CPG Tra Luong T08/2026 - FN25 Soh Wee Keong"],
+    ["2","FN26","Chung Keat Wei","1201000098765","BIDV","Hoan Kiem HN","98743000","CPG Tra Luong T08/2026 - FN26 Chung Keat Wei"],
+    ["3","H0072","Nguyen Van A","0011009876543","Vietcombank","Ba Dinh HN","35730000","CPG Tra Luong T08/2026 - H0072 Nguyen Van A"],
+    ["4","S0082","Vu Quoc E","1221000012345","BIDV","Ha Noi","32622000","CPG Tra Luong T08/2026 - S0082 Vu Quoc E"],
+    ["5","S0070","Nguyen Thi Thanh Loan","0071009988776","Vietcombank","HCM","18752000","CPG Tra Luong T08/2026 - S0070 Nguyen Thi Thanh Loan"],
+    ["6","H0079","Dao Thi Huong Nhung","0011005544332","Vietcombank","Thang Long HN","17944500","CPG Tra Luong T08/2026 - H0079 Dao Thi Huong Nhung"]
+  ];
+  var csv = rows.map(function(r){ return r.join(','); }).join(String.fromCharCode(10));
+  var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  var url = URL.createObjectURL(blob);
+  var link = document.createElement("a");
+  link.setAttribute("href", url);
+  link.setAttribute("download", "CPG_Bank_Transfer_Instruction_Aug2026.csv");
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  alert(d("Exported Official Bank Transfer File (.csv) for Vietcombank & BIDV successfully!", "Đã xuất File Lệnh Chuyển Khoản Ngân Hàng (Vietcombank & BIDV) Tháng 08/2026 thành công!"));
+};
+
 var v74BaseGenericPage = genericPage;
+genericPage = function(){
+  if(state.page === 'home' && state.role === 'leadership'){
+    return hero() + leadershipBiDashboard();
+  }
+  if(state.page === 'home' && state.role === 'payroll'){
+    return hero() + payrollBiDashboard();
+  }
+  if(state.page === 'reports' && ['payroll','leadership','hr'].includes(state.role)){
+    return hero() + payrollBiDashboard();
+  }
+  if(state.page === 'people'){
+    return full140PeoplePage();
+  }
+  if(state.page === 'attendance' && ['hr','payroll','leadership'].includes(state.role)){
+    return hrMasterAttendancePage();
+  }
+  if(typeof v74BaseGenericPage === 'function'){
+    return v74BaseGenericPage();
+  }
+  return homePage();
+};
+
 genericPage = function(){
   if(state.page === 'home' && state.role === 'leadership'){
     return hero() + leadershipBiDashboard();
