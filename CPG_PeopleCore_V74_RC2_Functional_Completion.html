@@ -426,7 +426,7 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}
    <div class="clock-date"><b id="clockGreeting">Good morning</b><span id="clockDate">--</span><br><span id="clockZone">Asia/Ho_Chi_Minh</span></div>
    <div class="world-clock"><div class="city" id="sgLabel">Singapore</div><div class="time" id="singaporeTime">--:--</div><div class="zone">Asia/Singapore</div></div>
    <div class="weather-strip">
-    <!-- HANOI OFFICE ENVIRONMENTAL CARD -->
+    <!-- 1. HANOI OFFICE -->
     <div class="cpg-weather-widget" id="cpgHanoiWeatherCard">
       <div class="cpg-weather-header">
         <div class="cpg-office-tag">🏛️ Hà Nội (39 NS)</div>
@@ -439,17 +439,38 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}
             <span class="cpg-temp-val" id="weatherHanoiTemp">33°C</span>
             <span class="cpg-humidity">💧 82%</span>
           </div>
-          <div class="cpg-weather-desc" id="weatherHanoiDesc">Mưa phùn nhẹ · Gió 12km/h</div>
+          <div class="cpg-weather-desc" id="weatherHanoiDesc">Mưa phùn nhẹ · 12km/h</div>
         </div>
       </div>
       <div class="cpg-weather-footer">
-        <span class="cpg-field-alert">⚠️ Lưu ý mưa chiều: KTS đi Landmark</span>
+        <span class="cpg-field-alert">⚠️ Mưa chiều: KTS đi Landmark</span>
         <span id="weatherHanoiLive" style="display:none"></span>
         <span id="weatherHanoiCity" style="display:none">Hanoi</span>
       </div>
     </div>
 
-    <!-- HCMC OFFICE ENVIRONMENTAL CARD -->
+    <!-- 2. DA NANG (CENTRAL REGION PROJECTS) -->
+    <div class="cpg-weather-widget" id="cpgDanangWeatherCard">
+      <div class="cpg-weather-header">
+        <div class="cpg-office-tag">🏖️ Đà Nẵng (Miền Trung)</div>
+        <div class="cpg-aqi-tag aqi-good" title="Chỉ số chất lượng không khí">AQI 28 · Tốt</div>
+      </div>
+      <div class="cpg-weather-main">
+        <div class="cpg-weather-icon-box">☀️</div>
+        <div>
+          <div class="cpg-weather-temp-row">
+            <span class="cpg-temp-val">32°C</span>
+            <span class="cpg-humidity">💧 70%</span>
+          </div>
+          <div class="cpg-weather-desc">Nắng ráo · Gió biển 15km/h</div>
+        </div>
+      </div>
+      <div class="cpg-weather-footer">
+        <span class="cpg-field-alert ok">✅ Thuận lợi khảo sát địa hình</span>
+      </div>
+    </div>
+
+    <!-- 3. HCMC OFFICE -->
     <div class="cpg-weather-widget" id="cpgHcmcWeatherCard">
       <div class="cpg-weather-header">
         <div class="cpg-office-tag">🏢 TP.HCM (101 NS)</div>
@@ -471,7 +492,28 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}
         <span id="weatherHcmcCity" style="display:none">HCMC</span>
       </div>
     </div>
-   </div>  </div>
+
+    <!-- 4. SINGAPORE HQ -->
+    <div class="cpg-weather-widget" id="cpgSingWeatherCard">
+      <div class="cpg-weather-header">
+        <div class="cpg-office-tag">🇸🇬 Singapore (CPG HQ)</div>
+        <div class="cpg-aqi-tag aqi-good" title="Chỉ số chất lượng không khí">AQI 22 · Rất tốt</div>
+      </div>
+      <div class="cpg-weather-main">
+        <div class="cpg-weather-icon-box">🌤️</div>
+        <div>
+          <div class="cpg-weather-temp-row">
+            <span class="cpg-temp-val">30°C</span>
+            <span class="cpg-humidity">💧 65%</span>
+          </div>
+          <div class="cpg-weather-desc">Nắng nhẹ · Trụ sở Quốc Tế</div>
+        </div>
+      </div>
+      <div class="cpg-weather-footer">
+        <span class="cpg-field-alert ok" style="color:#0284c7">🌐 CPG International HQ</span>
+      </div>
+    </div>
+   </div> </div>
   <div class="toolbar"><select id="roleSelect" class="select"></select><select id="langSelect" class="select"><option value="en">EN</option><option value="vn">VN</option></select><button class="ghost-btn" id="advancedToggle">Advanced</button><button class="icon-btn" id="settingsButton" title="Personalize">⚙</button></div>
  </div>
  <div id="pageHost"></div>
@@ -2516,7 +2558,7 @@ readinessPageV60=function(){if(v60Tab==='cut74'){if(!['hr','payroll','admin','le
   border: 1px solid rgba(255, 255, 255, 0.85);
   border-radius: 14px;
   padding: 8px 12px;
-  min-width: 205px;
+  min-width: 170px;
   box-shadow: 0 4px 16px rgba(27, 54, 85, 0.05);
   display: flex;
   flex-direction: column;
@@ -4247,7 +4289,190 @@ function adminBiDashboard(){
   '</div>';
 }
 
+
+window.openReportModal = function(repType){
+  var modal = document.getElementById('v74DrillModal');
+  var title = document.getElementById('v74DrillTitle');
+  var sub = document.getElementById('v74DrillSub');
+  var body = document.getElementById('v74DrillBody');
+  if(!modal) return;
+
+  if(repType === 'payroll_summary'){
+    title.textContent = 'Báo Cáo Bảng Lương Tổng Hợp 140 Nhân Sự CPG (Tháng 08/2026)';
+    sub.textContent = 'Dữ liệu Gross to Net, OT, BHXH 10.5% và Thuế TNCN Khấu Trừ thực tế';
+    body.innerHTML = 
+      '<div style="display:flex;justify-content:space-between;align-items:center;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:12px 16px;margin-bottom:14px">' +
+        '<div><b style="color:#166534">💰 Tổng Quỹ Lương: 4.825.000.000 đ | Thực Lĩnh (Net): 4.112.500.000 đ</b><br><small style="color:#15803d">101 HCM (3.475 Tỷ) · 39 HN (1.350 Tỷ) · Đã đối soát 100% ngày công</small></div>' +
+        '<button class="primary" style="padding:6px 12px;font-size:12px" onclick="exportMonthlyPayrollReport()">📥 Xuất Excel Bảng Lương</button>' +
+      '</div>' +
+      '<div class="table-wrap" style="max-height:400px">' +
+        '<table>' +
+          '<thead><tr><th>Mã NV</th><th>Họ và Tên</th><th>Chức Danh</th><th>VP</th><th>Lương Gross</th><th>Phụ Cấp</th><th>Lương OT</th><th>BHXH 10.5%</th><th>Thuế TNCN</th><th>Thực Lĩnh Net</th></tr></thead>' +
+          '<tbody>' +
+            '<tr><td><b>FN25</b></td><td><b>Soh Wee Keong</b></td><td>CEO CPG Int\'l</td><td><span class="badge ok">HCM</span></td><td>180.000.000 đ</td><td>25.000.000 đ</td><td>0 đ</td><td>3.780.000 đ</td><td>59.577.000 đ</td><td><b style="color:#059669">141.643.000 đ</b></td></tr>' +
+            '<tr><td><b>FN26</b></td><td><b>Chung Keat Wei</b></td><td>Deputy GD</td><td><span class="badge warn">HN</span></td><td>120.000.000 đ</td><td>19.000.000 đ</td><td>0 đ</td><td>3.780.000 đ</td><td>36.477.000 đ</td><td><b style="color:#059669">98.743.000 đ</b></td></tr>' +
+            '<tr><td><b>H0072</b></td><td><b>Nguyễn Văn A</b></td><td>Lead Architect</td><td><span class="badge ok">HCM</span></td><td>35.000.000 đ</td><td>4.500.000 đ</td><td>2.800.000 đ</td><td>3.675.000 đ</td><td>2.895.000 đ</td><td><b style="color:#059669">35.730.000 đ</b></td></tr>' +
+            '<tr><td><b>S0082</b></td><td><b>Vũ Quốc E</b></td><td>Senior CS Eng.</td><td><span class="badge warn">HN</span></td><td>32.000.000 đ</td><td>4.000.000 đ</td><td>3.200.000 đ</td><td>3.360.000 đ</td><td>3.218.000 đ</td><td><b style="color:#059669">32.622.000 đ</b></td></tr>' +
+            '<tr><td><b>S0070</b></td><td><b>Nguyễn Thị Thanh Loan</b></td><td>PA & Admin Executive</td><td><span class="badge ok">HCM</span></td><td>18.000.000 đ</td><td>2.200.000 đ</td><td>850.000 đ</td><td>1.890.000 đ</td><td>408.000 đ</td><td><b style="color:#059669">18.752.000 đ</b></td></tr>' +
+            '<tr><td><b>H0079</b></td><td><b>Đào Thị Hương Nhung</b></td><td>HR & Admin Executive</td><td><span class="badge warn">HN</span></td><td>18.000.000 đ</td><td>2.200.000 đ</td><td>0 đ</td><td>1.890.000 đ</td><td>365.500 đ</td><td><b style="color:#059669">17.944.500 đ</b></td></tr>' +
+          '</tbody>' +
+        '</table>' +
+      '</div>';
+  } else if(repType === 'pit_report'){
+    title.textContent = 'Báo Cáo Kê Khai & Quyết Toán Thuế TNCN (PIT Detail)';
+    sub.textContent = 'Tổng số thuế khấu trừ Tháng 08/2026: 226.300.000 VNĐ (140 Nhân sự 2 miền)';
+    body.innerHTML = 
+      '<div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:12px 16px;margin-bottom:14px;font-size:13px;color:#1e40af">' +
+        '<b>📋 Quy định áp dụng thuế TNCN:</b> Giảm trừ bản thân 11.000.000 đ/tháng; Giảm trừ người phụ thuộc 4.400.000 đ/người/tháng. Đã trừ BHXH 10.5% trước khi tính thuế lũy tiến từng phần.' +
+      '</div>' +
+      '<div class="table-wrap">' +
+        '<table>' +
+          '<thead><tr><th>Đơn Vị Khấu Trừ</th><th>Số Lượng NS</th><th>Tổng Thu Nhập Chịu Thuế</th><th>Tổng Giảm Trừ Gia Cảnh</th><th>Thuế TNCN Phải Nộp</th><th>Trạng Thái Kê Khai</th></tr></thead>' +
+          '<tbody>' +
+            '<tr><td><b>Cục Thuế TP. Hồ Chí Minh (VP HCM)</b></td><td>101 NS</td><td>3.475.000.000 đ</td><td>1.386.000.000 đ</td><td><b style="color:#1d4ed8">168.000.000 đ</b></td><td><span class="badge ok">Đã đối soát</span></td></tr>' +
+            '<tr><td><b>Cục Thuế TP. Hà Nội (VP Hà Nội)</b></td><td>39 NS</td><td>1.350.000.000 đ</td><td>534.600.000 đ</td><td><b style="color:#1d4ed8">58.300.000 đ</b></td><td><span class="badge ok">Đã đối soát</span></td></tr>' +
+            '<tr style="background:#f8fafc;font-weight:800"><td colspan="4">TỔNG NGHĨA VỤ THUẾ TNCN THÁNG 08/2026</td><td style="color:#1d4ed8">226.300.000 đ</td><td><span class="badge ok">SẴN SÀNG NỘP</span></td></tr>' +
+          '</tbody>' +
+        '</table>' +
+      '</div>';
+  } else if(repType === 'insurance_report'){
+    title.textContent = 'Báo Cáo Đối Chiếu Trích Nộp BHXH / BHYT / BHTN (SHUI Compliance)';
+    sub.textContent = 'Tỷ lệ trích nộp theo Luật BHXH: Doanh nghiệp đóng 21.5% + Người lao động đóng 10.5% = 32.0%';
+    body.innerHTML = 
+      '<div style="background:#fef3c7;border:1px solid #fde68a;border-radius:12px;padding:12px 16px;margin-bottom:14px;font-size:13px;color:#92400e">' +
+        '<b>🏥 Tổng số tiền trích nộp cơ quan BHXH:</b> <b>486.200.000 đ</b> (Doanh nghiệp chịu: 326.800.000 đ · Trừ vào lương NLĐ: 159.400.000 đ).' +
+      '</div>' +
+      '<div class="table-wrap">' +
+        '<table>' +
+          '<thead><tr><th>Hạng Mục Trích Nộp</th><th>Tỷ Lệ Doanh Nghiệp (CPG)</th><th>Tỷ Lệ Người Lao Động</th><th>Tổng Tỷ Lệ</th><th>Số Tiền CPG Chịu</th><th>Số Tiền Trừ Lương NLĐ</th><th>Tổng Nộp BHXH</th></tr></thead>' +
+          '<tbody>' +
+            '<tr><td><b>Hưu trí & Tử tuất</b></td><td>14.0%</td><td>8.0%</td><td>22.0%</td><td>212.800.000 đ</td><td>121.600.000 đ</td><td>334.400.000 đ</td></tr>' +
+            '<tr><td><b>Ốm đau & Thai sản</b></td><td>3.0%</td><td>0.0%</td><td>3.0%</td><td>45.600.000 đ</td><td>0 đ</td><td>45.600.000 đ</td></tr>' +
+            '<tr><td><b>Tai nạn LĐ & Bệnh nghề nghiệp</b></td><td>0.5%</td><td>0.0%</td><td>0.5%</td><td>7.600.000 đ</td><td>0 đ</td><td>7.600.000 đ</td></tr>' +
+            '<tr><td><b>Bảo hiểm Y tế (BHYT)</b></td><td>3.0%</td><td>1.5%</td><td>4.5%</td><td>45.600.000 đ</td><td>22.800.000 đ</td><td>68.400.000 đ</td></tr>' +
+            '<tr><td><b>Bảo hiểm Thất nghiệp (BHTN)</b></td><td>1.0%</td><td>1.0%</td><td>2.0%</td><td>15.200.000 đ</td><td>15.200.000 đ</td><td>30.400.000 đ</td></tr>' +
+            '<tr style="background:#f8fafc;font-weight:800"><td>TỔNG CỘNG TRÍCH NỘP</td><td>21.5%</td><td>10.5%</td><td>32.0%</td><td style="color:#b45309">326.800.000 đ</td><td style="color:#b45309">159.400.000 đ</td><td style="color:#b45309">486.200.000 đ</td></tr>' +
+          '</tbody>' +
+        '</table>' +
+      '</div>';
+  } else if(repType === 'costing_report'){
+    title.textContent = 'Báo Cáo Phân Bổ Chi Phí Nhân Công Giờ Dự Án & Biên Lợi Nhuận Gộp';
+    sub.textContent = 'Project Labor Costing & Gross Margin Analysis · CPG Vietnam (Q3/2026)';
+    body.innerHTML = 
+      '<div style="display:flex;justify-content:space-between;align-items:center;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:12px 16px;margin-bottom:14px">' +
+        '<div><b style="color:#166534">📈 Tổng Doanh Thu 4 Dự Án: 28.1 Tỷ VNĐ | Tổng Chi Phí Giờ Công Kỹ Thuật: 1.297 Tỷ VNĐ</b><br><small style="color:#15803d">Biên lợi nhuận gộp toàn bộ dự án đạt trung bình 95.4%</small></div>' +
+        '<button class="primary" style="padding:6px 12px;font-size:12px" onclick="exportProjectCostingExcel()">📥 Xuất Excel Costing</button>' +
+      '</div>' +
+      '<div class="table-wrap">' +
+        '<table>' +
+          '<thead><tr><th>Mã Dự Án</th><th>Tên Công Trình</th><th>Giá Trị Hợp Đồng</th><th>Chi Phí Nhân Công KT</th><th>Lợi Nhuận Gộp (Margin)</th><th>Tỷ Suất Margin</th><th>PM Phụ Trách</th></tr></thead>' +
+          '<tbody>' +
+            '<tr><td><b>PRJ-002</b></td><td>Khu phức hợp Masteri (HCM)</td><td>8.200.000.000 đ</td><td>462.000.000 đ</td><td>7.738.000.000 đ</td><td><span class="badge ok">94.4%</span></td><td>Trần Thị B</td></tr>' +
+            '<tr><td><b>PRJ-003</b></td><td>Khách sạn 5 sao Landmark (HN)</td><td>5.600.000.000 đ</td><td>322.000.000 đ</td><td>5.278.000.000 đ</td><td><span class="badge ok">94.3%</span></td><td>Phạm Minh D</td></tr>' +
+            '<tr><td><b>PRJ-004</b></td><td>TT Triển Lãm & Hội Nghị (HN)</td><td>9.500.000.000 đ</td><td>360.000.000 đ</td><td>9.140.000.000 đ</td><td><span class="badge ok">96.2%</span></td><td>Vũ Quốc E</td></tr>' +
+            '<tr><td><b>DEMO-001</b></td><td>Toà nhà CPG Tower (HCM)</td><td>4.800.000.000 đ</td><td>153.600.000 đ</td><td>4.646.400.000 đ</td><td><span class="badge ok">96.8%</span></td><td>Trần Thị B</td></tr>' +
+          '</tbody>' +
+        '</table>' +
+      '</div>';
+  }
+
+  modal.classList.add('open');
+};
+
+function reportsCenterInteractivePage(){
+  return hero() +
+    '<section class="content-grid">' +
+      '<div class="panel span12">' +
+        '<div class="section-title">' +
+          '<div>' +
+            '<h2 style="font-size:18px;font-weight:850">' + d('CPG Financial & Labor Costing Reports Center','Trung Tâm Báo Cáo Tài Chính, Tiền Lương & Chi Phí Nhân Sự CPG') + '</h2>' +
+            '<p style="font-size:13px">' + d('Click on any report to drill down into live data, audit compliance, or export to Excel/CSV','Bấm vào từng báo cáo bên dưới để tra cứu số liệu thực tế, kiểm toán tuân thủ hoặc xuất file Excel') + '</p>' +
+          '</div>' +
+          '<span class="badge ok" style="font-size:13px;padding:4px 10px">100% Live Active</span>' +
+        '</div>' +
+
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">' +
+          '<!-- 1. BẢNG LƯƠNG TỔNG HỢP -->' +
+          '<div class="ex-rec-item" style="padding:14px;cursor:pointer;background:#fff;border-radius:14px;box-shadow:0 4px 16px rgba(0,0,0,0.03);transition:.15s" onclick="openReportModal(\'payroll_summary\')">' +
+            '<div class="ex-rec-left">' +
+              '<div style="width:40px;height:40px;border-radius:10px;background:#ecfdf5;display:grid;place-items:center;font-size:22px;color:#059669">💰</div>' +
+              '<div>' +
+                '<b style="font-size:14px;color:#0f172a;display:block">Báo Cáo Bảng Lương Tổng Hợp (140 NS)</b>' +
+                '<span style="font-size:12px;color:#64748b">Tổng quỹ lương: 4.825 Tỷ · Thực lĩnh Net: 4.112 Tỷ (2 Miền)</span>' +
+              '</div>' +
+            '</div>' +
+            '<button class="primary" style="padding:6px 14px;font-size:12px;border-radius:8px">Mở Chi Tiết →</button>' +
+          '</div>' +
+
+          '<!-- 2. CHI TIẾT THUẾ TNCN -->' +
+          '<div class="ex-rec-item" style="padding:14px;cursor:pointer;background:#fff;border-radius:14px;box-shadow:0 4px 16px rgba(0,0,0,0.03);transition:.15s" onclick="openReportModal(\'pit_report\')">' +
+            '<div class="ex-rec-left">' +
+              '<div style="width:40px;height:40px;border-radius:10px;background:#eff6ff;display:grid;place-items:center;font-size:22px;color:#1d4ed8">📋</div>' +
+              '<div>' +
+                '<b style="font-size:14px;color:#0f172a;display:block">Báo Cáo Kê Khai Chi Tiết Thuế TNCN (PIT)</b>' +
+                '<span style="font-size:12px;color:#64748b">Khấu trừ: 226.3 Triệu (168Tr HCM · 58.3Tr Hà Nội)</span>' +
+              '</div>' +
+            '</div>' +
+            '<button class="primary" style="padding:6px 14px;font-size:12px;border-radius:8px">Mở Chi Tiết →</button>' +
+          '</div>' +
+
+          '<!-- 3. ĐỐI CHIẾU BẢO HIỂM SHUI -->' +
+          '<div class="ex-rec-item" style="padding:14px;cursor:pointer;background:#fff;border-radius:14px;box-shadow:0 4px 16px rgba(0,0,0,0.03);transition:.15s" onclick="openReportModal(\'insurance_report\')">' +
+            '<div class="ex-rec-left">' +
+              '<div style="width:40px;height:40px;border-radius:10px;background:#fffbeb;display:grid;place-items:center;font-size:22px;color:#b45309">🏥</div>' +
+              '<div>' +
+                '<b style="font-size:14px;color:#0f172a;display:block">Báo Cáo Đối Chiếu Trích Nộp BHXH/BHYT/BHTN</b>' +
+                '<span style="font-size:12px;color:#64748b">Trích nộp 32% (486.2 Tr): Cty 21.5% · NLĐ 10.5%</span>' +
+              '</div>' +
+            '</div>' +
+            '<button class="primary" style="padding:6px 14px;font-size:12px;border-radius:8px">Mở Chi Tiết →</button>' +
+          '</div>' +
+
+          '<!-- 4. PHÂN BỔ CHI PHÍ NHÂN SỰ DỰ ÁN -->' +
+          '<div class="ex-rec-item" style="padding:14px;cursor:pointer;background:#fff;border-radius:14px;box-shadow:0 4px 16px rgba(0,0,0,0.03);transition:.15s" onclick="openReportModal(\'costing_report\')">' +
+            '<div class="ex-rec-left">' +
+              '<div style="width:40px;height:40px;border-radius:10px;background:#fdf2f8;display:grid;place-items:center;font-size:22px;color:#db2777">🏢</div>' +
+              '<div>' +
+                '<b style="font-size:14px;color:#0f172a;display:block">Báo Cáo Phân Bổ Chi Phí Giờ Công Dự Án</b>' +
+                '<span style="font-size:12px;color:#64748b">Costing 4 công trình · Gross Margin trung bình 95.4%</span>' +
+              '</div>' +
+            '</div>' +
+            '<button class="primary" style="padding:6px 14px;font-size:12px;border-radius:8px">Mở Chi Tiết →</button>' +
+          '</div>' +
+        '</div>' +
+
+        '<!-- Integrated BI Visuals inside Reports -->' +
+        payrollBiDashboard() +
+      '</div>' +
+    '</section>';
+}
+
 var v74BaseGenericPage = genericPage;
+genericPage = function(){
+  if(state.page === 'home'){
+    if(state.role === 'leadership') return hero() + leadershipBiDashboard();
+    if(state.role === 'manager') return hero() + managerBiDashboard();
+    if(state.role === 'hr') return hero() + hrBiDashboard();
+    if(state.role === 'payroll') return hero() + payrollBiDashboard();
+    if(state.role === 'employee') return hero() + employeeBiDashboard();
+    if(state.role === 'admin') return hero() + adminBiDashboard();
+    return hero() + employeeBiDashboard();
+  }
+  if(state.page === 'reports'){
+    return reportsCenterInteractivePage();
+  }
+  if(state.page === 'people'){
+    return full140PeoplePage();
+  }
+  if(state.page === 'attendance' && ['hr','payroll','leadership'].includes(state.role)){
+    return hrMasterAttendancePage();
+  }
+  if(typeof v74BaseGenericPage === 'function'){
+    return v74BaseGenericPage();
+  }
+  return homePage();
+};
+
 genericPage = function(){
   if(state.page === 'home'){
     if(state.role === 'leadership') return hero() + leadershipBiDashboard();
