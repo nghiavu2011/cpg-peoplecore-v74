@@ -3234,7 +3234,14 @@ window.setAttViewMode = function(mode){
   render();
 };
 
-window.exportBravoAttendance = function(){
+
+window.lockAttendanceAndGoPayroll = function(){
+  alert(d("Timesheet & Attendance successfully locked and fed directly into the Native Payroll Engine for August 2026!", "Đã chốt bảng công 140 nhân sự và tự động đồng bộ vào Bảng Tính Lương Tháng 08/2026 thành công!"));
+  state.page = 'payroll';
+  render();
+};
+
+window.exportMonthlyAttendanceReport = function(){
   var rows = [
     ["Ma NV","Ho va Ten","Van Phong","Khoi Chuyen Mon","Ngay Cong Chuan","Cong Thuc Te","Nghi Phep","Giam Sat Tac Gia (Mien Cham Cong)","Gio OT 150%","Gio OT 200%","Di Muon/Ve Som","Trang Thai BRAVO"],
     ["FN25","Soh Wee Keong","HCM","Ban Dieu Hanh","22.0","22.0","0","0","0","0","0","HOP LE"],
@@ -3249,11 +3256,11 @@ window.exportBravoAttendance = function(){
   var url = URL.createObjectURL(blob);
   var link = document.createElement("a");
   link.setAttribute("href", url);
-  link.setAttribute("download", "CPG_BRAVO_Attendance_Summary_Aug2026.csv");
+  link.setAttribute("download", "CPG_Official_Attendance_Summary_Aug2026.csv");
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
-  alert(d("Exported BRAVO Attendance Timesheet (.csv) successfully for 140 staff!", "Đã xuất Bảng Tổng Hợp Công 140 Nhân Sự đồng bộ sang BRAVO Payroll thành công!"));
+  alert(d("Exported BRAVO Attendance Timesheet (.csv) successfully for 140 staff!", "Đã xuất Bảng Tổng Hợp Công 140 Nhân Sự chính thức của công ty thành công!"));
 };
 
 function hrMasterAttendancePage(){
@@ -3347,7 +3354,7 @@ function hrMasterAttendancePage(){
           '<div style="display:flex;gap:8px;align-items:center">' +
             '<button class="people-filter-btn ' + (window.cpgAttViewMode==='all'?'active':'') + '" onclick="setAttViewMode(\'all\')">👥 ' + d('Company Master (140)','Toàn Bộ 140 Nhân Sự') + '</button>' +
             '<button class="people-filter-btn ' + (window.cpgAttViewMode==='self'?'active':'') + '" onclick="setAttViewMode(\'self\')">👤 ' + d('My Personal Clock-in','Chấm Công Của Tôi') + '</button>' +
-            '<button class="primary" style="padding:7px 14px;font-size:12px;border-radius:8px" onclick="exportBravoAttendance()">📤 Xuất Excel BRAVO</button>' +
+            '<button class="primary" style="padding:7px 14px;font-size:12px;border-radius:8px" onclick="exportMonthlyAttendanceReport()">📤 📥 Xuất Bảng Công Tháng</button>' +
           '</div>' +
         '</div>' +
 
