@@ -3213,7 +3213,267 @@ function leadershipBiDashboard(){
 }
 
 // Cleanly intercept genericPage
+
+window.cpgAttOfficeFilter = 'ALL';
+window.cpgAttStatusFilter = 'ALL';
+window.cpgAttSearch = '';
+window.cpgAttViewMode = 'all'; // 'all' (Master 140) or 'self' (Personal)
+
+window.setAttOfficeFilter = function(off){
+  window.cpgAttOfficeFilter = off;
+  render();
+};
+
+window.setAttStatusFilter = function(st){
+  window.cpgAttStatusFilter = st;
+  render();
+};
+
+window.setAttViewMode = function(mode){
+  window.cpgAttViewMode = mode;
+  render();
+};
+
+window.exportBravoAttendance = function(){
+  var rows = [
+    ["Ma NV","Ho va Ten","Van Phong","Khoi Chuyen Mon","Ngay Cong Chuan","Cong Thuc Te","Nghi Phep","Giam Sat Tac Gia (Mien Cham Cong)","Gio OT 150%","Gio OT 200%","Di Muon/Ve Som","Trang Thai BRAVO"],
+    ["FN25","Soh Wee Keong","HCM","Ban Dieu Hanh","22.0","22.0","0","0","0","0","0","HOP LE"],
+    ["FN26","Chung Keat Wei","HN","Ban Dieu Hanh","22.0","22.0","0","0","0","0","0","HOP LE"],
+    ["H0072","Nguyen Van A","HCM","Kien Truc (Architecture)","22.0","21.0","0","1.0 (SUP-001)","6.5","0","0","HOP LE"],
+    ["S0082","Vu Quoc E","HN","Ket Cau (CS)","22.0","20.0","0","2.0 (SUP-002)","8.0","4.0","0","HOP LE"],
+    ["S0070","Nguyen Thi Thanh Loan","HCM","Nhan Su & Hanh Chinh","22.0","22.0","0","0","2.0","0","0","HOP LE"],
+    ["H0079","Dao Thi Huong Nhung","HN","Nhan Su & Hanh Chinh","22.0","22.0","0","0","0","0","0","HOP LE"]
+  ];
+  var csv = rows.map(function(r){ return r.join(','); }).join(String.fromCharCode(10));
+  var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  var url = URL.createObjectURL(blob);
+  var link = document.createElement("a");
+  link.setAttribute("href", url);
+  link.setAttribute("download", "CPG_BRAVO_Attendance_Summary_Aug2026.csv");
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  alert(d("Exported BRAVO Attendance Timesheet (.csv) successfully for 140 staff!", "Đã xuất Bảng Tổng Hợp Công 140 Nhân Sự đồng bộ sang BRAVO Payroll thành công!"));
+};
+
+function hrMasterAttendancePage(){
+  if(window.cpgAttViewMode === 'self'){
+    return renderPersonalAttendanceSection();
+  }
+
+  var staffList = window.CPG_140_CONTACTS || [];
+  
+  // Mock status distribution based on real CPG scenarios
+  var processed = staffList.map(function(c, i){
+    var st = 'PRESENT';
+    var inTime = '08:24';
+    var outTime = '17:35';
+    var otHours = '0.0h';
+    var note = 'Đúng giờ';
+
+    if(c.staffCode === 'H0072'){
+      st = 'SUPERVISION';
+      inTime = 'Công trường';
+      outTime = 'Công trường';
+      note = '✈️ Giám sát tác giả SUP-001 (Masteri)';
+    } else if(c.staffCode === 'S0082'){
+      st = 'SUPERVISION';
+      inTime = 'Công trường';
+      outTime = 'Công trường';
+      note = '✈️ Giám sát tác giả SUP-002 (Landmark HN)';
+    } else if(i % 18 === 0){
+      st = 'LEAVE';
+      inTime = '—';
+      outTime = '—';
+      note = 'Nghỉ phép năm (Đã duyệt)';
+    } else if(i % 25 === 0){
+      st = 'LATE';
+      inTime = '08:42';
+      outTime = '17:45';
+      note = 'Đi muộn 12p (Đã gửi giải trình)';
+    } else if(i % 7 === 0){
+      otHours = '2.5h';
+      outTime = '20:15';
+      note = 'OT tiến độ dự án ' + (c.office==='HCM'?'PRJ-002':'PRJ-003');
+    }
+
+    return {
+      staffCode: c.staffCode,
+      fullName: c.fullName,
+      office: c.office,
+      dept: c.dept,
+      jobTitle: c.jobTitle,
+      status: st,
+      inTime: inTime,
+      outTime: outTime,
+      otHours: otHours,
+      note: note
+    };
+  });
+
+  var filtered = processed.filter(function(p){
+    var matchOff = window.cpgAttOfficeFilter === 'ALL' || p.office === window.cpgAttOfficeFilter;
+    var matchSt = window.cpgAttStatusFilter === 'ALL' || p.status === window.cpgAttStatusFilter;
+    var matchQ = !window.cpgAttSearch || [p.staffCode, p.fullName, p.dept, p.jobTitle, p.note].some(function(v){
+      return String(v).toLowerCase().indexOf(window.cpgAttSearch.toLowerCase()) !== -1;
+    });
+    return matchOff && matchSt && matchQ;
+  });
+
+  var rowsHtml = filtered.map(function(r){
+    var badgeClass = r.status === 'PRESENT' ? 'ok' : (r.status === 'SUPERVISION' ? 'pilot' : (r.status === 'LEAVE' ? 'badge' : 'warn'));
+    var badgeLabel = r.status === 'PRESENT' ? '🏢 Có mặt tại VP' : (r.status === 'SUPERVISION' ? '✈️ Giám sát tác giả' : (r.status === 'LEAVE' ? '🏖️ Nghỉ phép' : '⚠️ Đi muộn'));
+    return '<tr>' +
+      '<td><b>' + r.staffCode + '</b></td>' +
+      '<td><b style="color:#0f172a">' + r.fullName + '</b></td>' +
+      '<td><span class="badge ' + (r.office==='HCM'?'ok':'warn') + '" style="font-size:11.5px">' + (r.office==='HCM'?'🏢 TP.HCM':'🏛️ Hà Nội') + '</span></td>' +
+      '<td><span class="source-chip" style="font-size:11.5px;font-weight:700">' + r.dept + '</span></td>' +
+      '<td><span style="font-weight:700;color:#0369a1">' + r.inTime + '</span> – <span style="font-weight:700;color:#0369a1">' + r.outTime + '</span></td>' +
+      '<td><b style="color:#b45309">' + r.otHours + '</b></td>' +
+      '<td><span class="badge ' + badgeClass + '" style="font-size:11.5px">' + badgeLabel + '</span></td>' +
+      '<td><span style="font-size:12px;color:#475569">' + r.note + '</span></td>' +
+    '</tr>';
+  }).join('');
+
+  return hero() +
+    '<section class="content-grid">' +
+      '<!-- View Switcher & Title -->' +
+      '<div class="panel span12">' +
+        '<div class="section-title">' +
+          '<div>' +
+            '<h2 style="font-size:18px;font-weight:850">' + d('CPG Master Attendance & OT Management (140 Total)','Quản Trị Bảng Công & Tăng Ca Toàn Công Ty (140 Nhân Sự CPG)') + '</h2>' +
+            '<p style="font-size:13px">' + d('HR Dashboard to monitor workforce attendance, site supervision exemptions, and OT requests','Góc nhìn Nhân sự (HR) theo dõi hiện diện thực tế, miễn trừ công đi công trường và tổng hợp OT') + '</p>' +
+          '</div>' +
+          '<div style="display:flex;gap:8px;align-items:center">' +
+            '<button class="people-filter-btn ' + (window.cpgAttViewMode==='all'?'active':'') + '" onclick="setAttViewMode(\'all\')">👥 ' + d('Company Master (140)','Toàn Bộ 140 Nhân Sự') + '</button>' +
+            '<button class="people-filter-btn ' + (window.cpgAttViewMode==='self'?'active':'') + '" onclick="setAttViewMode(\'self\')">👤 ' + d('My Personal Clock-in','Chấm Công Của Tôi') + '</button>' +
+            '<button class="primary" style="padding:7px 14px;font-size:12px;border-radius:8px" onclick="exportBravoAttendance()">📤 Xuất Excel BRAVO</button>' +
+          '</div>' +
+        '</div>' +
+
+        '<!-- 4 Quick Attendance KPI Cards -->' +
+        '<div class="ex-kpi-grid" style="margin-bottom:14px">' +
+          '<div class="ex-kpi-card" onclick="setAttStatusFilter(\'PRESENT\')">' +
+            '<div class="ex-kpi-head"><span>Có mặt tại VP</span><span class="ex-kpi-arrow">→</span></div>' +
+            '<div class="ex-kpi-val">128 <span class="ex-kpi-badge">91.4%</span></div>' +
+            '<div class="ex-kpi-sub">94 HCM · 34 HN</div>' +
+          '</div>' +
+          '<div class="ex-kpi-card" onclick="setAttStatusFilter(\'SUPERVISION\')">' +
+            '<div class="ex-kpi-head"><span>Giám sát tác giả (Hiện trường)</span><span class="ex-kpi-arrow">✈️</span></div>' +
+            '<div class="ex-kpi-val">4 <span class="ex-kpi-badge" style="background:#e0f2fe;color:#0284c7">Miễn vân tay</span></div>' +
+            '<div class="ex-kpi-sub">Tự động link Timesheet dự án</div>' +
+          '</div>' +
+          '<div class="ex-kpi-card" onclick="setAttStatusFilter(\'LEAVE\')">' +
+            '<div class="ex-kpi-head"><span>Nghỉ phép có hưởng lương</span><span class="ex-kpi-arrow">🏖️</span></div>' +
+            '<div class="ex-kpi-val">6 <span class="ex-kpi-badge" style="background:#fef3c7;color:#b45309">Đã duyệt</span></div>' +
+            '<div class="ex-kpi-sub">5 phép năm · 1 nghỉ ốm SHUI</div>' +
+          '</div>' +
+          '<div class="ex-kpi-card" onclick="setAttStatusFilter(\'LATE\')">' +
+            '<div class="ex-kpi-head"><span>Đi muộn / Cần xử lý</span><span class="ex-kpi-arrow">⚠️</span></div>' +
+            '<div class="ex-kpi-val">2 <span class="ex-kpi-badge" style="background:#fee2e2;color:#b91c1c">Giải trình</span></div>' +
+            '<div class="ex-kpi-sub">Đã gửi giải trình chờ HR duyệt</div>' +
+          '</div>' +
+        '</div>' +
+
+        '<!-- Filters Bar -->' +
+        '<div class="people-filter-bar">' +
+          '<span style="font-size:12.5px;font-weight:800;color:#475569;margin-right:6px">Lọc Trạng Thái:</span>' +
+          '<button class="people-filter-btn ' + (window.cpgAttStatusFilter==='ALL'?'active':'') + '" onclick="setAttStatusFilter(\'ALL\')">Tất cả (140)</button>' +
+          '<button class="people-filter-btn ' + (window.cpgAttStatusFilter==='PRESENT'?'active':'') + '" onclick="setAttStatusFilter(\'PRESENT\')">🏢 Có mặt tại VP (128)</button>' +
+          '<button class="people-filter-btn ' + (window.cpgAttStatusFilter==='SUPERVISION'?'active':'') + '" onclick="setAttStatusFilter(\'SUPERVISION\')">✈️ Giám sát tác giả (4)</button>' +
+          '<button class="people-filter-btn ' + (window.cpgAttStatusFilter==='LEAVE'?'active':'') + '" onclick="setAttStatusFilter(\'LEAVE\')">🏖️ Nghỉ phép (6)</button>' +
+          '<button class="people-filter-btn ' + (window.cpgAttStatusFilter==='LATE'?'active':'') + '" onclick="setAttStatusFilter(\'LATE\')">⚠️ Đi muộn (2)</button>' +
+        '</div>' +
+
+        '<div class="people-filter-bar" style="margin-bottom:12px">' +
+          '<span style="font-size:12.5px;font-weight:800;color:#475569;margin-right:6px">Văn Phòng:</span>' +
+          '<button class="people-filter-btn ' + (window.cpgAttOfficeFilter==='ALL'?'active':'') + '" onclick="setAttOfficeFilter(\'ALL\')">Cả 2 miền (140)</button>' +
+          '<button class="people-filter-btn ' + (window.cpgAttOfficeFilter==='HCM'?'active':'') + '" onclick="setAttOfficeFilter(\'HCM\')">🏢 TP. Hồ Chí Minh (101)</button>' +
+          '<button class="people-filter-btn ' + (window.cpgAttOfficeFilter==='HN'?'active':'') + '" onclick="setAttOfficeFilter(\'HN\')">🏛️ Hà Nội (39)</button>' +
+        '</div>' +
+
+        '<div style="margin-bottom:12px">' +
+          '<input style="width:100%;max-width:540px;border:1px solid #cbd5e1;background:#fff;padding:9px 14px;border-radius:10px;outline:none;font-size:13px;font-weight:600" ' +
+                 'placeholder="🔍 Tìm kiếm nhân sự theo mã NV, họ tên, phòng ban, ghi chú..." ' +
+                 'value="' + window.cpgAttSearch + '" ' +
+                 'oninput="window.cpgAttSearch=this.value;render()">' +
+        '</div>' +
+
+        '<!-- Master Attendance Table -->' +
+        '<div class="table-wrap" style="max-height:480px">' +
+          '<table>' +
+            '<thead>' +
+              '<tr>' +
+                '<th>Mã NV</th>' +
+                '<th>Họ và Tên</th>' +
+                '<th>Văn Phòng</th>' +
+                '<th>Khối Chuyên Môn</th>' +
+                '<th>Giờ Vào – Ra</th>' +
+                '<th>Tăng Ca (OT)</th>' +
+                '<th>Trạng Thái Hiện Diện</th>' +
+                '<th>Ghi Chú Nghiệp Vụ / Lệnh Điều Động</th>' +
+              '</tr>' +
+            '</thead>' +
+            '<tbody>' +
+              rowsHtml +
+            '</tbody>' +
+          '</table>' +
+        '</div>' +
+      '</div>' +
+    '</section>';
+}
+
+function renderPersonalAttendanceSection(){
+  return hero() +
+    '<section class="content-grid">' +
+      '<div class="panel span12">' +
+        '<div class="section-title">' +
+          '<div>' +
+            '<h2 style="font-size:18px;font-weight:850">Chấm Công & Đăng Ký OT Cá Nhân</h2>' +
+            '<p style="font-size:13px">Dành cho chính bạn thực hiện check-in, gửi giải trình giờ công và đăng ký làm thêm giờ</p>' +
+          '</div>' +
+          '<button class="primary" style="padding:7px 14px;font-size:12px;border-radius:8px" onclick="setAttViewMode(\'all\')">← Quay lại Bảng Công 140 Nhân Sự</button>' +
+        '</div>' +
+      '</div>' +
+      '<div class="panel span4">' +
+        '<div class="section-title"><div><h2>Chấm công hôm nay</h2></div><span class="badge ok">Hoàn thành</span></div>' +
+        '<div class="metrics" style="grid-template-columns:1fr 1fr">' +
+          '<div class="metric"><div class="value">08:28</div><div class="label">Giờ vào</div></div>' +
+          '<div class="metric"><div class="value">17:42</div><div class="label">Giờ ra</div></div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="panel span4">' +
+        '<div class="section-title"><div><h2>Yêu cầu sửa chấm công</h2></div></div>' +
+        '<div class="field"><label>Ngày cần sửa</label><input type="date"></div>' +
+        '<div class="field" style="margin-top:9px"><label>Lý do giải trình (Quên quẹt thẻ / Đi công tác)</label><input placeholder="Nhập lý do..."></div>' +
+        '<div style="margin-top:10px"><button class="secondary" onclick="alert(\'Đã gửi yêu cầu giải trình sửa công tới Quản lý & HR!\')">Gửi giải trình</button></div>' +
+      '</div>' +
+      '<div class="panel span4">' +
+        '<div class="section-title"><div><h2>Đăng ký làm thêm giờ (OT)</h2></div></div>' +
+        '<div class="form-row"><div class="field"><label>Bắt đầu</label><input type="time" value="18:00"></div><div class="field"><label>Kết thúc</label><input type="time" value="20:30"></div></div>' +
+        '<div class="field" style="margin-top:9px"><label>Dự án tính OT</label><select><option value="PRJ-002">PRJ-002 · Masteri Thảo Điền</option><option value="PRJ-003">PRJ-003 · Khách Sạn Landmark HN</option></select></div>' +
+        '<div style="margin-top:10px"><button class="primary" onclick="alert(\'Đã gửi đăng ký OT tới Quản lý Dự án & HR phê duyệt!\')">Gửi đăng ký OT</button></div>' +
+      '</div>' +
+    '</section>';
+}
+
 var v74BaseGenericPage = genericPage;
+genericPage = function(){
+  if(state.page === 'home' && state.role === 'leadership'){
+    return hero() + leadershipBiDashboard();
+  }
+  if(state.page === 'people'){
+    return full140PeoplePage();
+  }
+  if(state.page === 'attendance' && ['hr','payroll','leadership'].includes(state.role)){
+    return hrMasterAttendancePage();
+  }
+  if(typeof v74BaseGenericPage === 'function'){
+    return v74BaseGenericPage();
+  }
+  return homePage();
+};
+
 genericPage = function(){
   if(state.page === 'home' && state.role === 'leadership'){
     return hero() + leadershipBiDashboard();
