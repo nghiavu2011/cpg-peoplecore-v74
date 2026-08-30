@@ -2546,6 +2546,54 @@ readinessPageV60=function(){if(v60Tab==='cut74'){if(!['hr','payroll','admin','le
 <!-- ================= V74-RC2 ENTERPRISE EXPANSION: HIGH-LEGIBILITY & COMPACT EXECUTIVE BI ================= -->
 <style>
 
+
+/* STICKY OPAQUE TABLE HEADER WITH ORANGE DIVIDER - PREVENTS TEXT OVERLAP ON SCROLL */
+.table-wrap {
+  position: relative;
+  overflow: auto;
+  border-radius: 14px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+}
+table {
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  width: 100%;
+}
+table thead {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 20 !important;
+}
+table thead th {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 20 !important;
+  background: #f8fafc !important;
+  color: #1e293b !important;
+  font-size: 12.5px !important;
+  font-weight: 850 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 12px 14px !important;
+  border-top: none !important;
+  border-bottom: 2.5px solid #f97316 !important; /* Line cam phân cách cao cấp */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05) !important;
+}
+table tbody tr {
+  background: #ffffff;
+  transition: background 0.15s ease;
+}
+table tbody tr:hover {
+  background: #f1f5f9 !important;
+}
+table td {
+  padding: 11px 14px !important;
+  font-size: 13px !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+  color: #1e293b !important;
+}
+
 /* ADVANCED REGIONAL ENVIRONMENTAL & AQI WEATHER WIDGETS */
 .weather-strip {
   display: flex !important;
@@ -4457,6 +4505,247 @@ genericPage = function(){
     if(state.role === 'employee') return hero() + employeeBiDashboard();
     if(state.role === 'admin') return hero() + adminBiDashboard();
     return hero() + employeeBiDashboard();
+  }
+  
+window.v74ProjectsData = [
+  {
+    code: 'PRJ-002',
+    name: 'Khu Phức Hợp Masteri Thảo Điền (HCM)',
+    client: 'Tập đoàn Bất Động Sản Masterise Homes',
+    location: 'TP. Hồ Chí Minh',
+    valueVnd: 8200000000,
+    budgetHours: 2400,
+    loggedHours: 1650,
+    laborCostVnd: 462000000,
+    marginPct: '94.4%',
+    stage: 'Thiết kế kỹ thuật thi công & Giám sát tác giả',
+    status: 'ACTIVE · 68.8% BUDGET',
+    pm: 'Trần Thị B (Lead Architect / PM)',
+    team: [
+      { name: 'Nguyễn Văn A', code: 'H0072', role: 'Chủ trì Kiến Trúc (Lead Architect)', dept: 'Kiến Trúc', hours: '640h' },
+      { name: 'Vũ Quốc E', code: 'S0082', role: 'Chủ trì Kết Cấu (Senior CS Eng.)', dept: 'Kết Cấu', hours: '480h' },
+      { name: 'Đặng Thành Dũng', code: 'S0369', role: 'Kỹ sư Mô hình Cơ Điện (MEP Modeller)', dept: 'Cơ Điện', hours: '320h' },
+      { name: 'Phạm Hồng Triết', code: 'S0384', role: 'Điều phối BIM (Senior Manager CS)', dept: 'IDD-BIM', hours: '210h' }
+    ],
+    milestones: [
+      { phase: 'P01 - Concept & Ý tưởng kiến trúc', status: 'COMPLETED (100%)', date: '2026-03-15' },
+      { phase: 'P02 - Thiết kế cơ sở (Schematic)', status: 'COMPLETED (100%)', date: '2026-06-30' },
+      { phase: 'P03 - Thiết kế kỹ thuật thi công (DD)', status: 'IN PROGRESS (85%)', date: '2026-09-10' },
+      { phase: 'A01 - Giám sát tác giả hiện trường', status: 'ONGOING (Lệnh SUP-001)', date: '2026-12-31' }
+    ]
+  },
+  {
+    code: 'PRJ-003',
+    name: 'Khách Sạn Nghỉ Dưỡng 5 Sao Landmark Hà Nội (HN)',
+    client: 'Tập Đoàn Khách Sạn & Du Lịch Quốc Tế',
+    location: 'Hà Nội',
+    valueVnd: 5600000000,
+    budgetHours: 1800,
+    loggedHours: 920,
+    laborCostVnd: 322000000,
+    marginPct: '94.3%',
+    stage: 'Thiết kế cơ sở & Thẩm tra móng hầm',
+    status: 'ACTIVE · 51.1% BUDGET',
+    pm: 'Phạm Minh D (Senior Project Manager HN)',
+    team: [
+      { name: 'Vũ Quốc E', code: 'S0082', role: 'Chủ trì Kết Cấu (Senior CS Eng.)', dept: 'Kết Cấu', hours: '380h' },
+      { name: 'Lê Thị M', code: 'H0080', role: 'KTS Thiết Kế Không Gian (Architect)', dept: 'Kiến Trúc', hours: '310h' },
+      { name: 'Lâm Hoàng Anh', code: 'S0016', role: 'Kỹ sư Kết Cấu Công Trình (C&S Eng.)', dept: 'Kết Cấu', hours: '150h' },
+      { name: 'Nguyễn Quang Hiển', code: 'S0228', role: 'Kỹ sư Cơ Điện (C&S Engineer)', dept: 'Cơ Điện', hours: '80h' }
+    ],
+    milestones: [
+      { phase: 'P01 - Concept & Bố cục công năng', status: 'COMPLETED (100%)', date: '2026-04-20' },
+      { phase: 'P02 - Thiết kế cơ sở & Thẩm tra móng hầm', status: 'IN PROGRESS (70%)', date: '2026-09-25' },
+      { phase: 'P03 - Hồ sơ mời thầu thi công', status: 'PENDING', date: '2026-11-15' }
+    ]
+  },
+  {
+    code: 'PRJ-004',
+    name: 'Trung Tâm Triển Lãm & Hội Nghị Quốc Tế (HN)',
+    client: 'Liên Danh Nhà Nước & Nhà Đầu Tư Hạ Tầng',
+    location: 'Hà Nội',
+    valueVnd: 9500000000,
+    budgetHours: 3000,
+    loggedHours: 1200,
+    laborCostVnd: 360000000,
+    marginPct: '96.2%',
+    stage: 'Lập phương án quy hoạch & Kiến trúc ý tưởng',
+    status: 'ACTIVE · 40.0% BUDGET',
+    pm: 'Vũ Quốc E (Deputy Project Manager)',
+    team: [
+      { name: 'Lê Phan Bảo Lâm', code: 'S0036', role: 'Chuyên Viên MEP BIM Modeller', dept: 'Cơ Điện', hours: '340h' },
+      { name: 'Phạm Minh Hậu', code: 'S0039', role: 'Kỹ Sư Thiết Kế Hệ Thống MEP', dept: 'Cơ Điện', hours: '310h' },
+      { name: 'Trần Khải Hoàn', code: 'S0249', role: 'Kỹ Sư Kết Cấu Khẩu Độ Lớn', dept: 'Kết Cấu', hours: '290h' },
+      { name: 'Lê Hoàng An', code: 'S0292', role: 'Kỹ Sư Kết Cấu Thép (Structural Eng.)', dept: 'Kết Cấu', hours: '260h' }
+    ],
+    milestones: [
+      { phase: 'P01 - Quy hoạch tổng mặt bằng & Concept', status: 'COMPLETED (100%)', date: '2026-05-10' },
+      { phase: 'P02 - Báo cáo nghiên cứu khả thi (FS)', status: 'IN PROGRESS (60%)', date: '2026-10-05' },
+      { phase: 'P03 - Thiết kế kỹ thuật chi tiết', status: 'PLANNED', date: '2026-12-20' }
+    ]
+  },
+  {
+    code: 'DEMO-001',
+    name: 'Toà Nhà Văn Phòng Xanh CPG Tower (HCM)',
+    client: 'Tập Đoàn Đầu Tư CPG International',
+    location: 'TP. Hồ Chí Minh',
+    valueVnd: 4800000000,
+    budgetHours: 1200,
+    loggedHours: 480,
+    laborCostVnd: 153600000,
+    marginPct: '96.8%',
+    stage: 'Nghiệm thu hoàn công & Đánh giá Green Mark',
+    status: 'HANDOVER · 40.0% BUDGET',
+    pm: 'Trần Thị B (Lead Architect) / Soh Wee Keong (Sponsor)',
+    team: [
+      { name: 'Nguyễn Văn A', code: 'H0072', role: 'Chủ trì Kiến Trúc Sảnh & Facade', dept: 'Kiến Trúc', hours: '180h' },
+      { name: 'Nguyễn Trung Tâm', code: 'S0156', role: 'Principal C&S Engineer (Registered)', dept: 'Kết Cấu', hours: '160h' },
+      { name: 'Nguyễn Hoàng Phúc', code: 'S0283', role: 'Chuyên Viên MEP BIM Modeller', dept: 'Cơ Điện', hours: '140h' }
+    ],
+    milestones: [
+      { phase: 'P01 - Thiết kế công trình xanh Green Mark', status: 'COMPLETED (100%)', date: '2026-02-28' },
+      { phase: 'P02 - Thi công & Nghiệm thu hoàn công', status: 'COMPLETED (100%)', date: '2026-07-30' },
+      { phase: 'A01 - Bàn giao đưa vào vận hành', status: 'HANDOVER', date: '2026-08-31' }
+    ]
+  }
+];
+
+window.openProjectModal = function(code){
+  var prj = window.v74ProjectsData.find(function(p){ return p.code === code; });
+  if(!prj) return;
+  var modal = document.getElementById('v74DrillModal');
+  var title = document.getElementById('v74DrillTitle');
+  var sub = document.getElementById('v74DrillSub');
+  var body = document.getElementById('v74DrillBody');
+  if(!modal) return;
+
+  title.textContent = prj.code + ' · ' + prj.name;
+  sub.textContent = 'Chủ Đầu Tư: ' + prj.client + ' | Quản Lý Dự Án: ' + prj.pm;
+
+  var teamRows = prj.team.map(function(t){
+    return '<tr>' +
+      '<td><b>' + t.code + '</b></td>' +
+      '<td><b style="color:#0f172a">' + t.name + '</b></td>' +
+      '<td><span class="source-chip" style="font-size:11.5px">' + t.dept + '</span></td>' +
+      '<td>' + t.role + '</td>' +
+      '<td><b style="color:#0369a1">' + t.hours + '</b></td>' +
+    '</tr>';
+  }).join('');
+
+  var msRows = prj.milestones.map(function(m){
+    var isDone = m.status.indexOf('COMPLETED') !== -1;
+    return '<tr>' +
+      '<td><b>' + m.phase + '</b></td>' +
+      '<td><span class="badge ' + (isDone ? 'ok' : 'warn') + '" style="font-size:11.5px">' + m.status + '</span></td>' +
+      '<td><span style="font-size:12px;color:#475569">' + m.date + '</span></td>' +
+    '</tr>';
+  }).join('');
+
+  body.innerHTML = 
+    '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px">' +
+      '<div style="background:#f8fafc;border:1px solid #e2e8f0;padding:10px 14px;border-radius:12px"><small style="color:#64748b;font-weight:700">Giá Trị Hợp Đồng</small><div style="font-size:18px;font-weight:900;color:#0f172a">' + (prj.valueVnd / 1e9).toFixed(2) + ' Tỷ VNĐ</div></div>' +
+      '<div style="background:#f8fafc;border:1px solid #e2e8f0;padding:10px 14px;border-radius:12px"><small style="color:#64748b;font-weight:700">Chi Phí Giờ Công KT</small><div style="font-size:18px;font-weight:900;color:#0369a1">' + (prj.laborCostVnd / 1e6).toFixed(1) + ' Tr VNĐ</div></div>' +
+      '<div style="background:#f8fafc;border:1px solid #e2e8f0;padding:10px 14px;border-radius:12px"><small style="color:#64748b;font-weight:700">Giờ Đã Log / Ngân Sách</small><div style="font-size:18px;font-weight:900;color:#059669">' + prj.loggedHours + 'h / ' + prj.budgetHours + 'h</div></div>' +
+      '<div style="background:#f8fafc;border:1px solid #e2e8f0;padding:10px 14px;border-radius:12px"><small style="color:#64748b;font-weight:700">Tỷ Suất Gross Margin</small><div style="font-size:18px;font-weight:900;color:#16a34a">' + prj.marginPct + '</div></div>' +
+    '</div>' +
+
+    '<h4 style="margin:12px 0 8px;font-size:14px;font-weight:800">👥 Danh Sách Kỹ Sư & KTS Trực Tiếp Đảm Nhận Dự Án</h4>' +
+    '<div class="table-wrap" style="margin-bottom:14px">' +
+      '<table>' +
+        '<thead><tr><th>Mã NV</th><th>Họ và Tên</th><th>Khối Chuyên Môn</th><th>Nhiệm Vụ Cụ Thể Trong Dự Án</th><th>Giờ Log Tháng</th></tr></thead>' +
+        '<tbody>' + teamRows + '</tbody>' +
+      '</table>' +
+    '</div>' +
+
+    '<h4 style="margin:12px 0 8px;font-size:14px;font-weight:800">📅 Tiến Độ Giai Đoạn Bản Vẽ & Nghiệm Thu Công Trình</h4>' +
+    '<div class="table-wrap">' +
+      '<table>' +
+        '<thead><tr><th>Giai Đoạn Hồ Sơ Kỹ Thuật</th><th>Tình Trạng Tiến Độ</th><th>Thời Hạn Bàn Giao CĐT</th></tr></thead>' +
+        '<tbody>' + msRows + '</tbody>' +
+      '</table>' +
+    '</div>';
+
+  modal.classList.add('open');
+};
+
+function richRealWorldProjectsPage(){
+  var prjRows = window.v74ProjectsData.map(function(p){
+    var burnPct = ((p.loggedHours / p.budgetHours) * 100).toFixed(1);
+    return '<tr>' +
+      '<td><b style="font-size:13.5px;color:#0284c7">' + p.code + '</b></td>' +
+      '<td><b style="font-size:13.5px;color:#0f172a">' + p.name + '</b><br><small style="color:#64748b">' + p.client + '</small></td>' +
+      '<td><span class="badge ' + (p.location.indexOf('HCM')!==-1?'ok':'warn') + '">' + (p.location.indexOf('HCM')!==-1?'🏢 TP.HCM':'🏛️ Hà Nội') + '</span></td>' +
+      '<td><b style="color:#0f172a">' + (p.valueVnd / 1e9).toFixed(2) + ' Tỷ</b></td>' +
+      '<td><b>' + p.loggedHours + 'h</b> / ' + p.budgetHours + 'h<br><div style="width:100px;height:6px;background:#e2e8f0;border-radius:3px;margin-top:3px;overflow:hidden"><div style="width:' + burnPct + '%;height:100%;background:#0284c7"></div></div></td>' +
+      '<td><b style="color:#059669">' + (p.laborCostVnd / 1e6).toFixed(1) + ' Tr</b><br><small style="color:#16a34a">' + p.marginPct + ' Margin</small></td>' +
+      '<td><span style="font-size:12.5px;font-weight:600">' + p.pm + '</span></td>' +
+      '<td><button class="primary" style="padding:6px 12px;font-size:12px;border-radius:8px" onclick="openProjectModal(\'' + p.code + '\')">Xem Chi Tiết →</button></td>' +
+    '</tr>';
+  }).join('');
+
+  return hero() +
+    '<section class="content-grid">' +
+      '<div class="panel span12">' +
+        '<div class="section-title">' +
+          '<div>' +
+            '<h2 style="font-size:18px;font-weight:850">Quản Trị Dự Án & Định Mức Chi Phí Nhân Công (4 Dự Án Thực Tế)</h2>' +
+            '<p style="font-size:13px">Hệ thống phân bổ 140 KTS/Kỹ sư CPG theo từng giai đoạn Concept, Schematic, DD, CD và Giám sát tác giả</p>' +
+          '</div>' +
+          '<div style="display:flex;gap:8px">' +
+            '<button class="secondary" style="padding:7px 14px;font-size:12.5px;font-weight:750;border-radius:8px" onclick="openSupervisionModal()">✈️ Lệnh Giám Sát Tác Giả</button>' +
+            '<button class="primary" style="padding:7px 14px;font-size:12.5px;font-weight:750;border-radius:8px" onclick="exportProjectCostingExcel()">📥 Xuất Excel Costing</button>' +
+          '</div>' +
+        '</div>' +
+
+        '<!-- 4 Quick Project KPI Cards -->' +
+        '<div class="ex-kpi-grid" style="margin-bottom:14px">' +
+          '<div class="ex-kpi-card" onclick="exportProjectCostingExcel()">' +
+            '<div class="ex-kpi-head"><span>Tổng Giá Trị Hợp Đồng (4 DA)</span><span class="ex-kpi-arrow">→</span></div>' +
+            '<div class="ex-kpi-val">28.1 Tỷ <span class="ex-kpi-badge">Doanh thu</span></div>' +
+            '<div class="ex-kpi-sub">8.2T Masteri · 9.5T Triển Lãm...</div>' +
+          '</div>' +
+          '<div class="ex-kpi-card">' +
+            '<div class="ex-kpi-head"><span>Chi Phí Giờ Công Kỹ Thuật</span><span class="ex-kpi-arrow">⚡</span></div>' +
+            '<div class="ex-kpi-val">1.297 Tỷ <span class="ex-kpi-badge" style="background:#ecfdf5;color:#059669">4.6% Doanh Thu</span></div>' +
+            '<div class="ex-kpi-sub">1.650h Masteri · 920h Landmark</div>' +
+          '</div>' +
+          '<div class="ex-kpi-card">' +
+            '<div class="ex-kpi-head"><span>Biên Lợi Nhuận Gộp TB</span><span class="ex-kpi-arrow">📈</span></div>' +
+            '<div class="ex-kpi-val">95.4% <span class="ex-kpi-badge" style="background:#ecfdf5;color:#059669">Siêu Lợi Nhuận</span></div>' +
+            '<div class="ex-kpi-sub">Tư vấn thiết kế chất xám cao</div>' +
+          '</div>' +
+          '<div class="ex-kpi-card">' +
+            '<div class="ex-kpi-head"><span>Tình Trạng Ngân Sách Giờ</span><span class="ex-kpi-arrow">🛡️</span></div>' +
+            '<div class="ex-kpi-val">100% Safe <span class="ex-kpi-badge">Trong Định Mức</span></div>' +
+            '<div class="ex-kpi-sub">4/4 Dự án dưới trần giờ công</div>' +
+          '</div>' +
+        '</div>' +
+
+        '<div class="table-wrap">' +
+          '<table>' +
+            '<thead>' +
+              '<tr>' +
+                '<th>Mã Dự Án</th>' +
+                '<th>Tên Công Trình & Chủ Đầu Tư</th>' +
+                '<th>Văn Phòng</th>' +
+                '<th>Giá Trị HĐ (VND)</th>' +
+                '<th>Giờ Đã Log / Budget</th>' +
+                '<th>CP Nhân Công KT (Margin)</th>' +
+                '<th>PM Phụ Trách</th>' +
+                '<th>Hành Động</th>' +
+              '</tr>' +
+            '</thead>' +
+            '<tbody>' +
+              prjRows +
+            '</tbody>' +
+          '</table>' +
+        '</div>' +
+      '</div>' +
+    '</section>';
+}
+
+  if(state.page === 'projects'){
+    return richRealWorldProjectsPage();
   }
   if(state.page === 'reports'){
     return reportsCenterInteractivePage();
