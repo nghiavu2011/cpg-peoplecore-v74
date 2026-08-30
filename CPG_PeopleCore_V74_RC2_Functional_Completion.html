@@ -3714,7 +3714,421 @@ window.exportBankTransferFile = function(){
   alert(d("Exported Official Bank Transfer File (.csv) for Vietcombank & BIDV successfully!", "Đã xuất File Lệnh Chuyển Khoản Ngân Hàng (Vietcombank & BIDV) Tháng 08/2026 thành công!"));
 };
 
+
+/* ================= ROLE-SPECIFIC EXECUTIVE COCKPITS FOR ALL ROLES ================= */
+
+// 1. MANAGER / PROJECT MANAGER DASHBOARD
+function managerBiDashboard(){
+  return '<div class="ex-dash-wrap">' +
+    '<div class="ex-dash-header">' +
+      '<div class="ex-dash-header-title">' +
+        '<div style="width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#6366f1,#818cf8);display:grid;place-items:center;color:#fff;font-size:20px">📐</div>' +
+        '<div>' +
+          '<h2>' + d('Project Manager Operational Cockpit','Báo Cáo Điều Hành Dự Án & Quản Lý Kỹ Sư (PM Lead)') + '</h2>' +
+          '<div style="font-size:12px;color:#475569;font-weight:600">Trần Thị B — Project Manager (Lead Architect / PM Khối Kỹ Thuật)</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="ex-dash-header-tools">' +
+        '<button class="secondary" style="padding:8px 14px;font-size:12.5px;font-weight:750;border-radius:10px" onclick="openSupervisionModal()">✈️ Lệnh Giám Sát Tác Giả</button>' +
+        '<button class="primary" style="padding:8px 14px;font-size:12.5px;font-weight:750;border-radius:10px;background:#4f46e5;border-color:#4f46e5" onclick="state.page=\'approvals\';render()">✓ Duyệt 12 Timesheet Team</button>' +
+      '</div>' +
+    '</div>' +
+
+    '<div class="ex-kpi-grid">' +
+      '<div class="ex-kpi-card" onclick="state.page=\'projects\';render()">' +
+        '<div class="ex-kpi-head"><span>' + d('Team Total Logged Hours','Giờ Công Team Đã Log (T8)') + '</span><span class="ex-kpi-arrow">→</span></div>' +
+        '<div class="ex-kpi-val">4,250h <span class="ex-kpi-badge">70.8% Ngân Sách</span></div>' +
+        '<div class="ex-kpi-sub">Ngân sách trần: 6.000h (4 Dự án)</div>' +
+      '</div>' +
+      '<div class="ex-kpi-card">' +
+        '<div class="ex-kpi-head"><span>' + d('Team Billable Rate','Tỷ Lệ Giờ Billable Team') + '</span><span class="ex-kpi-arrow">⚡</span></div>' +
+        '<div class="ex-kpi-val">93.5% <span class="ex-kpi-badge" style="background:#ecfdf5;color:#059669">Xuất sắc</span></div>' +
+        '<div class="ex-kpi-sub">Mục tiêu bộ phận: > 90%</div>' +
+      '</div>' +
+      '<div class="ex-kpi-card">' +
+        '<div class="ex-kpi-head"><span>' + d('Budget Safety Ratio','Dự Án Trong Ngưỡng An Toàn') + '</span><span class="ex-kpi-arrow">🛡️</span></div>' +
+        '<div class="ex-kpi-val">3/4 Dự Án <span class="ex-kpi-badge">75% Safe</span></div>' +
+        '<div class="ex-kpi-sub">PRJ-002 đạt 68.8% · PRJ-003 đạt 51.1%</div>' +
+      '</div>' +
+      '<div class="ex-kpi-card" onclick="state.page=\'approvals\';render()">' +
+        '<div class="ex-kpi-head"><span>' + d('Pending Timesheet Approvals','Timesheet Chờ PM Duyệt') + '</span><span class="ex-kpi-arrow">⏳</span></div>' +
+        '<div class="ex-kpi-val">12 Phiếu <span class="ex-kpi-badge" style="background:#fee2e2;color:#b91c1c">Cần xử lý</span></div>' +
+        '<div class="ex-kpi-sub">KTS Nguyễn Văn A, Vũ Quốc E...</div>' +
+      '</div>' +
+    '</div>' +
+
+    '<div class="ex-perf-card">' +
+      '<div class="ex-perf-head">' +
+        '<h3>' + d('Team Hour Burn Rate & Discipline Allocation','Tiến Độ Sử Dụng Ngân Sách Giờ Công & Cơ Cấu Bộ Môn') + '</h3>' +
+        '<div class="ex-pill-btn">Tuần 1 – Tuần 4/T8 ▼</div>' +
+      '</div>' +
+      '<div class="ex-perf-grid">' +
+        '<div>' +
+          '<div style="display:flex;align-items:baseline;gap:8px;margin-bottom:6px">' +
+            '<span style="font-size:26px;font-weight:900;color:#0f172a">4,250h / 6,000h</span>' +
+            '<span style="font-size:12.5px;font-weight:750;color:#475569">TIẾN ĐỘ TIÊU THỤ GIỜ CÔNG</span>' +
+            '<span class="ex-kpi-badge">Kiểm soát tốt</span>' +
+          '</div>' +
+          '<div class="ex-line-chart-wrap">' +
+            '<svg class="ex-line-svg" viewBox="0 0 450 100">' +
+              '<line x1="0" y1="20" x2="450" y2="20" stroke="#e2e8f0" stroke-width="1" />' +
+              '<line x1="0" y1="50" x2="450" y2="50" stroke="#e2e8f0" stroke-width="1" />' +
+              '<line x1="0" y1="80" x2="450" y2="80" stroke="#e2e8f0" stroke-width="1" />' +
+              '<path d="M 20 85 C 120 70, 200 55, 300 35 C 380 20, 410 15, 430 12" fill="none" stroke="#6366f1" stroke-width="3.5" stroke-linecap="round" />' +
+              '<circle cx="20" cy="85" r="4" fill="#fff" stroke="#6366f1" stroke-width="2.5" />' +
+              '<circle cx="160" cy="62" r="4" fill="#fff" stroke="#6366f1" stroke-width="2.5" />' +
+              '<circle cx="300" cy="35" r="4" fill="#fff" stroke="#6366f1" stroke-width="2.5" />' +
+              '<circle cx="430" cy="12" r="5" fill="#6366f1" stroke="#fff" stroke-width="2" />' +
+            '</svg>' +
+            '<div style="display:flex;justify-content:space-between;font-size:11.5px;font-weight:750;color:#64748b;margin-top:2px">' +
+              '<span>W1 (1.050h)</span><span>W2 (2.120h)</span><span>W3 (3.180h)</span><span>W4 (4.250h)</span>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div>' +
+          '<div style="font-size:13px;font-weight:750;color:#475569;margin-bottom:6px">Tỷ Trọng Giờ Bộ Môn Team</div>' +
+          '<div class="ex-bars-wrap">' +
+            '<div class="ex-bar-item"><div class="ex-bar-rect" style="height:78%;background:#1d4ed8"></div><span class="ex-bar-tag">Kiến Trúc<br><small>40%</small></span></div>' +
+            '<div class="ex-bar-item"><div class="ex-bar-rect" style="height:65%;background:#0d9488"></div><span class="ex-bar-tag">Kết Cấu<br><small>30%</small></span></div>' +
+            '<div class="ex-bar-item"><div class="ex-bar-rect" style="height:45%;background:#f97316"></div><span class="ex-bar-tag">Cơ Điện<br><small>20%</small></span></div>' +
+            '<div class="ex-bar-item"><div class="ex-bar-rect" style="height:30%;background:#16a34a"></div><span class="ex-bar-tag">IDD-BIM<br><small>10%</small></span></div>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+
+    '<div class="ex-body-grid">' +
+      '<div class="ex-col">' +
+        '<div class="ex-sec-box">' +
+          '<div class="ex-sec-head"><h4>🏢 Tình Trạng Dự Án Quản Lý (4 Công Trình)</h4><span class="badge ok">Live Progress</span></div>' +
+          '<div class="ex-row-item"><div class="ex-row-icon-title"><div class="ex-icon-circle" style="background:#e0f2fe;color:#0284c7">🏢</div><div><div>Masteri Thảo Điền (PRJ-002)</div><small style="color:#64748b">1.650h / 2.400h budget · Lead Arch: Nguyễn Văn A</small></div></div><div class="ex-row-stat"><div class="ex-row-val" style="color:#059669">68.8% (An toàn)</div><div class="ex-row-sub">Nghiệm thu dầm sàn</div></div></div>' +
+          '<div class="ex-row-item"><div class="ex-row-icon-title"><div class="ex-icon-circle" style="background:#ecfdf5;color:#059669">🏨</div><div><div>Khách Sạn Landmark HN (PRJ-003)</div><small style="color:#64748b">920h / 1.800h budget · Senior CS: Vũ Quốc E</small></div></div><div class="ex-row-stat"><div class="ex-row-val" style="color:#059669">51.1% (An toàn)</div><div class="ex-row-sub">Xử lý móng hầm</div></div></div>' +
+          '<div class="ex-row-item"><div class="ex-row-icon-title"><div class="ex-icon-circle" style="background:#fef3c7;color:#d97706">🏛️</div><div><div>TT Triển Lãm & Hội Nghị (PRJ-004)</div><small style="color:#64748b">1.200h / 3.000h budget · PM Vũ Quốc E</small></div></div><div class="ex-row-stat"><div class="ex-row-val" style="color:#059669">40.0% (An toàn)</div><div class="ex-row-sub">Chờ nghiệm thu GĐ1</div></div></div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="ex-col">' +
+        '<div class="ex-sec-box">' +
+          '<div class="ex-sec-head"><h4>✈️ Lệnh Giám Sát Tác Giả & Phê Duyệt Nhanh</h4><button class="primary" style="padding:4px 8px;font-size:11px" onclick="state.page=\'approvals\';render()">Vào Phê Duyệt</button></div>' +
+          '<div class="ex-alert-card"><div style="font-size:18px">✈️</div><div><b>SUP-001: KTS Nguyễn Văn A đi Masteri</b><p>Ngày 02/09/2026. Chị Loan HCM đã book xe CĐT đón. Giờ đi tự động tính vào Timesheet.</p></div></div>' +
+          '<div class="ex-alert-card" style="background:#f0fdf4;border-color:#bbf7d0"><div style="font-size:18px;color:#16a34a">✓</div><div><b>12 Phiếu Timesheet Tuần 4 Đã Nộp</b><p>KTS A (40h PRJ-002), Kỹ sư E (42h PRJ-003). Bấm duyệt để chuyển sang kỳ lương.</p></div></div>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+// 2. HR DASHBOARD
+function hrBiDashboard(){
+  return '<div class="ex-dash-wrap">' +
+    '<div class="ex-dash-header">' +
+      '<div class="ex-dash-header-title">' +
+        '<div style="width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#ec4899,#f43f5e);display:grid;place-items:center;color:#fff;font-size:20px">👥</div>' +
+        '<div>' +
+          '<h2>' + d('Human Resources Master Cockpit','Báo Cáo Tổng Thể Nhân Sự & Vận Hành Đội Ngũ (HR Core)') + '</h2>' +
+          '<div style="font-size:12px;color:#475569;font-weight:600">Phan Thị Mai Thảo — HR Manager (Quản Trị 140 Nhân Sự 2 Miền)</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="ex-dash-header-tools">' +
+        '<button class="secondary" style="padding:8px 14px;font-size:12.5px;font-weight:750;border-radius:10px" onclick="state.page=\'people\';render()">📋 Danh Bạ 140 NS</button>' +
+        '<button class="primary" style="padding:8px 14px;font-size:12.5px;font-weight:750;border-radius:10px;background:#e11d48;border-color:#e11d48" onclick="state.page=\'attendance\';render()">⚡ Quản Trị Bảng Công</button>' +
+      '</div>' +
+    '</div>' +
+
+    '<div class="ex-kpi-grid">' +
+      '<div class="ex-kpi-card" onclick="state.page=\'people\';render()">' +
+        '<div class="ex-kpi-head"><span>' + d('Total Active Workforce','Tổng Quân Số Toàn Công Ty') + '</span><span class="ex-kpi-arrow">→</span></div>' +
+        '<div class="ex-kpi-val">140 NS <span class="ex-kpi-badge">100% Ổn Định</span></div>' +
+        '<div class="ex-kpi-sub">101 HCM · 39 Hà Nội</div>' +
+      '</div>' +
+      '<div class="ex-kpi-card">' +
+        '<div class="ex-kpi-head"><span>' + d('Workforce Retention Rate','Tỷ Lệ Giữ Chân Nhân Tài') + '</span><span class="ex-kpi-arrow">🏆</span></div>' +
+        '<div class="ex-kpi-val">100% <span class="ex-kpi-badge" style="background:#ecfdf5;color:#059669">0 Biến động</span></div>' +
+        '<div class="ex-kpi-sub">116 Khối KT · 24 Khối Support</div>' +
+      '</div>' +
+      '<div class="ex-kpi-card" onclick="state.page=\'contracts\';render()">' +
+        '<div class="ex-kpi-head"><span>' + d('Contracts & Probation Alert','Đến Hạn Tái Ký & Thử Việc') + '</span><span class="ex-kpi-arrow">⏳</span></div>' +
+        '<div class="ex-kpi-val">5 Người <span class="ex-kpi-badge" style="background:#fee2e2;color:#b91c1c">Trong 30 ngày</span></div>' +
+        '<div class="ex-kpi-sub">2 hết 60 ngày thử việc · 3 tái ký HĐ</div>' +
+      '</div>' +
+      '<div class="ex-kpi-card" onclick="state.page=\'attendance\';render()">' +
+        '<div class="ex-kpi-head"><span>' + d('Today Attendance Ratio','Tỷ Lệ Hiện Diện Hôm Nay') + '</span><span class="ex-kpi-arrow">🏢</span></div>' +
+        '<div class="ex-kpi-val">91.4% <span class="ex-kpi-badge">128/140</span></div>' +
+        '<div class="ex-kpi-sub">4 Giám sát tác giả · 6 Nghỉ phép</div>' +
+      '</div>' +
+    '</div>' +
+
+    '<div class="ex-perf-card">' +
+      '<div class="ex-perf-head">' +
+        '<h3>' + d('Workforce Discipline Structure & Demographics','Cơ Cấu 9 Khối Chuyên Môn & Phân Bổ Nhân Lực 2 Miền') + '</h3>' +
+        '<div class="ex-pill-btn">140 Nhân Sự ▼</div>' +
+      '</div>' +
+      '<div class="ex-perf-grid">' +
+        '<div>' +
+          '<div style="display:flex;align-items:baseline;gap:8px;margin-bottom:6px">' +
+            '<span style="font-size:26px;font-weight:900;color:#0f172a">101 HCM vs 39 HN</span>' +
+            '<span style="font-size:12.5px;font-weight:750;color:#475569">CƠ CẤU 2 VĂN PHÒNG</span>' +
+            '<span class="ex-kpi-badge">72% HCM : 28% HN</span>' +
+          '</div>' +
+          '<div class="ex-demo-grid">' +
+            '<div class="ex-demo-circle-box"><div class="ex-ring-wrap"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="19" stroke="#e2e8f0" stroke-width="4.5" fill="none"/><circle cx="24" cy="24" r="19" stroke="#0284c7" stroke-width="4.5" fill="none" stroke-dasharray="119" stroke-dashoffset="10" stroke-linecap="round"/></svg><div class="ex-ring-txt">91%</div></div><b style="font-size:11px;color:#1e293b">Billable</b><small style="font-size:10px;color:#64748b">116 Kỹ sư</small></div>' +
+            '<div class="ex-demo-circle-box"><div class="ex-ring-wrap"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="19" stroke="#e2e8f0" stroke-width="4.5" fill="none"/><circle cx="24" cy="24" r="19" stroke="#059669" stroke-width="4.5" fill="none" stroke-dasharray="119" stroke-dashoffset="0" stroke-linecap="round"/></svg><div class="ex-ring-txt">100%</div></div><b style="font-size:11px;color:#1e293b">Giữ Chân</b><small style="font-size:10px;color:#64748b">140/140</small></div>' +
+            '<div class="ex-demo-circle-box"><div class="ex-ring-wrap"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="19" stroke="#e2e8f0" stroke-width="4.5" fill="none"/><circle cx="24" cy="24" r="19" stroke="#eab308" stroke-width="4.5" fill="none" stroke-dasharray="119" stroke-dashoffset="107" stroke-linecap="round"/></svg><div class="ex-ring-txt">4.9%</div></div><b style="font-size:11px;color:#1e293b">G&A Pool</b><small style="font-size:10px;color:#64748b">Overhead</small></div>' +
+            '<div class="ex-demo-circle-box"><div class="ex-ring-wrap"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="19" stroke="#e2e8f0" stroke-width="4.5" fill="none"/><circle cx="24" cy="24" r="19" stroke="#8b5cf6" stroke-width="4.5" fill="none" stroke-dasharray="119" stroke-dashoffset="7" stroke-linecap="round"/></svg><div class="ex-ring-txt">94%</div></div><b style="font-size:11px;color:#1e293b">Bảo Hiểm</b><small style="font-size:10px;color:#64748b">SHUI nộp đủ</small></div>' +
+          '</div>' +
+        '</div>' +
+        '<div>' +
+          '<div style="font-size:13px;font-weight:750;color:#475569;margin-bottom:6px">Phân Bổ Nhân Lực 9 Khối</div>' +
+          '<div class="ex-bars-wrap">' +
+            '<div class="ex-bar-item"><div class="ex-bar-rect" style="height:85%;background:#1d4ed8"></div><span class="ex-bar-tag">Kiến Trúc<br><small>42 NS</small></span></div>' +
+            '<div class="ex-bar-item"><div class="ex-bar-rect" style="height:75%;background:#0d9488"></div><span class="ex-bar-tag">Kết Cấu<br><small>36 NS</small></span></div>' +
+            '<div class="ex-bar-item"><div class="ex-bar-rect" style="height:55%;background:#f97316"></div><span class="ex-bar-tag">Cơ Điện<br><small>24 NS</small></span></div>' +
+            '<div class="ex-bar-item"><div class="ex-bar-rect" style="height:38%;background:#16a34a"></div><span class="ex-bar-tag">IDD-BIM<br><small>14 NS</small></span></div>' +
+            '<div class="ex-bar-item"><div class="ex-bar-rect" style="height:48%;background:#eab308"></div><span class="ex-bar-tag">Support<br><small>24 NS</small></span></div>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+
+    '<div class="ex-body-grid">' +
+      '<div class="ex-col">' +
+        '<div class="ex-sec-box">' +
+          '<div class="ex-sec-head"><h4>⏳ Hạn Hợp Đồng Lao Động & Thử Việc (30 Ngày Tới)</h4><span class="badge warn">5 Hồ sơ</span></div>' +
+          '<div class="ex-row-item"><div class="ex-row-icon-title"><div class="ex-icon-circle" style="background:#fee2e2;color:#b91c1c">📋</div><div><div>Kỹ sư Trần Văn K (MEP Team HCM)</div><small style="color:#64748b">Hết hạn 60 ngày thử việc ngày 15/09/2026</small></div></div><div class="ex-row-stat"><div class="ex-row-val" style="color:#059669">Đạt 94/100 điểm</div><div class="ex-row-sub">Đề xuất ký HĐ 12T</div></div></div>' +
+          '<div class="ex-row-item"><div class="ex-row-icon-title"><div class="ex-icon-circle" style="background:#fef3c7;color:#b45309">📋</div><div><div>KTS Lê Thị M (Arch Team HN)</div><small style="color:#64748b">Đáo hạn HĐLĐ 12 tháng ngày 30/09/2026</small></div></div><div class="ex-row-stat"><div class="ex-row-val" style="color:#0284c7">Tái ký vô thời hạn</div><div class="ex-row-sub">Trình CEO phê duyệt</div></div></div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="ex-col">' +
+        '<div class="ex-sec-box">' +
+          '<div class="ex-sec-head"><h4>✈️ Điều Động Giám Sát Tác Giả & Hỗ Trợ Logistics</h4><button class="primary" style="padding:4px 8px;font-size:11px" onclick="openSupervisionModal()">Đăng Ký Đợt Mới</button></div>' +
+          '<div class="ex-alert-card"><div style="font-size:18px">🏢</div><div><b>Chị Nguyễn Thị Thanh Loan (S0070 - HCM)</b><p>Đã hoàn tất đặt xe đưa đón KTS Nguyễn Văn A nghiệm thu Masteri ngày 02/09/2026.</p></div></div>' +
+          '<div class="ex-alert-card" style="background:#eff6ff;border-color:#bfdbfe"><div style="font-size:18px">🏛️</div><div><b>Chị Đào Thị Hương Nhung (H0079 - HN)</b><p>Đã đặt phòng KS Pan Pacific Hà Nội cho Kỹ sư Vũ Quốc E (05/09 - 06/09/2026).</p></div></div>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+// 3. EMPLOYEE / ARCHITECT / ENGINEER DASHBOARD
+function employeeBiDashboard(){
+  return '<div class="ex-dash-wrap">' +
+    '<div class="ex-dash-header">' +
+      '<div class="ex-dash-header-title">' +
+        '<div style="width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#0284c7,#38bdf8);display:grid;place-items:center;color:#fff;font-size:20px">📐</div>' +
+        '<div>' +
+          '<h2>' + d('Engineer & Architect Personal Cockpit','Bàn Làm Việc Kỹ Sư & Kiến Trúc Sư CPG') + '</h2>' +
+          '<div style="font-size:12px;color:#475569;font-weight:600">Nguyễn Văn A (H0072) — Lead Architect · Architecture Discipline (HCM)</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="ex-dash-header-tools">' +
+        '<button class="secondary" style="padding:8px 14px;font-size:12.5px;font-weight:750;border-radius:10px" onclick="state.page=\'leave\';render()">🏖️ Xin Nghỉ Phép</button>' +
+        '<button class="primary" style="padding:8px 14px;font-size:12.5px;font-weight:750;border-radius:10px;background:#0284c7;border-color:#0284c7" onclick="state.page=\'timesheet\';render()">⏱️ Khai Timesheet Dự Án</button>' +
+      '</div>' +
+    '</div>' +
+
+    '<div class="ex-kpi-grid">' +
+      '<div class="ex-kpi-card" onclick="state.page=\'timesheet\';render()">' +
+        '<div class="ex-kpi-head"><span>' + d('Logged Hours This Month','Giờ Công Đã Log (T8/2026)') + '</span><span class="ex-kpi-arrow">→</span></div>' +
+        '<div class="ex-kpi-val">176.0h <span class="ex-kpi-badge">100% Đạt Chuẩn</span></div>' +
+        '<div class="ex-kpi-sub">Chuẩn: 22 ngày công x 8h/ngày</div>' +
+      '</div>' +
+      '<div class="ex-kpi-card" onclick="state.page=\'attendance\';render()">' +
+        '<div class="ex-kpi-head"><span>' + d('Project OT Hours','Giờ Tăng Ca Dự Án (OT)') + '</span><span class="ex-kpi-arrow">⚡</span></div>' +
+        '<div class="ex-kpi-val">6.5h <span class="ex-kpi-badge" style="background:#ecfdf5;color:#059669">OT 150%</span></div>' +
+        '<div class="ex-kpi-sub">Ghi nhận vào Masteri Phase 2</div>' +
+      '</div>' +
+      '<div class="ex-kpi-card" onclick="state.page=\'leave\';render()">' +
+        '<div class="ex-kpi-head"><span>' + d('Remaining Annual Leave','Phép Năm Còn Lại (2026)') + '</span><span class="ex-kpi-arrow">🏖️</span></div>' +
+        '<div class="ex-kpi-val">10.5 Ngày <span class="ex-kpi-badge">Khả dụng</span></div>' +
+        '<div class="ex-kpi-sub">Tổng tiêu chuẩn 14 ngày/năm</div>' +
+      '</div>' +
+      '<div class="ex-kpi-card" onclick="state.page=\'pay\';render()">' +
+        '<div class="ex-kpi-head"><span>' + d('Estimated Net Salary','Thực Lĩnh Dự Kiến (T8)') + '</span><span class="ex-kpi-arrow">💳</span></div>' +
+        '<div class="ex-kpi-val">35.73 Tr <span class="ex-kpi-badge" style="background:#ecfdf5;color:#059669">Net</span></div>' +
+        '<div class="ex-kpi-sub">Chuyển khoản VCB ngày 25 hàng tháng</div>' +
+      '</div>' +
+    '</div>' +
+
+    '<div class="ex-perf-card">' +
+      '<div class="ex-perf-head">' +
+        '<h3>' + d('Weekly Hours Logged by Project & Work Breakdown','Giờ Công Kỹ Thuật Hàng Tuần & Phân Bổ Công Việc') + '</h3>' +
+        '<div class="ex-pill-btn">Tháng 08/2026 ▼</div>' +
+      '</div>' +
+      '<div class="ex-perf-grid">' +
+        '<div>' +
+          '<div style="display:flex;align-items:baseline;gap:8px;margin-bottom:6px">' +
+            '<span style="font-size:26px;font-weight:900;color:#0f172a">176.0h + 6.5h OT</span>' +
+            '<span style="font-size:12.5px;font-weight:750;color:#475569">TỔNG THỜI GIAN ĐÃ CỐNG HIẾN</span>' +
+            '<span class="ex-kpi-badge">103.7% Target</span>' +
+          '</div>' +
+          '<div class="ex-line-chart-wrap">' +
+            '<svg class="ex-line-svg" viewBox="0 0 450 100">' +
+              '<line x1="0" y1="20" x2="450" y2="20" stroke="#e2e8f0" stroke-width="1" />' +
+              '<line x1="0" y1="50" x2="450" y2="50" stroke="#e2e8f0" stroke-width="1" />' +
+              '<line x1="0" y1="80" x2="450" y2="80" stroke="#e2e8f0" stroke-width="1" />' +
+              '<path d="M 20 60 C 120 50, 200 45, 300 35 C 380 25, 410 15, 430 12" fill="none" stroke="#0284c7" stroke-width="3.5" stroke-linecap="round" />' +
+              '<circle cx="20" cy="60" r="4" fill="#fff" stroke="#0284c7" stroke-width="2.5" />' +
+              '<circle cx="160" cy="48" r="4" fill="#fff" stroke="#0284c7" stroke-width="2.5" />' +
+              '<circle cx="300" cy="35" r="4" fill="#fff" stroke="#0284c7" stroke-width="2.5" />' +
+              '<circle cx="430" cy="12" r="5" fill="#0284c7" stroke="#fff" stroke-width="2" />' +
+            '</svg>' +
+            '<div style="display:flex;justify-content:space-between;font-size:11.5px;font-weight:750;color:#64748b;margin-top:2px">' +
+              '<span>Tuần 1 (40h)</span><span>Tuần 2 (44h)</span><span>Tuần 3 (48h)</span><span>Tuần 4 (50.5h)</span>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div>' +
+          '<div style="font-size:13px;font-weight:750;color:#475569;margin-bottom:6px">Cơ Cấu Hoạt Động Chuyên Môn</div>' +
+          '<div class="ex-bars-wrap">' +
+            '<div class="ex-bar-item"><div class="ex-bar-rect" style="height:85%;background:#1d4ed8"></div><span class="ex-bar-tag">Thiết Kế<br><small>60%</small></span></div>' +
+            '<div class="ex-bar-item"><div class="ex-bar-rect" style="height:45%;background:#0d9488"></div><span class="ex-bar-tag">Họp CĐT<br><small>20%</small></span></div>' +
+            '<div class="ex-bar-item"><div class="ex-bar-rect" style="height:35%;background:#f97316"></div><span class="ex-bar-tag">Site GS<br><small>20%</small></span></div>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+
+    '<div class="ex-body-grid">' +
+      '<div class="ex-col">' +
+        '<div class="ex-sec-box">' +
+          '<div class="ex-sec-head"><h4>🏢 Dự Án Trọng Tâm Đang Đảm Nhận</h4><button class="secondary" style="padding:4px 8px;font-size:11px" onclick="state.page=\'timesheet\';render()">Khai Báo Thêm</button></div>' +
+          '<div class="ex-row-item"><div class="ex-row-icon-title"><div class="ex-icon-circle" style="background:#e0f2fe;color:#0284c7">🏢</div><div><div>Khu Phức Hợp Masteri (PRJ-002)</div><small style="color:#64748b">128h / tháng · Chủ trì bản vẽ kiến trúc Phase 2</small></div></div><div class="ex-row-stat"><div class="ex-row-val" style="color:#059669">Đúng tiến độ</div><div class="ex-row-sub">Nộp đợt 2: 10/09</div></div></div>' +
+          '<div class="ex-row-item"><div class="ex-row-icon-title"><div class="ex-icon-circle" style="background:#eff6ff;color:#1d4ed8">🏢</div><div><div>Toà Nhà CPG Tower (DEMO-001)</div><small style="color:#64748b">48h / tháng · Hiệu chỉnh phương án sảnh chính</small></div></div><div class="ex-row-stat"><div class="ex-row-val" style="color:#059669">Hoàn thành</div><div class="ex-row-sub">Đã bàn giao</div></div></div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="ex-col">' +
+        '<div class="ex-sec-box">' +
+          '<div class="ex-sec-head"><h4>✈️ Lệnh Giám Sát Tác Giả & Phiếu Lương</h4><span class="badge ok">Đã phê duyệt</span></div>' +
+          '<div class="ex-alert-card"><div style="font-size:18px">✈️</div><div><b>Lệnh Điều Động SUP-001 (Masteri Thảo Điền)</b><p>Ngày 02/09/2026. Chị Loan HCM đã book xe CĐT đón tại VP lúc 08:00 sáng. Miễn chấm công vân tay.</p></div></div>' +
+          '<div class="ex-alert-card" style="background:#f0fdf4;border-color:#bbf7d0"><div style="font-size:18px;color:#16a34a">💳</div><div><b>Phiếu Lương Điện Tử (E-Payslip) Tháng 08/2026</b><p>Thực lĩnh: 35.730.000 đ. Bấm tab <b>Lương của tôi</b> để xem chi tiết bóc tách thuế & BHXH.</p></div></div>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+// 4. ADMIN DASHBOARD
+function adminBiDashboard(){
+  return '<div class="ex-dash-wrap">' +
+    '<div class="ex-dash-header">' +
+      '<div class="ex-dash-header-title">' +
+        '<div style="width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#334155,#475569);display:grid;place-items:center;color:#fff;font-size:20px">⚙️</div>' +
+        '<div>' +
+          '<h2>' + d('System Administration & Security Cockpit','Báo Cáo Quản Trị Hệ Thống & Bảo Mật (System Admin)') + '</h2>' +
+          '<div style="font-size:12px;color:#475569;font-weight:600">Enterprise IT & Identity Core — CPG PeopleCore V74</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="ex-dash-header-tools">' +
+        '<button class="secondary" style="padding:8px 14px;font-size:12.5px;font-weight:750;border-radius:10px" onclick="state.page=\'identity\';render()">🔐 Phân Quyền Entra ID</button>' +
+        '<button class="primary" style="padding:8px 14px;font-size:12.5px;font-weight:750;border-radius:10px;background:#334155;border-color:#334155" onclick="state.page=\'audit\';render()">📜 Nhật Ký Audit Log</button>' +
+      '</div>' +
+    '</div>' +
+
+    '<div class="ex-kpi-grid">' +
+      '<div class="ex-kpi-card" onclick="state.page=\'identity\';render()">' +
+        '<div class="ex-kpi-head"><span>' + d('Active Enterprise Users','Tài Khoản Đang Hoạt Động') + '</span><span class="ex-kpi-arrow">→</span></div>' +
+        '<div class="ex-kpi-val">140/140 <span class="ex-kpi-badge">100% Đồng bộ</span></div>' +
+        '<div class="ex-kpi-sub">Liên kết Microsoft Entra ID</div>' +
+      '</div>' +
+      '<div class="ex-kpi-card">' +
+        '<div class="ex-kpi-head"><span>' + d('Core Engine Uptime','Độ Sẵn Sàng Máy Chủ (Uptime)') + '</span><span class="ex-kpi-arrow">⚡</span></div>' +
+        '<div class="ex-kpi-val">99.98% <span class="ex-kpi-badge" style="background:#ecfdf5;color:#059669">Ổn định</span></div>' +
+        '<div class="ex-kpi-sub">Node.js + Postgres Engine</div>' +
+      '</div>' +
+      '<div class="ex-kpi-card" onclick="state.page=\'audit\';render()">' +
+        '<div class="ex-kpi-head"><span>' + d('Security Audit Events','Sự Kiện Bảo Mật (24h)') + '</span><span class="ex-kpi-arrow">📜</span></div>' +
+        '<div class="ex-kpi-val">1,420 <span class="ex-kpi-badge">Append-only</span></div>' +
+        '<div class="ex-kpi-sub">0 Cảnh báo bất thường</div>' +
+      '</div>' +
+      '<div class="ex-kpi-card">' +
+        '<div class="ex-kpi-head"><span>' + d('RBAC Security Groups','Nhóm Phân Quyền Vai Trò') + '</span><span class="ex-kpi-arrow">🛡️</span></div>' +
+        '<div class="ex-kpi-val">6 Roles <span class="ex-kpi-badge">Strict Isolation</span></div>' +
+        '<div class="ex-kpi-sub">CEO, PM, HR, Payroll, Engineer, Admin</div>' +
+      '</div>' +
+    '</div>' +
+
+    '<div class="ex-perf-card">' +
+      '<div class="ex-perf-head">' +
+        '<h3>' + d('System Traffic & Access Distribution','Lưu Lượng Truy Cập Hệ Thống Theo Giờ & Thiết Bị') + '</h3>' +
+        '<div class="ex-pill-btn">24 Giờ Qua ▼</div>' +
+      '</div>' +
+      '<div class="ex-perf-grid">' +
+        '<div>' +
+          '<div style="display:flex;align-items:baseline;gap:8px;margin-bottom:6px">' +
+            '<span style="font-size:26px;font-weight:900;color:#0f172a">1,420 Events</span>' +
+            '<span style="font-size:12.5px;font-weight:750;color:#475569">SỐ LƯỢNG TRUY CẬP ĐÃ XÁC THỰC</span>' +
+            '<span class="ex-kpi-badge">Peak: 08:00 - 09:30</span>' +
+          '</div>' +
+          '<div class="ex-line-chart-wrap">' +
+            '<svg class="ex-line-svg" viewBox="0 0 450 100">' +
+              '<line x1="0" y1="20" x2="450" y2="20" stroke="#e2e8f0" stroke-width="1" />' +
+              '<line x1="0" y1="50" x2="450" y2="50" stroke="#e2e8f0" stroke-width="1" />' +
+              '<line x1="0" y1="80" x2="450" y2="80" stroke="#e2e8f0" stroke-width="1" />' +
+              '<path d="M 20 85 C 100 15, 200 65, 300 45 C 380 25, 410 70, 430 85" fill="none" stroke="#475569" stroke-width="3.5" stroke-linecap="round" />' +
+              '<circle cx="20" cy="85" r="4" fill="#fff" stroke="#475569" stroke-width="2.5" />' +
+              '<circle cx="100" cy="20" r="4" fill="#475569" stroke="#fff" stroke-width="2" />' +
+              '<circle cx="250" cy="55" r="4" fill="#fff" stroke="#475569" stroke-width="2.5" />' +
+              '<circle cx="430" cy="85" r="4" fill="#fff" stroke="#475569" stroke-width="2.5" />' +
+            '</svg>' +
+            '<div style="display:flex;justify-content:space-between;font-size:11.5px;font-weight:750;color:#64748b;margin-top:2px">' +
+              '<span>08:00 (Check-in Peak)</span><span>12:00</span><span>14:00 (Timesheet)</span><span>18:00 (Check-out)</span>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div>' +
+          '<div style="font-size:13px;font-weight:750;color:#475569;margin-bottom:6px">Thiết Bị Truy Cập</div>' +
+          '<div class="ex-bars-wrap">' +
+            '<div class="ex-bar-item"><div class="ex-bar-rect" style="height:88%;background:#1e293b"></div><span class="ex-bar-tag">Desktop<br><small>78%</small></span></div>' +
+            '<div class="ex-bar-item"><div class="ex-bar-rect" style="height:35%;background:#0284c7"></div><span class="ex-bar-tag">Mobile<br><small>22%</small></span></div>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+
+    '<div class="ex-body-grid">' +
+      '<div class="ex-col">' +
+        '<div class="ex-sec-box">' +
+          '<div class="ex-sec-head"><h4>🔐 Phân Quyền & Bảo Mật Dữ Liệu Nhân Lực</h4><span class="badge ok">Active</span></div>' +
+          '<div class="ex-row-item"><div class="ex-row-icon-title"><div class="ex-icon-circle" style="background:#f1f5f9;color:#334155">🛡️</div><div><div>Xác thực Microsoft Entra ID (Single Sign-On)</div><small style="color:#64748b">140 Email @cpgcorp.com.vn đã đồng bộ</small></div></div><div class="ex-row-stat"><div class="ex-row-val" style="color:#059669">Hoạt động</div><div class="ex-row-sub">Không lộ mật khẩu</div></div></div>' +
+          '<div class="ex-row-item"><div class="ex-row-icon-title"><div class="ex-icon-circle" style="background:#ecfdf5;color:#059669">🛡️</div><div><div>Bảo Vệ Dữ Liệu Lương Riêng Tư (Strict Isolation)</div><small style="color:#64748b">Chỉ tài khoản Payroll/HR/CEO được phép truy xuất</small></div></div><div class="ex-row-stat"><div class="ex-row-val" style="color:#059669">Bảo vệ 100%</div><div class="ex-row-sub">Audit append-only</div></div></div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="ex-col">' +
+        '<div class="ex-sec-box">' +
+          '<div class="ex-sec-head"><h4>📜 Nhật Ký Hoạt Động Hệ Thống Gần Đây</h4><button class="primary" style="padding:4px 8px;font-size:11px" onclick="state.page=\'audit\';render()">Xem Toàn Bộ</button></div>' +
+          '<div class="ex-alert-card"><div style="font-size:18px">⚡</div><div><b>Đồng bộ Bảng Công Tháng 08/2026</b><p>140 nhân sự đã được đồng bộ tự động vào Core Payroll Engine lúc 14:30.</p></div></div>' +
+          '<div class="ex-alert-card" style="background:#eff6ff;border-color:#bfdbfe"><div style="font-size:18px">✈️</div><div><b>Cấp quyền Giám sát tác giả SUP-001</b><p>KTS Nguyễn Văn A (H0072) được miễn trừ chấm công vân tay ngày 02/09/2026.</p></div></div>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+  '</div>';
+}
+
 var v74BaseGenericPage = genericPage;
+genericPage = function(){
+  if(state.page === 'home'){
+    if(state.role === 'leadership') return hero() + leadershipBiDashboard();
+    if(state.role === 'manager') return hero() + managerBiDashboard();
+    if(state.role === 'hr') return hero() + hrBiDashboard();
+    if(state.role === 'payroll') return hero() + payrollBiDashboard();
+    if(state.role === 'employee') return hero() + employeeBiDashboard();
+    if(state.role === 'admin') return hero() + adminBiDashboard();
+    return hero() + employeeBiDashboard();
+  }
+  if(state.page === 'reports' && ['payroll','leadership','hr','manager'].includes(state.role)){
+    return hero() + payrollBiDashboard();
+  }
+  if(state.page === 'people'){
+    return full140PeoplePage();
+  }
+  if(state.page === 'attendance' && ['hr','payroll','leadership'].includes(state.role)){
+    return hrMasterAttendancePage();
+  }
+  if(typeof v74BaseGenericPage === 'function'){
+    return v74BaseGenericPage();
+  }
+  return homePage();
+};
+
 genericPage = function(){
   if(state.page === 'home' && state.role === 'leadership'){
     return hero() + leadershipBiDashboard();
