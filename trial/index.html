@@ -426,10 +426,52 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}
    <div class="clock-date"><b id="clockGreeting">Good morning</b><span id="clockDate">--</span><br><span id="clockZone">Asia/Ho_Chi_Minh</span></div>
    <div class="world-clock"><div class="city" id="sgLabel">Singapore</div><div class="time" id="singaporeTime">--:--</div><div class="zone">Asia/Singapore</div></div>
    <div class="weather-strip">
-    <div class="weather-card"><div class="weather-icon" id="weatherHanoiIcon">⛅</div><div><div class="weather-city" id="weatherHanoiCity">Hanoi</div><div class="weather-temp" id="weatherHanoiTemp">--°C</div><div class="weather-desc" id="weatherHanoiDesc">Live weather</div><div class="weather-live" id="weatherHanoiLive"></div></div></div>
-    <div class="weather-card"><div class="weather-icon" id="weatherHcmcIcon">🌤️</div><div><div class="weather-city" id="weatherHcmcCity">Ho Chi Minh City</div><div class="weather-temp" id="weatherHcmcTemp">--°C</div><div class="weather-desc" id="weatherHcmcDesc">Live weather</div><div class="weather-live" id="weatherHcmcLive"></div></div></div>
-   </div>
-  </div>
+    <!-- HANOI OFFICE ENVIRONMENTAL CARD -->
+    <div class="cpg-weather-widget" id="cpgHanoiWeatherCard">
+      <div class="cpg-weather-header">
+        <div class="cpg-office-tag">🏛️ Hà Nội (39 NS)</div>
+        <div class="cpg-aqi-tag aqi-mod" title="Chỉ số chất lượng không khí">AQI 68 · Vừa phải</div>
+      </div>
+      <div class="cpg-weather-main">
+        <div class="cpg-weather-icon-box" id="weatherHanoiIcon">🌧️</div>
+        <div>
+          <div class="cpg-weather-temp-row">
+            <span class="cpg-temp-val" id="weatherHanoiTemp">33°C</span>
+            <span class="cpg-humidity">💧 82%</span>
+          </div>
+          <div class="cpg-weather-desc" id="weatherHanoiDesc">Mưa phùn nhẹ · Gió 12km/h</div>
+        </div>
+      </div>
+      <div class="cpg-weather-footer">
+        <span class="cpg-field-alert">⚠️ Lưu ý mưa chiều: KTS đi Landmark</span>
+        <span id="weatherHanoiLive" style="display:none"></span>
+        <span id="weatherHanoiCity" style="display:none">Hanoi</span>
+      </div>
+    </div>
+
+    <!-- HCMC OFFICE ENVIRONMENTAL CARD -->
+    <div class="cpg-weather-widget" id="cpgHcmcWeatherCard">
+      <div class="cpg-weather-header">
+        <div class="cpg-office-tag">🏢 TP.HCM (101 NS)</div>
+        <div class="cpg-aqi-tag aqi-good" title="Chỉ số chất lượng không khí">AQI 38 · Tốt</div>
+      </div>
+      <div class="cpg-weather-main">
+        <div class="cpg-weather-icon-box" id="weatherHcmcIcon">⛅</div>
+        <div>
+          <div class="cpg-weather-temp-row">
+            <span class="cpg-temp-val" id="weatherHcmcTemp">31°C</span>
+            <span class="cpg-humidity">💧 74%</span>
+          </div>
+          <div class="cpg-weather-desc" id="weatherHcmcDesc">Nhiều mây · Nắng dịu</div>
+        </div>
+      </div>
+      <div class="cpg-weather-footer">
+        <span class="cpg-field-alert ok">✅ Thuận lợi nghiệm thu Masteri</span>
+        <span id="weatherHcmcLive" style="display:none"></span>
+        <span id="weatherHcmcCity" style="display:none">HCMC</span>
+      </div>
+    </div>
+   </div>  </div>
   <div class="toolbar"><select id="roleSelect" class="select"></select><select id="langSelect" class="select"><option value="en">EN</option><option value="vn">VN</option></select><button class="ghost-btn" id="advancedToggle">Advanced</button><button class="icon-btn" id="settingsButton" title="Personalize">⚙</button></div>
  </div>
  <div id="pageHost"></div>
@@ -2461,6 +2503,108 @@ readinessPageV60=function(){if(v60Tab==='cut74'){if(!['hr','payroll','admin','le
 
 <!-- ================= V74-RC2 ENTERPRISE EXPANSION: HIGH-LEGIBILITY & COMPACT EXECUTIVE BI ================= -->
 <style>
+
+/* ADVANCED REGIONAL ENVIRONMENTAL & AQI WEATHER WIDGETS */
+.weather-strip {
+  display: flex !important;
+  gap: 10px !important;
+  align-items: center;
+}
+.cpg-weather-widget {
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 14px;
+  padding: 8px 12px;
+  min-width: 205px;
+  box-shadow: 0 4px 16px rgba(27, 54, 85, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: .2s ease;
+}
+.cpg-weather-widget:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(27, 54, 85, 0.09);
+  border-color: #38bdf8;
+}
+.cpg-weather-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cpg-office-tag {
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #0f172a;
+}
+.cpg-aqi-tag {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 6px;
+  letter-spacing: 0.2px;
+}
+.cpg-aqi-tag.aqi-good {
+  background: #ecfdf5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+}
+.cpg-aqi-tag.aqi-mod {
+  background: #fffbeb;
+  color: #b45309;
+  border: 1px solid #fde68a;
+}
+.cpg-weather-main {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.cpg-weather-icon-box {
+  font-size: 26px;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+.cpg-weather-temp-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+.cpg-temp-val {
+  font-size: 19px;
+  font-weight: 900;
+  color: #0f172a;
+  letter-spacing: -0.5px;
+}
+.cpg-humidity {
+  font-size: 11px;
+  font-weight: 700;
+  color: #0284c7;
+}
+.cpg-weather-desc {
+  font-size: 11px;
+  color: #64748b;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.cpg-weather-footer {
+  border-top: 1px solid rgba(226, 232, 240, 0.7);
+  padding-top: 3px;
+  margin-top: 1px;
+}
+.cpg-field-alert {
+  font-size: 10px;
+  font-weight: 750;
+  color: #d97706;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cpg-field-alert.ok {
+  color: #059669;
+}
+
 /* Global Font & Viewport Legibility Optimizations */
 :root {
   --base-font-size: 13.5px;
