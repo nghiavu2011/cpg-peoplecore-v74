@@ -741,7 +741,7 @@ PERMISSIONS.leadership=[];
 navByRole.hr=['home','approvals','people','leave','attendance','performance','roles','reports','integrations'];
 navByRole.payroll=['home','approvals','payroll','projects','roles','people','reports','integrations'];
 navByRole.admin=['home','identity','roles','integrations','audit'];
-navByRole.leadership=['home','people','roles','reports'];
+navByRole.leadership=['home','people','projects','approvals','annualcycle','roles','reports'];
 iconMap.roles='⌘';
 quickByRole.leadership=[['quickPeople','◌','people'],['quickReport','▥','reports'],['quickRoles','⌘','roles'],['quickApprove','✓','home']];
 quickByRole.hr=[['quickPeople','◌','people'],['quickApprove','✓','approvals'],['quickLeave','◫','leave'],['quickRoles','⌘','roles']];
@@ -1173,7 +1173,7 @@ Object.assign(I18N.vn,{annualcycle:'Chu kỳ năm',annualCycle:'Chu kỳ năm',a
 
 navByRole.hr=['home','approvals','people','leave','attendance','performance','annualcycle','roles','reports','integrations'];
 navByRole.manager=['home','approvals','team','attendance','timesheet','performance','annualcycle','people'];
-navByRole.leadership=['home','people','annualcycle','roles','reports'];
+navByRole.leadership=['home','people','projects','approvals','annualcycle','roles','reports'];
 iconMap.annualcycle='↗';
 quickByRole.hr=[['quickPeople','◌','people'],['quickApprove','✓','approvals'],['annualCycle','↗','annualcycle'],['quickRoles','⌘','roles']];
 quickByRole.manager=[['quickApprove','✓','approvals'],['quickTeam','◉','team'],['annualCycle','↗','annualcycle'],['quickTimesheet','◴','timesheet']];
@@ -1531,7 +1531,7 @@ navByRole.employee=['home','leave','attendance','timesheet','performance','pay',
 navByRole.manager=['home','approvals','team','attendance','timesheet','performance','policies','people'];
 navByRole.hr=['home','approvals','people','masterchanges','lifecycle','contracts','documents','policies','leave','attendance','performance','annualcycle','roles','reports','integrations'];
 navByRole.payroll=['home','approvals','payroll','projects','people','policies','reports','integrations'];
-navByRole.leadership=['home','people','annualcycle','policies','roles','reports'];
+navByRole.leadership=['home','people','projects','approvals','annualcycle','roles','reports'];
 navByRole.admin=['home','identity','integrations','policies','audit'];
 
 let v54PolicyTab=storage.get('v54_policy_tab')||'library';
@@ -1587,7 +1587,7 @@ navByRole.employee=['home','leave','attendance','timesheet','performance','train
 navByRole.manager=['home','approvals','team','attendance','timesheet','performance','training','policies','people'];
 navByRole.hr=['home','approvals','people','masterchanges','lifecycle','contracts','documents','policies','training','leave','attendance','performance','annualcycle','roles','reports','integrations'];
 navByRole.payroll=['home','approvals','payroll','projects','people','policies','reports','integrations'];
-navByRole.leadership=['home','people','annualcycle','policies','training','roles','reports'];
+navByRole.leadership=['home','people','projects','approvals','annualcycle','roles','reports'];
 
 const V55_POLICY_SOURCES=[
  {id:'SRC-HB-2026',topic:'HR / Handbook',title:'CPGV Staff Handbook',sourceDate:'Jan 2026',status:'LATEST',file:'CPGV_Staff Handbook_revisedJan2026.pdf',version:'Revised Jan 2026',scope:'CPG Vietnam',note:'Latest broad CPGV HR source in the supplied bundle.'},
@@ -2961,6 +2961,7 @@ render();
 </script>
 
 
+
 <!-- ================= V74-RC2 ENTERPRISE EXPANSION: CPG REAL-WORLD FEATURES & 140 DIRECTORY ================= -->
 <style>
 .cpg-topbar-logo-img { height: 38px; max-width: 120px; object-fit: contain; }
@@ -3676,6 +3677,18 @@ function leadershipBiDashboard(){
     '</div>' +
   '</div>';
 }
+
+// Hook into genericPage to support both BI Dashboard for Leadership, 140 People Directory, AND ALL original tabs
+var v74BaseGenericPage = genericPage;
+genericPage = function(){
+  if(state.page === 'home' && state.role === 'leadership'){
+    return hero() + leadershipBiDashboard();
+  }
+  if(state.page === 'people'){
+    return full140PeoplePage();
+  }
+  return v74BaseGenericPage ? v74BaseGenericPage() : '';
+};
 
 // Inject CPG Logo into sidebar brand logo
 function injectBrandingLogo(){
